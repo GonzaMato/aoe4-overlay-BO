@@ -1,0 +1,45 @@
+name: Windows release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Verify release version
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$version") { throw 'Tag and package version differ.' }
+          "RELEASE_VERSION=$version" >> $env:GITHUB_ENV
+      - run: rustup update stable
+      - run: npm ci
+      - run: npm test
+      - run: npm run check
+      - run: cargo test --locked --manifest-path src-tauri/Cargo.toml --lib
+      - run: npm run installer
+      - run: npm run release:package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-release
+          path: release/
+      - name: Create draft release
+        if: github.ref_type == 'tag'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $tag = "v$env:RELEASE_VERSION"
+          gh release create $tag --verify-tag --draft --title "AoE4 Overlay $env:RELEASE_VERSION" --notes-file "docs/releases/$env:RELEASE_VERSION.md"
+          if ($LASTEXITCODE -ne 0) { throw 'Could not create draft release.' }
+          $assets = Get-ChildItem -LiteralPath "release/$env:RELEASE_VERSION" -File | ForEach-Object FullName
+          gh release upload $tag @assets
+          if ($LASTEXITCODE -ne 0) { throw 'Could not upload release assets.' }

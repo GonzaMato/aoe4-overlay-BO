@@ -4,19 +4,24 @@
 	import { deltas } from '$lib/steps';
 	import { RESOURCES, RES_LABEL, type Build, type HotkeyAction } from '$lib/types';
 	import { formatTime } from '$lib/util';
+	import { activeTask, taskRule } from '$lib/subtasks';
+	import { advanceLabel } from '$lib/advance';
 
 	interface Props {
 		build: Build;
 		stepIndex: number;
+		subtaskIndex?: number;
 		accent: string;
 		/** Segundos de partida, o null si el reloj no está corriendo. */
 		elapsed?: number | null;
 		showClock?: boolean;
 		hotkeys?: Record<HotkeyAction, string> | null;
 	}
-	let { build, stepIndex, accent, elapsed = null, showClock = true, hotkeys = null }: Props = $props();
+	let { build, stepIndex, subtaskIndex=0, accent, elapsed = null, showClock = true, hotkeys = null }: Props = $props();
 
 	const step = $derived(build.steps[stepIndex]);
+	const task = $derived(step?activeTask(step,subtaskIndex):null);
+	const nextTask = $derived(step?.subtasks?.[subtaskIndex+1]);
 	const previous = $derived(stepIndex > 0 ? build.steps[stepIndex - 1] : null);
 	const next = $derived(build.steps[stepIndex + 1] ?? null);
 	const change = $derived(deltas(build, stepIndex));
@@ -87,10 +92,12 @@
 					</div>
 				</div>
 
-				<div class="action">{step.action || 'Sin acción cargada'}</div>
-				{#if step.note}
-					<div class="note">{step.note}</div>
+				{#if step.subtasks?.length}<div class="task-progress">Tarea {subtaskIndex+1} / {step.subtasks.length}</div>{/if}
+				<div class="action">{task?.action || 'Sin acción cargada'}</div>
+				{#if task?.note}
+					<div class="note">{task.note}</div>
 				{/if}
+				{#if step.subtasks?.length}<div class="task-condition">{advanceLabel(taskRule(step,subtaskIndex,previous??undefined))}</div>{/if}
 
 				<div class="villagers">
 					{#each RESOURCES as r (r)}
@@ -110,7 +117,9 @@
 		{/key}
 
 		<div class="next">
-			{#if next}
+			{#if nextTask}
+				<span class="label">Después · tarea {subtaskIndex+2}</span><span class="text">{nextTask.action}</span>
+			{:else if next}
 				<span class="label">Siguiente{next.pop != null ? ` · Pob ${next.pop}` : ''}</span>
 				<span class="text">{next.action || 'Sin acción cargada'}</span>
 			{:else}
@@ -129,6 +138,7 @@
 </div>
 
 <style>
+	.task-progress{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}.task-condition{font-size:12px;color:var(--dim);line-height:1.4;margin-top:10px}
 	.panel {
 		width: 380px;
 		padding: 20px 20px 18px;

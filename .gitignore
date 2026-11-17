@@ -3,6 +3,8 @@ node_modules
 /build
 /.svelte-kit
 /package
+/release
+/.sharing-*
 .env
 .env.*
 !.env.example

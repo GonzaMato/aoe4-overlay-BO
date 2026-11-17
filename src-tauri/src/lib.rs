@@ -5,6 +5,7 @@ use tauri::{
 };
 mod desktop;
 mod region_selector;
+mod setup;
 mod worker_ocr;
 use std::sync::atomic::{AtomicBool, Ordering};
 use tauri_plugin_global_shortcut::GlobalShortcutExt;
@@ -64,7 +65,11 @@ pub fn run() {
         .plugin(tauri_plugin_store::Builder::default().build())
         .invoke_handler(tauri::generate_handler![
             desktop::is_game_active,
+            desktop::ocr_diagnostic,
+            desktop::open_releases,
             desktop::read_workers,
+            setup::game_geometry,
+            setup::inspect_game,
             region_selector::open_region_selector,
             region_selector::region_selector_geometry,
             region_selector::finish_region_selection,

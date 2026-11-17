@@ -19,6 +19,10 @@ set "MODE=%~1"
 
 if /i "%MODE%"=="dev" goto :check_tools
 if /i "%MODE%"=="rebuild" goto :check_tools
+if exist "%LOCALAPPDATA%\AoE4 Overlay\aoe4-overlay.exe" (
+  start "" "%LOCALAPPDATA%\AoE4 Overlay\aoe4-overlay.exe"
+  exit /b 0
+)
 if not exist "%EXE%" goto :check_tools
 
 rem Sale con 1 si hay archivos del proyecto mas nuevos que el ejecutable.
@@ -53,8 +57,6 @@ if errorlevel 1 goto :failed
 if not exist "%EXE%" goto :no_exe
 
 :run
-tasklist /FI "IMAGENAME eq aoe4-overlay.exe" 2>nul | find /I "aoe4-overlay.exe" >nul
-if not errorlevel 1 goto :already_running
 start "" "%EXE%"
 exit /b 0
 
@@ -64,12 +66,6 @@ echo Modo desarrollo. Para terminar: cerrar esta ventana o Ctrl+C.
 echo.
 call npm run tauri dev
 exit /b %errorlevel%
-
-:already_running
-echo.
-echo AoE4 Overlay ya esta abierto.
-timeout /t 3 >nul
-exit /b 0
 
 :running_build
 echo.

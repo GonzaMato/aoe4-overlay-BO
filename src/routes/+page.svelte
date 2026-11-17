@@ -2,6 +2,9 @@
 	import { onMount } from 'svelte';
 
 	import BuildEditor from '$lib/components/BuildEditor.svelte';
+	import WelcomeView from '$lib/components/WelcomeView.svelte';
+	import HelpView from '$lib/components/HelpView.svelte';
+	import { mergePack, type BuildPack } from '$lib/build-pack';
 	import SettingsView from '$lib/components/SettingsView.svelte';
 	import BackupView from '$lib/components/BackupView.svelte';
 	import PracticeView, { type PracticeStatus } from '$lib/components/PracticeView.svelte';
@@ -10,10 +13,13 @@
 	import { cloneBuild, newBuild } from '$lib/defaults';
 	import type { AppData, Build, Practice } from '$lib/types';
 	import { defaultKey } from '$lib/util';
+	import { profileKey, relativeRect, validProfile, type SetupStatus, type SetupProfile } from '$lib/setup';
 
 	let data = $state<AppData | null>(null);
-	let tab = $state<'builds' | 'settings' | 'practice'>('builds');
+	let tab = $state<'builds' | 'settings' | 'practice' | 'welcome' | 'help'>('builds');
 	let practiceStatus = $state<PracticeStatus | null>(null);
+	let setupStatus = $state<SetupStatus | null>(null);
+	let manualBuild=false;
 	let finishedId = $state<string | null>(null);
 	let selectedId = $state<string | null>(null);
 	let filterCiv = $state('');
@@ -58,7 +64,8 @@
 	}
 
 	function use(id: string) {
-		if (data) data.settings.activeBuildId = id;
+		manualBuild=true;void send('setup-manual-build');
+		if (data) { data.settings.activeBuildId = id;const build=data.builds.find(b=>b.id===id);if(build?.civ&&build.mode)data.settings.defaults[defaultKey(build.civ,build.mode)]=id; }
 	}
 
 	function toggleDefault(b: Build) {
@@ -119,20 +126,29 @@
 		if (!data) return;
 		try {
 			const builds = importBuilds(importText);
-			data.builds.push(...builds);
+			const additions=builds.filter(b=>!data!.builds.some(old=>old.id===b.id));
+			data.builds.push(...additions);
 			selectedId = builds[0].id;
 			filterCiv = ''; filterMode = ''; filterMap = '';
 			importing = false;
 			importText = '';
 			importError = '';
-			notify(builds.length === 1 ? 'Build importado' : `${builds.length} builds importados`);
+			notify(additions.length ? `${additions.length} builds importados` : 'Ese paquete ya está en tu biblioteca; se conservaron tus cambios');
 		} catch (e) {
 			importError = e instanceof Error ? e.message : 'JSON inválido.';
 		}
 	}
+	function addPack(pack:BuildPack) {
+		if(!data)return;
+		const before=data.builds.length;
+		data.builds=mergePack($state.snapshot(data.builds),pack);
+		if(!data.settings.activeBuildId&&data.builds.length){use(data.builds[0].id);selectedId=data.builds[0].id;}
+		notify(data.builds.length===before?'El paquete ya está añadido; se conservaron tus cambios':`${data.builds.length-before} builds añadidos`);
+	}
 
 	async function restore(incoming: AppData) {
 		restoring = true;
+		manualBuild=false;setupStatus=null;
 		if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
 		try {
 			await send('restore-session');
@@ -156,6 +172,7 @@
 		void loadData().then((loaded) => {
 			lastSaved = JSON.stringify(loaded);
 			data = loaded;
+			if(['pending','detecting'].includes(loaded.settings.onboarding))tab='welcome';
 			selectedId = loaded.settings.activeBuildId ?? loaded.builds[0]?.id ?? null;
 		});
 
@@ -167,7 +184,25 @@
 				data.settings.ocr = target === 'idle'
 					? { ...data.settings.ocr, idleRegion: region }
 					: { ...data.settings.ocr, ...region, source: 'workers' };
+				const g=setupStatus?.geometry, o=data.settings.ocr;
+				if(data.settings.setup.enabled && g) {
+					const old=data.settings.setup.profiles.find(p=>p.key===profileKey(g));
+					const workers=target==='workers'?relativeRect(region,g):old?.workers??(o.source==='workers'?relativeRect(o,g):null);
+					const idle=target==='idle'?relativeRect(region,g):old?.idle??(o.idleRegion?relativeRect(o.idleRegion,g):null);
+					const profile={key:profileKey(g),width:g.width,height:g.height,workers,idle,clock:old?.clock??null,position:old?.position??null,manual:true};
+					if(validProfile(profile)) {data.settings.setup.profiles=[...data.settings.setup.profiles.filter(p=>p.key!==profile.key),profile].slice(-24);void send('setup-manual-profile',profile);}
+				}
 				notify('Región OCR guardada');
+			}),
+			on('setup-status',value=>setupStatus=value as SetupStatus),
+			on('setup-new-match',()=>manualBuild=false),
+			on('setup-build',value=>{
+				const request=value as {id:string;previous:string|null};
+				if(data && !restoring && data.settings.setup.enabled && !manualBuild && data.settings.activeBuildId===request.previous && data.builds.some(b=>b.id===request.id))data.settings.activeBuildId=request.id;
+			}),
+			on('setup-profile',value=>{
+				if(!data || restoring || !data.settings.setup.enabled || !validProfile(value))return;
+				data.settings.setup.profiles=[...data.settings.setup.profiles.filter(p=>p.key!==value.key),value].slice(-24);
 			}),
 			on('overlay-settings', value => {
 				if (!data || restoring) return;
@@ -227,11 +262,13 @@
 	<header class="bar">
 		<h1>AoE4 Overlay</h1>
 		<nav aria-label="Secciones">
+			<button type="button" aria-current={tab === 'welcome' ? 'page' : undefined} onclick={() => tab='welcome'}>Inicio</button>
 			<button type="button" aria-current={tab === 'builds' ? 'page' : undefined} onclick={() => (tab = 'builds')}>Builds</button>
 			<button type="button" aria-current={tab === 'practice' ? 'page' : undefined} onclick={() => tab = 'practice'}>Práctica</button>
 			<button type="button" aria-current={tab === 'settings' ? 'page' : undefined} onclick={() => (tab = 'settings')}>
 				Ajustes{failedHotkeys.length ? ' · revisar teclas' : ''}
 			</button>
+			<button type="button" aria-current={tab === 'help' ? 'page' : undefined} onclick={() => tab='help'}>Ayuda</button>
 		</nav>
 		{#if isTauri}
 			<button type="button" class="exit" disabled={!data || restoring || quitting} onclick={() => void exitApp()}>{quitting ? 'Guardando y cerrando…' : 'Salir de la app'}</button>
@@ -243,9 +280,13 @@
 
 	{#if !data}
 		<p class="loading">Cargando…</p>
+	{:else if tab === 'welcome'}
+		<main class="scroll pad full"><WelcomeView bind:settings={data.settings} builds={data.builds} status={setupStatus} onUse={use} onPack={addPack} onDone={()=>tab='builds'} /></main>
+	{:else if tab === 'help'}
+		<main class="scroll pad full"><HelpView settings={data.settings} status={setupStatus} {failedHotkeys} onSetup={()=>tab='welcome'} /></main>
 	{:else if tab === 'settings'}
 		<main class="scroll pad full">
-			<SettingsView bind:settings={data.settings} {failedHotkeys} activeBuild={data.builds.find(b => b.id === data!.settings.activeBuildId) ?? null}>
+			<SettingsView bind:settings={data.settings} {failedHotkeys} {setupStatus} builds={data.builds} onUse={use} activeBuild={data.builds.find(b => b.id === data!.settings.activeBuildId) ?? null}>
 				{#snippet backup()}{#if data}<BackupView {data} onRestore={incoming => void restore(incoming)} />{/if}{/snippet}
 			</SettingsView>
 		</main>
@@ -317,7 +358,7 @@
 						<label class="field">
 							<span class="label">JSON propio o exportado de aoe4guides (Overlay Tool)</span>
 							<textarea rows="12" bind:value={importText} placeholder="Pegá el JSON de «Copiar JSON» o de «Overlay Tool» en aoe4guides"></textarea>
-							<p class="tip">Si aoe4guides no exporta población total, queda vacía. Completala para usar avance por OCR. Los iconos se convierten a texto.</p>
+							<p class="tip">También acepta paquetes de builds. La población puede quedar vacía: el OCR usa los aldeanos por recurso. Los iconos se convierten a texto.</p>
 						</label>
 						{#if importError}<p class="error">{importError}</p>{/if}
 						<div class="foot">

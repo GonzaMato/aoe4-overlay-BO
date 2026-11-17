@@ -53,7 +53,52 @@ pub fn is_game_active() -> bool {
     game_active()
 }
 
-#[derive(Clone, serde::Deserialize, serde::Serialize)]
+#[derive(serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct OcrDiagnostic {
+    available: bool,
+    languages: Vec<String>,
+    game_active: bool,
+}
+
+#[tauri::command]
+pub async fn ocr_diagnostic() -> Result<OcrDiagnostic, String> {
+    tauri::async_runtime::spawn_blocking(ocr_diagnostic_inner).await.map_err(|e| e.to_string())?
+}
+
+#[cfg(windows)]
+fn ocr_diagnostic_inner() -> Result<OcrDiagnostic, String> {
+    use windows::{Media::Ocr::OcrEngine, Win32::System::WinRT::{RoInitialize, RoUninitialize, RO_INIT_MULTITHREADED}};
+    unsafe { RoInitialize(RO_INIT_MULTITHREADED) }.map_err(|e| e.to_string())?;
+    struct Apartment;
+    impl Drop for Apartment { fn drop(&mut self) { unsafe { RoUninitialize(); } } }
+    let _apartment = Apartment;
+    let available = OcrEngine::TryCreateFromUserProfileLanguages().is_ok();
+    let mut languages = Vec::new();
+    if let Ok(list) = OcrEngine::AvailableRecognizerLanguages() {
+        for language in list { if let Ok(tag) = language.LanguageTag() { languages.push(tag.to_string()); } }
+    }
+    Ok(OcrDiagnostic { available, languages, game_active: game_active() })
+}
+#[cfg(not(windows))]
+fn ocr_diagnostic_inner() -> Result<OcrDiagnostic, String> {
+    Ok(OcrDiagnostic { available: false, languages: vec![], game_active: false })
+}
+
+/// Fixed destination: the frontend cannot launch arbitrary URLs or programs.
+#[tauri::command]
+pub fn open_releases() -> Result<(), String> {
+    #[cfg(windows)] {
+        use std::os::windows::process::CommandExt;
+        std::process::Command::new("explorer.exe")
+            .arg("https://github.com/GonzaMato/aoe4-overlay-BO/releases")
+            .creation_flags(0x08000000).spawn().map_err(|e| e.to_string())?;
+        Ok(())
+    }
+    #[cfg(not(windows))] { Err("Disponible en Windows.".into()) }
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CaptureRegion {
     pub x: i32,
     pub y: i32,
@@ -91,6 +136,11 @@ fn recognize(_: CaptureRegion, _: usize) -> Result<Vec<String>, String> {
 
 #[cfg(windows)]
 fn recognize(region: CaptureRegion, count: usize) -> Result<Vec<String>, String> {
+    crate::worker_ocr::recognize_rows(&capture(&region)?, region.width, region.height, count)
+}
+
+#[cfg(windows)]
+pub fn capture(region: &CaptureRegion) -> Result<Vec<u8>, String> {
     use windows::Win32::Graphics::Gdi::*;
     unsafe {
         let screen = GetDC(None);
@@ -100,7 +150,7 @@ fn recognize(region: CaptureRegion, count: usize) -> Result<Vec<String>, String>
         let dc = CreateCompatibleDC(Some(screen));
         let bitmap = CreateCompatibleBitmap(screen, region.width, region.height);
         // Always release GDI resources, including errors from capture and conversion.
-        let result = (|| -> Result<Vec<String>, String> {
+        let result = (|| -> Result<Vec<u8>, String> {
             if dc.is_invalid() || bitmap.is_invalid() {
                 return Err("No se pudo crear la captura.".into());
             }
@@ -140,7 +190,7 @@ fn recognize(region: CaptureRegion, count: usize) -> Result<Vec<String>, String>
             for pixel in pixels.chunks_exact_mut(4) {
                 pixel[3] = 255;
             }
-            crate::worker_ocr::recognize_rows(&pixels, region.width, region.height, count)
+            Ok(pixels)
         })();
         let _ = DeleteObject(bitmap.into());
         let _ = DeleteDC(dc);

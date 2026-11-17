@@ -3,17 +3,20 @@
 	import { deltas } from '$lib/steps';
 	import { RESOURCES, type Build } from '$lib/types';
 	import { formatTime } from '$lib/util';
+	import { activeTask } from '$lib/subtasks';
 
 	interface Props {
 		build: Build;
 		stepIndex: number;
+		subtaskIndex?: number;
 		accent: string;
 		elapsed?: number | null;
 		showClock?: boolean;
 	}
-	let { build, stepIndex, accent, elapsed = null, showClock = true }: Props = $props();
+	let { build, stepIndex, subtaskIndex=0, accent, elapsed = null, showClock = true }: Props = $props();
 
 	const step = $derived(build.steps[stepIndex]);
+	const task = $derived(step?activeTask(step,subtaskIndex):null);
 	const change = $derived(deltas(build, stepIndex));
 	const changed = $derived(RESOURCES.filter((r) => change[r] !== 0));
 	const clockOn = $derived(showClock && elapsed !== null);
@@ -34,9 +37,9 @@
 		{/key}
 		<span class="sep" aria-hidden="true"></span>
 		<div class="main">
-			<span class="action">{step.action || 'Sin acción cargada'}</span>
+			<span class="action">{task?.action || 'Sin acción cargada'}</span>
 			<span class="meta">
-				Paso {stepIndex + 1} / {build.steps.length}{step.time != null
+				Paso {stepIndex + 1} / {build.steps.length}{step.subtasks?.length?` · Tarea ${subtaskIndex+1}/${step.subtasks.length}`:''}{step.time != null
 					? ` · objetivo ${formatTime(step.time)}`
 					: ''}
 			</span>

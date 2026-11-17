@@ -11,18 +11,37 @@ export const RES_LABEL: Record<Resource, string> = {
 /** Reparto de aldeanos al que hay que llegar en un paso. */
 export type Villagers = Record<Resource, number>;
 
+export type AdvanceRule =
+	| { kind: 'auto' }
+	| { kind: 'manual' }
+	| { kind: 'total'; count: number }
+	| { kind: 'resources'; minimum: Partial<Villagers> }
+	| { kind: 'transfer'; from: Resource; to: Resource; count: number };
+
+export interface Subtask {
+	id: string;
+	action: string;
+	note: string;
+	advance: AdvanceRule;
+}
+
 export interface Step {
 	id: string;
-	/** Población de referencia (incluye al scout); el OCR usa la suma de villagers. */
+	/** Población de referencia (incluye militares); no es un objetivo del OCR. */
 	pop: number | null;
 	/** Tiempo objetivo en segundos de partida. */
 	time: number | null;
 	action: string;
 	note: string;
 	villagers: Villagers;
+	/** Ausente/auto: sugerir por instrucción y reparto. Se evalúa el paso actual. */
+	advance?: AdvanceRule;
+	/** Secuencia explícita; el criterio del padre solo se usa sin subtareas. */
+	subtasks?: Subtask[];
 }
 
 export interface Build {
+	provenance?: { packId: string; author: string; source: string; reviewedAt: string };
 	id: string;
 	name: string;
 	civ: string;
@@ -68,6 +87,8 @@ export const HOTKEY_LABEL: Record<HotkeyAction, string> = {
 export type Corner = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
 export interface Settings {
+	onboarding: import('./onboarding').OnboardingState;
+	setup: import('./setup').SetupSettings;
 	hotkeys: Record<HotkeyAction, string>;
 	corner: Corner;
 	offsetX: number;

@@ -1,6 +1,6 @@
 {
   "name": "aoe4-overlay",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Overlay de build orders para Age of Empires IV",
   "type": "module",
   "scripts": {
@@ -11,9 +11,11 @@
     "prepare": "svelte-kit sync || echo ''",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "installer": "tauri build --bundles nsis",
+    "release:package": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-release.ps1"
   },
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "dependencies": {
     "@fontsource/barlow": "^5.3.0",
     "@fontsource/barlow-condensed": "^5.3.0",

@@ -1,0 +1,6471 @@
+{
+  "format": "aoe4-overlay-build-pack",
+  "version": 1,
+  "id": "starter-2026-11",
+  "name": "Un build por civilización",
+  "reviewedAt": "2026-11-17",
+  "builds": [
+    {
+      "id": "starter-2026-11-eng",
+      "civ": "Ingleses",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Arcos largos hacia Castillos",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/3j9fiuhUJIXVPvYmjHnP",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-eng-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Mandá los 6 aldeanos a ovejas y construí una casa.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-eng-s01-t1",
+              "action": "Construí una casa.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-eng-s01-t2",
+              "action": "Dejá seis aldeanos en ovejas.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-eng-s02",
+          "pop": null,
+          "time": 20,
+          "action": "Destiná 2 nuevos aldeanos al oro y construí campamento minero.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-eng-s02-t1",
+              "action": "Construí campamento minero junto al oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-eng-s02-t2",
+              "action": "Completá dos mineros de oro con los nuevos aldeanos.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-eng-s03",
+          "pop": null,
+          "time": 60,
+          "action": "Llevá comida a 7 aldeanos con el siguiente trabajador.",
+          "note": "Continuá dirigiendo los nuevos a ovejas.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 7
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s04",
+          "pop": null,
+          "time": 130,
+          "action": "Cuando queden 3900 de 4000 en la veta, trasladá los mineros al bosque.",
+          "note": "Construí campamento maderero; la fuente muestra un reparto parcial.",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s05",
+          "pop": null,
+          "time": 131,
+          "action": "Construí la Sala del Consejo con 4 aldeanos de ovejas.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 2,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s06",
+          "pop": null,
+          "time": 141,
+          "action": "Dirigí los nuevos aldeanos a madera hasta alcanzar 11.",
+          "note": "El objetivo se completa durante los pasos siguientes.",
+          "villagers": {
+            "food": 6,
+            "wood": 3,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s07",
+          "pop": null,
+          "time": 200,
+          "action": "Retirá un constructor del monumento para hacer cuartel.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s08",
+          "pop": null,
+          "time": 215,
+          "action": "Otro constructor del monumento hace una casa.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s09",
+          "pop": null,
+          "time": null,
+          "action": "Al terminar la Sala del Consejo, devolvé sus constructores a ovejas.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s10",
+          "pop": null,
+          "time": 240,
+          "action": "Producí arcos largos y lanceros.",
+          "note": "Atacá con 5 arcos largos y 2–3 lanceros.",
+          "villagers": {
+            "food": 10,
+            "wood": 8,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s11",
+          "pop": null,
+          "time": 340,
+          "action": "Agregá uno a comida; después dirigí los siguientes a oro hasta 5.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 11,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s12",
+          "pop": null,
+          "time": null,
+          "action": "Usá ciervos si controlás el mapa. Hacia 10–11 minutos, frená unidades y prepará Castillos.",
+          "note": "Torre Blanca para caballeros y recursos; Palacio del Rey como alternativa económica. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-fre",
+      "civ": "Franceses",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Caballeros y arqueros en Feudal",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "JampiX",
+        "source": "https://aoe4guides.com/builds/WTb8ufQnXZH0jJTjGJ04",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-fre-s01a",
+          "pop": null,
+          "time": 0,
+          "action": "Asigná los 6 aldeanos iniciales a ovejas.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 6
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s01b",
+          "pop": null,
+          "time": null,
+          "action": "Los siguientes 3 aldeanos construyen casa y campamento de oro.",
+          "note": "Después recolectan oro. El reparto corresponde al inicio.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-fre-s01b-t1",
+              "action": "Los nuevos aldeanos construyen una casa.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-fre-s01b-t2",
+              "action": "Construí campamento minero junto al oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-fre-s01b-t3",
+              "action": "Completá tres mineros de oro.",
+              "note": "Después recolectan oro. El reparto corresponde al inicio.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-fre-s01c",
+          "pop": null,
+          "time": null,
+          "action": "Traé al menos 2 ovejas con el explorador y dirigí nuevos aldeanos a comida.",
+          "note": "Explorá luego la economía rival.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s02",
+          "pop": null,
+          "time": 135,
+          "action": "Con 14 aldeanos, construí Escuela de Caballería con 5 de comida.",
+          "note": "Reservá espacio para fortaleza y producción. Continuá a 12 en comida; explorá al rival.",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s03",
+          "pop": null,
+          "time": 220,
+          "action": "Al terminar, mandá 2 constructores a oro; los otros 3 hacen casa y talan árboles.",
+          "note": "Producí caballeros reales continuamente y hostigá aldeanos.",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s04a",
+          "pop": null,
+          "time": 250,
+          "action": "Con el primer caballero, llevá 8 recolectores a ciervos y construí molino.",
+          "note": "Con 12 aldeanos en comida, dirigí nuevos a madera y oro según necesidad.",
+          "villagers": {
+            "food": 12,
+            "wood": 3,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s04b",
+          "pop": null,
+          "time": null,
+          "action": "Investigá Técnicas de supervivencia, Pico especializado, Carretilla y Hacha doble.",
+          "note": "Seguí ese orden de mejoras.",
+          "villagers": {
+            "food": 12,
+            "wood": 3,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-fre-s04b-t1",
+              "action": "Investigá Técnicas de supervivencia.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-fre-s04b-t2",
+              "action": "Después, investigá Pico especializado.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-fre-s04b-t3",
+              "action": "Después, investigá Carretilla.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-fre-s04b-t4",
+              "action": "Después, investigá Hacha doble.",
+              "note": "Seguí ese orden de mejoras.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-fre-s05a",
+          "pop": null,
+          "time": null,
+          "action": "Contra muchos lanceros, priorizá arquería; si no, establo y después arquería.",
+          "note": "Mantené la producción de caballeros y arqueros para presionar.",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s05b",
+          "pop": null,
+          "time": null,
+          "action": "Al preparar Castillos, trasladá leñadores a comida y oro.",
+          "note": "El reparto publicado es anterior al traslado.",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s06",
+          "pop": null,
+          "time": null,
+          "action": "Construí Salón de los Gremios o Instituto Real con 12 mineros de oro.",
+          "note": "Añadí una herrería; tiempo orientativo en la fuente: ~13:10.",
+          "villagers": {
+            "food": 18,
+            "wood": 4,
+            "gold": 20,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s07",
+          "pop": null,
+          "time": 830,
+          "action": "Mejorá caballeros y arqueros al llegar a Castillos.",
+          "note": "Mandá unos 10 a piedra; con 900 construí una fortaleza que cubra la producción.",
+          "villagers": {
+            "food": 26,
+            "wood": 6,
+            "gold": 13,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-hre",
+      "name": "Presión Feudal con Meinwerk",
+      "civ": "Sacro Imperio Romano Germánico",
+      "mode": "1v1",
+      "map": "Tierra",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/PZycr2KliA5cvZCB5gWI",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-hre-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Asigná 3 aldeanos a comida y 3 a oro.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 3,
+              "gold": 3
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s2",
+          "pop": null,
+          "time": 10,
+          "action": "Construí casa y campamento minero con los aldeanos del oro.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-hre-s2-t1",
+              "action": "Construí casa con un aldeano del oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hre-s2-t2",
+              "action": "Construí campamento minero junto al oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hre-s2-t3",
+              "action": "Completá nuevamente tres recolectores de oro.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-hre-s3",
+          "pop": null,
+          "time": 20,
+          "action": "Enviá los nuevos aldeanos a comida hasta preparar Feudal.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s4",
+          "pop": null,
+          "time": 60,
+          "action": "Inspirá una vez a los mineros con el prelado y devolvelo a comida.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s5",
+          "pop": null,
+          "time": 131,
+          "action": "Usá los 3 mineros para construir el Palacio Meinwerk.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s6",
+          "pop": null,
+          "time": 140,
+          "action": "Dejá 3 en comida y reuní 7 en madera.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 7,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 3,
+              "wood": 7
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s7",
+          "pop": null,
+          "time": 160,
+          "action": "Si los ciervos están cerca y es seguro, enviá 5 aldeanos y mejorá Técnicas de supervivencia.",
+          "note": "Si no, continuá con ovejas.",
+          "villagers": {
+            "food": 4,
+            "wood": 7,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s8",
+          "pop": null,
+          "time": 245,
+          "action": "Al terminar Feudal, devolvé los constructores al oro; construí cuartel y arquería.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 7,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-hre-s8-t1",
+              "action": "Al terminar Feudal, devolvé los constructores al oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hre-s8-t2",
+              "action": "Construí cuartel y arquería.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-hre-s9",
+          "pop": null,
+          "time": 245,
+          "action": "Elegí ejército según el rival.",
+          "note": "Contra Castillos rápido: lanzas y arqueros. Contra jinete/lanza/arco: hombres de armas y arqueros. Contra caballero/arco: jinetes, lanzas y Awl Pike.",
+          "villagers": {
+            "food": 8,
+            "wood": 7,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s10",
+          "pop": null,
+          "time": null,
+          "action": "Agregá mejoras económicas y asegurá jabalí.",
+          "note": "Tras hacer daño, evaluá Castillos; si ambos siguen en Feudal, mantené la producción militar. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-mon",
+      "civ": "Mongoles",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Torre temprana, keshiks y arqueros",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Shaada",
+        "source": "https://aoe4guides.com/builds/YOcdrRav7QTIlwa6QGrJ",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-mon-s1",
+          "pop": null,
+          "time": null,
+          "action": "Asentá el centro urbano junto a madera; cinco talan el árbol cercano con el ger.",
+          "note": "El sexto aldeano construye el ovoo.",
+          "villagers": {
+            "food": 0,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mon-s1-t1",
+              "action": "Asentá el centro urbano junto a madera y colocá el ger junto al árbol cercano.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s1-t2",
+              "action": "Un aldeano construye el ovoo.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s1-t3",
+              "action": "Dejá cinco aldeanos talando el árbol cercano.",
+              "note": "El sexto aldeano construye el ovoo.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "wood": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mon-s2",
+          "pop": null,
+          "time": null,
+          "action": "Al agotar ese árbol, tres talan junto al centro y dos pasan a comida.",
+          "note": "Construí cuartel bajo la influencia del ovoo.",
+          "villagers": {
+            "food": 4,
+            "wood": 3,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s3",
+          "pop": null,
+          "time": null,
+          "action": "Producí dos lanceros juntos y cruzá el mapa con un aldeano.",
+          "note": "Construí un puesto avanzado sobre el oro rival.",
+          "villagers": {
+            "food": 4,
+            "wood": 3,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mon-s3-t1",
+              "action": "Producí dos lanceros juntos.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s3-t2",
+              "action": "Cruzá el mapa con ellos y un aldeano.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s3-t3",
+              "action": "Construí el puesto avanzado sobre el oro rival.",
+              "note": "Construí un puesto avanzado sobre el oro rival.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mon-s4",
+          "pop": null,
+          "time": null,
+          "action": "Añadí tres lanceros más: una producción individual y otra doble.",
+          "note": "Enviá los refuerzos hacia el puesto avanzado.",
+          "villagers": {
+            "food": 4,
+            "wood": 3,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s5",
+          "pop": null,
+          "time": null,
+          "action": "Con madera para cinco lanceros y la torre, redistribuí a comida y oro.",
+          "note": "Subí con seis aldeanos construyendo Piedras del Ciervo.",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s6",
+          "pop": null,
+          "time": null,
+          "action": "Aumentá madera hasta siete y después comida hasta doce; investigá Carretilla cuando puedas.",
+          "note": "Completá cada tarea en el orden indicado.",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mon-s6-t1",
+              "action": "Aumentá madera hasta siete aldeanos.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "wood": 7
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s6-t2",
+              "action": "Después, aumentá comida hasta doce aldeanos.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 12
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s6-t3",
+              "action": "Investigá Carretilla cuando puedas.",
+              "note": "Confirmá manualmente la mejora.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mon-s7",
+          "pop": null,
+          "time": null,
+          "action": "Construí establo; mejorá las saeteras del puesto avanzado y los lanceros.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s8",
+          "pop": null,
+          "time": null,
+          "action": "Producí keshiks continuamente, aprovechando una producción doble.",
+          "note": "Añadí arquería y producción continua de arqueros; duplicá cuando puedas.",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s9",
+          "pop": null,
+          "time": null,
+          "action": "Enviá cinco aldeanos a ciervos e investigá Técnicas de supervivencia.",
+          "note": "Añadí un puesto avanzado cuando sea posible.",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s10",
+          "pop": null,
+          "time": null,
+          "action": "Construí herrería y mejorá ataque y armadura a distancia.",
+          "note": "Agregá pastos gradualmente mientras mantenés la presión.",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-chi",
+      "civ": "Chinos",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Academia Imperial y presión con impuestos",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/gzZ29Jf9aytL113LZOEm",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-chi-s01",
+          "pop": null,
+          "time": null,
+          "action": "Construí un molino hacia el bosque con los 6 aldeanos.",
+          "note": "Dejá sitio para campamento maderero y Academia Imperial.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s02",
+          "pop": null,
+          "time": 20,
+          "action": "Mandá 2 nuevos aldeanos a oro.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s03",
+          "pop": null,
+          "time": 60,
+          "action": "Llevá comida a 7 aldeanos con el siguiente trabajador.",
+          "note": "Mantené los siguientes en comida hasta iniciar el avance.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 7
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s04",
+          "pop": null,
+          "time": 135,
+          "action": "Construí la Academia Imperial con 5 aldeanos.",
+          "note": "Ubicala hacia el molino y la madera.",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s05",
+          "pop": null,
+          "time": 140,
+          "action": "Reuní 35 de oro para el oficial y trasladá los mineros a árboles cercanos.",
+          "note": "Llegá a 7 en comida; luego enviá a madera. Construí aldea y campamento maderero.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-chi-s05-t1",
+              "action": "Reuní 35 de oro para el oficial imperial; confirmá el recurso acumulado manualmente.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-chi-s05-t2",
+              "action": "Trasladá los mineros a árboles cercanos.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-chi-s05-t3",
+              "action": "Aumentá comida hasta siete aldeanos.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 7
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-chi-s05-t4",
+              "action": "Después, mandá nuevos a madera; construí aldea y campamento maderero.",
+              "note": "Llegá a 7 en comida; luego enviá a madera. Construí aldea y campamento maderero.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-chi-s06",
+          "pop": null,
+          "time": 192,
+          "action": "Producí oficiales imperiales hasta 4.",
+          "note": "Supervisá molino y campamento maderero.",
+          "villagers": {
+            "food": 7,
+            "wood": 8,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s07",
+          "pop": null,
+          "time": 225,
+          "action": "Construí una aldea.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 9,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s08",
+          "pop": null,
+          "time": 240,
+          "action": "Al salir el segundo oficial, construí un campamento maderero.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s09",
+          "pop": null,
+          "time": 260,
+          "action": "Poné en cola el tercer oficial y añadí producción militar según el rival.",
+          "note": "Arquería, cuartel o establo; nuevos aldeanos a comida.",
+          "villagers": {
+            "food": 8,
+            "wood": 11,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-chi-s09-t1",
+              "action": "Poné en cola el tercer oficial imperial.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-chi-s09-t2",
+              "action": "Añadí arquería, cuartel o establo según el rival; nuevos a comida.",
+              "note": "Arquería, cuartel o establo; nuevos aldeanos a comida.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-chi-s10",
+          "pop": null,
+          "time": 410,
+          "action": "Prepará Exploradores profesionales, un establo y 4 exploradores.",
+          "note": "Añadí herrería para mejoras.",
+          "villagers": {
+            "food": 12,
+            "wood": 14,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s11",
+          "pop": null,
+          "time": null,
+          "action": "Financiá Exploradores profesionales con impuestos y transportá ciervos.",
+          "note": "Mantené presión sobre el rival y ajustá la economía. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-del",
+      "civ": "Sultanato de Delhi",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Ghazi temprano y transición a Castillos",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/S3FUuhz7WEB8VYUL5qPb",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-del-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Con 5 aldeanos juntá 50 de madera y construí molino en bayas.",
+          "note": "El sexto construye mezquita.",
+          "villagers": {
+            "food": 0,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-del-s01-t1",
+              "action": "Asigná cinco aldeanos a talar árboles cercanos.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "wood": 5
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-del-s01-t4",
+              "action": "El sexto aldeano construye la mezquita mientras los otros talan.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-del-s01-t2",
+              "action": "Reuní 50 de madera con esos cinco; confirmá los recursos manualmente.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-del-s01-t3",
+              "action": "Construí molino en bayas y confirmá que la mezquita esté construida.",
+              "note": "El sexto construye mezquita.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-del-s02",
+          "pop": null,
+          "time": 20,
+          "action": "El nuevo aldeano hace una casa y pasa a bayas.",
+          "note": "",
+          "villagers": {
+            "food": 0,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s03",
+          "pop": null,
+          "time": 40,
+          "action": "Enviá el próximo aldeano a comida.",
+          "note": "La fuente cuenta 8 al incorporarse el constructor; reparto instantáneo: 7.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s04",
+          "pop": null,
+          "time": 60,
+          "action": "Destiná los próximos 3 aldeanos al oro y construí campamento.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-del-s04-t1",
+              "action": "El primer minero construye campamento junto al oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-del-s04-t2",
+              "action": "Completá tres aldeanos en oro con los nuevos.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-del-s05",
+          "pop": null,
+          "time": 120,
+          "action": "Mandá 2 a árboles cercanos y otro a construir campamento maderero.",
+          "note": "Con 50 de madera trasladá los 2 al bosque; continuá hasta 5 leñadores.",
+          "villagers": {
+            "food": 8,
+            "wood": 1,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s06",
+          "pop": null,
+          "time": 150,
+          "action": "Construí la Cúpula de la Fe con 4 recolectores de bayas.",
+          "note": "Ubicala junto a las bayas.",
+          "villagers": {
+            "food": 4,
+            "wood": 2,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s07",
+          "pop": null,
+          "time": null,
+          "action": "Con 5 leñadores, enviá nuevos a comida hasta 12; luego a madera hasta 12.",
+          "note": "Objetivos de asignación continuada: 5 madera → 12 comida → 12 madera. Confirmá el plan y seguí con los edificios; no esperes a completarlo entero.",
+          "villagers": {
+            "food": 10,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s08",
+          "pop": null,
+          "time": 255,
+          "action": "Activá las mejoras feudales y construí establo con 2 leñadores.",
+          "note": "Guarnecé un erudito y producí ghazi de manera continua.",
+          "villagers": {
+            "food": 11,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s09",
+          "pop": null,
+          "time": 385,
+          "action": "Añadí arquería, cuartel y herrería según la partida.",
+          "note": "Priorizá producción; la guía propone 2 herrerías hacia los minutos 8–10.",
+          "villagers": {
+            "food": 12,
+            "wood": 9,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s10",
+          "pop": null,
+          "time": null,
+          "action": "Asegurá 2 grupos de ciervos con Exploradores profesionales antes de Castillos.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s11",
+          "pop": null,
+          "time": null,
+          "action": "En Castillos, entrená elefantes de guerra y añadí 2 arquerías.",
+          "note": "Producí arqueros y ballesteros; juntá piedra para fortalezas y Fortalezas de aldeas. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-abb",
+      "civ": "Dinastía Abasí",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Ala económica y segundo centro urbano",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/q7ShhrWaVgMCyDjPQX9F",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-abb-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Enviá 5 aldeanos a bayas; construí casa y Casa de la Sabiduría.",
+          "note": "El constructor de la Casa de la Sabiduría termina en ovejas.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-abb-s01-t1",
+              "action": "Construí casa y Casa de la Sabiduría; cinco aldeanos recogen bayas en paralelo.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-abb-s01-t2",
+              "action": "Devolvé el constructor a ovejas: seis recolectores de comida en total.",
+              "note": "El constructor de la Casa de la Sabiduría termina en ovejas.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-abb-s02",
+          "pop": null,
+          "time": 20,
+          "action": "Destiná los próximos 2 aldeanos al oro y levantá un campamento minero.",
+          "note": "El reparto muestra el inicio de la asignación.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-abb-s02-t1",
+              "action": "Construí campamento minero junto al oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-abb-s02-t2",
+              "action": "Mandá los dos nuevos aldeanos al oro.",
+              "note": "El reparto muestra el inicio de la asignación.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-abb-s03",
+          "pop": null,
+          "time": 60,
+          "action": "Llevá comida a 7 aldeanos con el siguiente trabajador.",
+          "note": "Seguí dirigiendo los nuevos a ovejas hasta iniciar el Ala económica.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 7
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s04",
+          "pop": null,
+          "time": 130,
+          "action": "Iniciá el avance con el Ala económica.",
+          "note": "",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s05",
+          "pop": null,
+          "time": 132,
+          "action": "Pasá 5 aldeanos de ovejas a los árboles junto al centro urbano.",
+          "note": "Reservá esos árboles; no tales el bosque antes del segundo centro urbano.",
+          "villagers": {
+            "food": 5,
+            "wood": 5,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s06",
+          "pop": null,
+          "time": 140,
+          "action": "Dirigí los próximos aldeanos a piedra hasta reunir 4 mineros.",
+          "note": "La asignación continúa durante la transición.",
+          "villagers": {
+            "food": 5,
+            "wood": 5,
+            "gold": 2,
+            "stone": 1
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s07",
+          "pop": null,
+          "time": null,
+          "action": "Construí el campamento minero con un recolector de piedra.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s08",
+          "pop": null,
+          "time": 240,
+          "action": "Investigá Creciente Fértil y Alimentos Frescos.",
+          "note": "Al alcanzar Feudal.",
+          "villagers": {
+            "food": 5,
+            "wood": 7,
+            "gold": 2,
+            "stone": 4
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s09",
+          "pop": null,
+          "time": null,
+          "action": "Dirigí nuevos aldeanos a madera; después trasladá los mineros de oro.",
+          "note": "Retiralos cuando queden 3750 de 4000 de oro en la veta.",
+          "villagers": {
+            "food": 5,
+            "wood": 8,
+            "gold": 2,
+            "stone": 4
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s10",
+          "pop": null,
+          "time": 290,
+          "action": "Construí el segundo centro urbano protegiendo el bosque.",
+          "note": "La fuente no especifica el reparto completo durante la construcción. Luego elegí entre Feudal y Castillos.",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-rus",
+      "civ": "Rus",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Dos centros urbanos con Kremlin",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Munchy",
+        "source": "https://aoe4guides.com/builds/1tfWsW7TmU88pmBMndSo",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-rus-s1",
+          "pop": null,
+          "time": null,
+          "action": "Dos aldeanos construyen cabaña de caza y casa; nuevos a ovejas.",
+          "note": "Producí dos o tres exploradores desde la cabaña.",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-rus-s1-t1",
+              "action": "Dos aldeanos construyen la cabaña de caza.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-rus-s1-t2",
+              "action": "Construí una casa y dirigí los nuevos aldeanos a ovejas.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-rus-s1-t3",
+              "action": "Producí dos o tres exploradores desde la cabaña.",
+              "note": "Producí dos o tres exploradores desde la cabaña.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-rus-s2",
+          "pop": null,
+          "time": 155,
+          "action": "Dos aldeanos construyen el Kremlin junto a ciervos.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s3",
+          "pop": null,
+          "time": 165,
+          "action": "Dejá cuatro en comida; el resto tala árboles cercanos y los nuevos van a piedra.",
+          "note": "Construí campamento minero cuando tengas 50 de madera.",
+          "villagers": {
+            "food": 4,
+            "wood": 8,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s4",
+          "pop": null,
+          "time": 210,
+          "action": "Al agotar el primer árbol, trasladá todos los leñadores a piedra.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 0,
+            "stone": 10
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s5",
+          "pop": null,
+          "time": 285,
+          "action": "Con 300 de piedra, trasladá los mineros a madera.",
+          "note": "También van a madera los constructores del Kremlin y los nuevos.",
+          "villagers": {
+            "food": 4,
+            "wood": 16,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s6",
+          "pop": null,
+          "time": 340,
+          "action": "Con 400 de madera, nueve leñadores construyen el segundo centro urbano cerca del Kremlin.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s7",
+          "pop": null,
+          "time": 360,
+          "action": "Dejá cuatro leñadores y pasá los demás recolectores a ciervos.",
+          "note": "El centro urbano inicial sigue enviando aldeanos a ovejas.",
+          "villagers": {
+            "food": 11,
+            "wood": 4,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s8",
+          "pop": null,
+          "time": 385,
+          "action": "Al terminar el segundo centro, dirigilo a ciervos e investigá Técnicas de supervivencia.",
+          "note": "",
+          "villagers": {
+            "food": 17,
+            "wood": 8,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-rus-s8-t1",
+              "action": "Confirmá que termine el segundo centro urbano y dirigilo a ciervos.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-rus-s8-t2",
+              "action": "Investigá Técnicas de supervivencia.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-rus-s9",
+          "pop": null,
+          "time": null,
+          "action": "Si te hostigan, añadí cuartel o arquería; protegé la base con empalizadas.",
+          "note": "Reparto no especificado.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s10",
+          "pop": null,
+          "time": 445,
+          "action": "Dirigí ambos centros a oro hasta nueve, luego a comida.",
+          "note": "Investigá, en orden: Carretilla, Horticultura y Hacha doble.",
+          "villagers": {
+            "food": 17,
+            "wood": 8,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s11",
+          "pop": null,
+          "time": 565,
+          "action": "Subí con Gran Casa de Comercio o Abadía de la Trinidad.",
+          "note": "La guía propone Abadía para arqueros a caballo, monjes guerreros y hombres de armas.",
+          "villagers": {
+            "food": 12,
+            "wood": 8,
+            "gold": 9,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s12",
+          "pop": null,
+          "time": null,
+          "action": "Durante la transición, dirigí ambos centros a madera.",
+          "note": "Reparto no especificado.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s13",
+          "pop": null,
+          "time": 620,
+          "action": "Al llegar a Castillos, devolvé los constructores a ciervos.",
+          "note": "",
+          "villagers": {
+            "food": 22,
+            "wood": 14,
+            "gold": 9,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-ott",
+      "civ": "Otomanos",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Escuela militar y sipahis",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/V125Ljbch5hAHFBNTg7F",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-ott-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Cinco aldeanos recogen 50 de piedra sin campamento; otro construye una casa.",
+          "note": "",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 5
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-ott-s1-t1",
+              "action": "Un aldeano construye una casa; los otros cinco empiezan a extraer piedra.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-ott-s1-t2",
+              "action": "Completá cinco recolectores de piedra.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "stone": 5
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-ott-s1-t3",
+              "action": "Reuní 50 de piedra sin campamento; confirmá los recursos manualmente.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-ott-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Mandá los nuevos a comida.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 0,
+            "gold": 0,
+            "stone": 5
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s3",
+          "pop": null,
+          "time": 30,
+          "action": "Entregá la piedra; esos cinco recogen 50 de madera y después van a comida.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s4",
+          "pop": null,
+          "time": 30,
+          "action": "Construí la primera escuela militar.",
+          "note": "",
+          "villagers": {
+            "food": 1,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s5",
+          "pop": null,
+          "time": 55,
+          "action": "Devolvé los leñadores a comida y aumentá hasta ocho.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s6",
+          "pop": null,
+          "time": 64,
+          "action": "Con ocho en comida, aumentá oro hasta tres.",
+          "note": "Objetivo textual; el reparto de la fila es previo.",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 3
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s7",
+          "pop": null,
+          "time": 120,
+          "action": "Volvé a dirigir los nuevos a comida.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s8",
+          "pop": null,
+          "time": 170,
+          "action": "Cuatro de comida construyen la Madrasa de los Dos Minaretes.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s9",
+          "pop": null,
+          "time": 180,
+          "action": "Redistribuí hacia piedra y madera: cinco talan árboles cercanos.",
+          "note": "La fuente muestra dos en piedra; completá tres en el siguiente paso.",
+          "villagers": {
+            "food": 4,
+            "wood": 5,
+            "gold": 0,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s10",
+          "pop": null,
+          "time": 200,
+          "action": "Completá tres en piedra; con 50 de madera, construí su campamento minero.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 5,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s11",
+          "pop": null,
+          "time": 220,
+          "action": "Construí casa y mandá los nuevos a madera.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 5,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s12",
+          "pop": null,
+          "time": 240,
+          "action": "Construí el campamento maderero.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 6,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s13",
+          "pop": null,
+          "time": 270,
+          "action": "Devolvé los cuatro constructores del monumento a comida.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s14",
+          "pop": null,
+          "time": 285,
+          "action": "Construí establo y producí sipahis.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 9,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-ott-s14-t1",
+              "action": "Construí un establo.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-ott-s14-t2",
+              "action": "Empezá a producir sipahis.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-ott-s15",
+          "pop": null,
+          "time": 320,
+          "action": "Construí la segunda escuela militar.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 11,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s16",
+          "pop": null,
+          "time": null,
+          "action": "Juntá otros 100 de piedra y trasladá los mineros a madera.",
+          "note": "Reserva indicada para Campus militar. Reparto no especificado.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s17",
+          "pop": null,
+          "time": 330,
+          "action": "Construí herrería.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 13,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s18",
+          "pop": null,
+          "time": null,
+          "action": "Elegí entre ampliar el ejército o preparar Castillos según el rival.",
+          "note": "La guía deja abierta esta decisión. Reparto no especificado.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-mal",
+      "civ": "Malienses",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Mina temprana y economía de vacas",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/0DSW4iLRlv22BXBjlirM",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-mal-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Cinco a madera; uno construye la mina a cielo abierto y siete casas.",
+          "note": "Tras reunir 150 de madera, los leñadores pasan a comida.",
+          "villagers": {
+            "food": 0,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mal-s1-t1",
+              "action": "Asigná cinco aldeanos a madera.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "wood": 5
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-mal-s1-t4",
+              "action": "El sexto aldeano construye la mina a cielo abierto y empieza las casas.",
+              "note": "Mantenelo construyendo hasta sumar siete casas.",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mal-s1-t2",
+              "action": "Reuní 150 de madera y pasá esos cinco a comida; el constructor sigue trabajando.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mal-s1-t3",
+              "action": "Confirmá la mina a cielo abierto y sus siete casas.",
+              "note": "Tras reunir 150 de madera, los leñadores pasan a comida.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mal-s2",
+          "pop": null,
+          "time": 20,
+          "action": "El siguiente aldeano tala otro árbol hasta aportar 25 de madera; después, nuevos a comida.",
+          "note": "",
+          "villagers": {
+            "food": 0,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s3",
+          "pop": null,
+          "time": 165,
+          "action": "Construí la Cantera de Mansa con cinco aldeanos.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s4",
+          "pop": null,
+          "time": 170,
+          "action": "Reuní 50 de madera, construí campamento maderero y aumentá hasta diez leñadores.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 4,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s5",
+          "pop": null,
+          "time": 251,
+          "action": "Devolvé los constructores a ovejas; investigá Carretilla y Hacha doble.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 9,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s6",
+          "pop": null,
+          "time": 275,
+          "action": "Construí cuartel y empezá a producir donsos.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mal-s6-t1",
+              "action": "Construí un cuartel.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mal-s6-t2",
+              "action": "Empezá a producir donsos.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mal-s7",
+          "pop": null,
+          "time": 285,
+          "action": "Con diez en madera, enviá los nuevos a comida.",
+          "note": "Avance manual: la fuente no fija un objetivo final de comida.",
+          "villagers": {
+            "food": 8,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s8",
+          "pop": null,
+          "time": 300,
+          "action": "Construí arquería y producí lanzadores de jabalina.",
+          "note": "",
+          "villagers": {
+            "food": 10,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mal-s8-t1",
+              "action": "Construí una arquería.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mal-s8-t2",
+              "action": "Empezá a producir lanzadores de jabalina.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mal-s9",
+          "pop": null,
+          "time": 350,
+          "action": "Con dos donsos y dos lanzadores, construí la segunda mina a cielo abierto.",
+          "note": "",
+          "villagers": {
+            "food": 13,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s10",
+          "pop": null,
+          "time": 370,
+          "action": "Investigá Horticultura.",
+          "note": "",
+          "villagers": {
+            "food": 14,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s11",
+          "pop": null,
+          "time": 420,
+          "action": "Mandá cinco de ovejas a ciervos y construí un puesto de peaje.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 9,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s12",
+          "pop": null,
+          "time": null,
+          "action": "Empezá la economía de vacas y mantené la producción militar.",
+          "note": "Objetivo de la guía: al menos doce vacas antes de Castillos. Reparto no especificado.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-byz",
+      "civ": "Bizantinos",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Gran Bodega y presión feudal",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/fnCZRz1f0MP7YeECIdro",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-byz-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Abrí con 3 en ovejas, 1 en oro y 2 en piedra.",
+          "note": "Construí campamentos; uno de piedra hace casa y cisterna.",
+          "villagers": {
+            "food": 3,
+            "wood": 0,
+            "gold": 1,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-byz-s01-t1",
+              "action": "Construí los campamentos de oro y piedra; tres aldeanos recogen ovejas en paralelo.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-byz-s01-t2",
+              "action": "Un aldeano de piedra construye casa y cisterna.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-byz-s01-t3",
+              "action": "Completá tres recolectores en comida, uno en oro y dos en piedra.",
+              "note": "Construí campamentos; uno de piedra hace casa y cisterna.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 3,
+                  "gold": 1,
+                  "stone": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-byz-s02",
+          "pop": null,
+          "time": 20,
+          "action": "Dirigí nuevos aldeanos a ovejas hasta tener 7 en comida.",
+          "note": "La asignación continúa mientras crece la economía.",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 1,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s03",
+          "pop": null,
+          "time": 100,
+          "action": "Agregá un aldeano a oro; después seguí enviando a comida.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s04",
+          "pop": null,
+          "time": 140,
+          "action": "Un minero de piedra construye la segunda cisterna.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 0,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s05",
+          "pop": null,
+          "time": 150,
+          "action": "Construí la Gran Bodega con 4 aldeanos de ovejas.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s06",
+          "pop": null,
+          "time": 160,
+          "action": "Dirigí nuevos aldeanos a madera hasta llegar a 8.",
+          "note": "Durante la transición.",
+          "villagers": {
+            "food": 4,
+            "wood": 2,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s07",
+          "pop": null,
+          "time": 210,
+          "action": "Construí un campamento maderero.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 4,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s08",
+          "pop": null,
+          "time": 240,
+          "action": "Usá mineros de oro para la tercera cisterna y una casa.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 6,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s09",
+          "pop": null,
+          "time": 254,
+          "action": "Investigá Horticultura y Carretilla; trasladá los recolectores de ovejas a bayas.",
+          "note": "Al llegar a Feudal.",
+          "villagers": {
+            "food": 8,
+            "wood": 6,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-byz-s09-t1",
+              "action": "Al llegar a Feudal, investigá Horticultura.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-byz-s09-t2",
+              "action": "Investigá Carretilla.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-byz-s09-t3",
+              "action": "Trasladá los recolectores de ovejas a bayas.",
+              "note": "Al llegar a Feudal.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-byz-s10",
+          "pop": null,
+          "time": 300,
+          "action": "Construí cuartel y cuarta cisterna.",
+          "note": "Dejá de extraer piedra después de la cuarta; el reparto publicado aún muestra 2 mineros.",
+          "villagers": {
+            "food": 9,
+            "wood": 8,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s11",
+          "pop": null,
+          "time": 330,
+          "action": "Construí la casa de mercenarios.",
+          "note": "",
+          "villagers": {
+            "food": 10,
+            "wood": 8,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s12",
+          "pop": null,
+          "time": 390,
+          "action": "Añadí quinta cisterna y herrería.",
+          "note": "Investigá ataque a distancia, protección contra proyectiles e Ingeniería de asedio. La fuente no precisa el nuevo reparto.",
+          "villagers": {
+            "food": 13,
+            "wood": 8,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s13",
+          "pop": null,
+          "time": null,
+          "action": "Mantené producción militar y prepará arietes para atacar entre 8 y 10 minutos.",
+          "note": "Alternativa: Castillos con Torre del Cuerno de Oro. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-jap",
+      "name": "Castillos rápido con Puerta Flotante",
+      "civ": "Japoneses",
+      "mode": "1v1",
+      "map": "Tierra",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/yeDbJIwrrgHzUdJJb7gi",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-jap-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Dejá 5 en ovejas; uno construye una granja japonesa e investiga Tawara.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jap-s1-t1",
+              "action": "Un aldeano construye la granja japonesa; los otros cinco recogen ovejas.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jap-s1-t2",
+              "action": "Investigá Tawara.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jap-s1-t3",
+              "action": "Mantené al menos cinco recolectores de comida.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jap-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Mandá los siguientes aldeanos al oro hasta tener 3.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 3
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s3",
+          "pop": null,
+          "time": 62,
+          "action": "Cuando termine Tawara, trasladá los recolectores de ovejas a bayas.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s4",
+          "pop": null,
+          "time": 80,
+          "action": "Enviá los nuevos aldeanos a ovejas.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s5",
+          "pop": null,
+          "time": 140,
+          "action": "Construí el Almacén Kura con un aldeano de ovejas.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s6",
+          "pop": null,
+          "time": 154,
+          "action": "Asigná 3 aldeanos a madera para preparar una torre.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 3,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 3
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s7",
+          "pop": null,
+          "time": 235,
+          "action": "Construí una torre sobre el oro y mejorá saeteras y fortificación.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 3,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jap-s7-t1",
+              "action": "Construí una torre que proteja el oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jap-s7-t2",
+              "action": "Investigá saeteras en la torre.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jap-s7-t3",
+              "action": "Investigá su fortificación.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jap-s8",
+          "pop": null,
+          "time": null,
+          "action": "Seguí sumando aldeanos a comida y agregá uno más al oro.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s9",
+          "pop": null,
+          "time": 394,
+          "action": "Iniciá Castillos con la Puerta Flotante y 8 aldeanos de comida.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 0,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s10",
+          "pop": null,
+          "time": 400,
+          "action": "Asigná entre 5 y 8 a madera según la producción necesaria.",
+          "note": "Cuartel frente a presión de unidades de madera; establo contra caballeros o sin presión.",
+          "villagers": {
+            "food": 7,
+            "wood": 5,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s11",
+          "pop": null,
+          "time": 460,
+          "action": "En Castillos, construí establo y producí samuráis a caballo; recogé reliquias.",
+          "note": "Composición indicada: yumi ashigaru y samuráis a caballo. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-dra",
+      "civ": "Orden del Dragón",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Castillos con Regnitz",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/Osr0kBDqupiejJsGQcFy",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-dra-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Asigná los 5 aldeanos a ovejas.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 5
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s02",
+          "pop": null,
+          "time": 23,
+          "action": "Mandá los próximos 2 aldeanos a oro.",
+          "note": "El reparto publicado muestra al primero; completá ambos.",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 1,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s03",
+          "pop": null,
+          "time": null,
+          "action": "Al localizar ciervos, trasladá 4–5 aldeanos e investigá Técnicas de supervivencia.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-dra-s03-t1",
+              "action": "Al localizar ciervos, trasladá allí cuatro o cinco aldeanos.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-dra-s03-t2",
+              "action": "Investigá Técnicas de supervivencia.",
+              "note": "Reparto no especificado en la fuente.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-dra-s04",
+          "pop": null,
+          "time": 69,
+          "action": "Dirigí nuevos aldeanos a comida hasta llegar a 8.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s05",
+          "pop": null,
+          "time": 140,
+          "action": "Asigná un aldeano a madera.",
+          "note": "La fila de la fuente solo aporta el reparto.",
+          "villagers": {
+            "food": 8,
+            "wood": 1,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 1
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s06",
+          "pop": null,
+          "time": 175,
+          "action": "Construí la Capilla de Aquisgrán con 3 aldeanos.",
+          "note": "Ubicala junto al bosque.",
+          "villagers": {
+            "food": 8,
+            "wood": 2,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s07",
+          "pop": null,
+          "time": 255,
+          "action": "Volvé a dirigir los nuevos aldeanos a comida.",
+          "note": "El reparto de transición es orientativo.",
+          "villagers": {
+            "food": 4,
+            "wood": 6,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s08",
+          "pop": null,
+          "time": 265,
+          "action": "Construí establo y entrená un jinete dorado.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 6,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-dra-s08-t1",
+              "action": "Construí un establo.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-dra-s08-t2",
+              "action": "Entrená un jinete dorado.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-dra-s09",
+          "pop": null,
+          "time": null,
+          "action": "Reservá recursos para defensas si hacen falta; si no, repartí comida y oro 2:1.",
+          "note": "La fuente remite al video para decisiones intermedias. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s11",
+          "pop": null,
+          "time": 415,
+          "action": "Construí la Catedral de Regnitz con 6 recolectores de comida.",
+          "note": "",
+          "villagers": {
+            "food": 14,
+            "wood": 0,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s12",
+          "pop": null,
+          "time": null,
+          "action": "Aumentá madera para añadir arquería y establo.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s13",
+          "pop": null,
+          "time": null,
+          "action": "En Castillos, entrená religiosos para reliquias y curación.",
+          "note": "Sumá caballeros y arqueros dorados; granjas alrededor de la capilla y protección del oro. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-zxl",
+      "civ": "Legado de Zhu Xi",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Castillos rápido con Shaolin",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/axY2p0OCUpKZgZelOlux",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-zxl-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Los cinco aldeanos iniciales construyen molino en bayas.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Construí una aldea entre el molino y el centro urbano.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s3",
+          "pop": null,
+          "time": 40,
+          "action": "Aumentá comida hasta ocho aldeanos.",
+          "note": "Objetivo textual; el reparto de la fila es previo.",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s4",
+          "pop": null,
+          "time": 80,
+          "action": "Aumentá oro hasta cuatro aldeanos.",
+          "note": "Objetivo textual; el reparto de la fila es previo.",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 4
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s5",
+          "pop": null,
+          "time": 150,
+          "action": "Un aldeano de comida construye Jardines de Meditación junto a varios recursos.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s6",
+          "pop": null,
+          "time": 160,
+          "action": "Dirigí los nuevos a comida mientras preparás Castillos.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s7",
+          "pop": null,
+          "time": 315,
+          "action": "Los cuatro mineros construyen el Monasterio Shaolin para subir a Castillos.",
+          "note": "",
+          "villagers": {
+            "food": 17,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s8",
+          "pop": null,
+          "time": 320,
+          "action": "Trasladá cinco de comida a árboles cercanos.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s9",
+          "pop": null,
+          "time": 375,
+          "action": "En Castillos, producí uno a tres monjes Shaolin y construí establo.",
+          "note": "Si sufrís presión feudal, la guía propone cuartel como alternativa.",
+          "villagers": {
+            "food": 14,
+            "wood": 5,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-zxl-s9-t1",
+              "action": "Al llegar a Castillos, producí entre uno y tres monjes Shaolin.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-zxl-s9-t2",
+              "action": "Construí establo para lanceros y control del mapa; si sufrís presión feudal, elegí cuartel.",
+              "note": "Si sufrís presión feudal, la guía propone cuartel como alternativa.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-zxl-s10",
+          "pop": null,
+          "time": null,
+          "action": "Producí ejército, disputá reliquias y lugares sagrados y presioná el mapa.",
+          "note": "Reparto no especificado.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-jda",
+      "name": "Caballeros desde ciervos",
+      "civ": "Juana de Arco",
+      "mode": "1v1",
+      "map": "Tierra",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/ss0UMX3M9DRmkcPLRvk5",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-jda-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Empezá con 6 en ovejas y buscá el grupo de ciervos cercano.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s2",
+          "pop": null,
+          "time": 35,
+          "action": "Al encontrar ciervos, usá 5 aldeanos para reunir 50 madera y levantar una casa.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s3",
+          "pop": null,
+          "time": 50,
+          "action": "Construí molino en los ciervos; investigá Técnicas de supervivencia y después Carretilla.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jda-s3-t1",
+              "action": "Construí molino en los ciervos.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jda-s3-t2",
+              "action": "Investigá Técnicas de supervivencia.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jda-s3-t3",
+              "action": "Después, investigá Carretilla.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jda-s4",
+          "pop": null,
+          "time": 80,
+          "action": "Cuando termine el molino, pasá 4 aldeanos de ovejas a oro.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s5",
+          "pop": null,
+          "time": null,
+          "action": "Enviá los nuevos aldeanos a comida hasta preparar Feudal.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s6",
+          "pop": null,
+          "time": 193,
+          "action": "Construí la Escuela de Caballería con Juana y 3 aldeanos de ovejas.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s7",
+          "pop": null,
+          "time": 193,
+          "action": "Mandá a madera los aldeanos que quedan en ovejas.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 2,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s8",
+          "pop": null,
+          "time": 200,
+          "action": "Reuní 8 aldeanos en madera con los nuevos aldeanos.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 8,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s9",
+          "pop": null,
+          "time": 277,
+          "action": "Al alcanzar Feudal, investigá Pico especializado y producí un caballero real.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 6,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jda-s9-t1",
+              "action": "Al alcanzar Feudal, investigá Pico especializado.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jda-s9-t2",
+              "action": "Producí el primer caballero real.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jda-s10",
+          "pop": null,
+          "time": null,
+          "action": "Después de llegar a 8 leñadores, sumá mineros hasta 8 y volvé a enviar nuevos a comida.",
+          "note": "El cambio del punto de reunión requiere confirmación manual. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s11",
+          "pop": null,
+          "time": 336,
+          "action": "Agregá un segundo establo.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s12",
+          "pop": null,
+          "time": 390,
+          "action": "Construí arquería; si hace falta, protegé el oro y los ciervos con torres.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 8,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-ayy",
+      "civ": "Ayubíes",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Castillos rápido con Industria",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/8MtH2BAnxcC4isz3GqK3",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-ayy-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Mandá los 6 aldeanos a bayas; 2 construyen el molino.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-ayy-s01-t1",
+              "action": "Dos aldeanos construyen molino en bayas; los otros cuatro empiezan a recoger.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-ayy-s01-t2",
+              "action": "Completá seis recolectores de comida sobre las bayas.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-ayy-s02",
+          "pop": null,
+          "time": 20,
+          "action": "El nuevo aldeano construye una casa y pasa a ovejas.",
+          "note": "Conectá molino y centro urbano mediante su influencia.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s03",
+          "pop": null,
+          "time": 40,
+          "action": "Destiná 4 nuevos aldeanos a oro.",
+          "note": "El primero hace campamento; el segundo, Casa de la Sabiduría junto al oro.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-ayy-s03-t1",
+              "action": "El primer aldeano nuevo construye campamento minero en oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-ayy-s03-t2",
+              "action": "El segundo construye la Casa de la Sabiduría junto al oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-ayy-s03-t3",
+              "action": "Completá cuatro mineros de oro con los nuevos aldeanos.",
+              "note": "El primero hace campamento; el segundo, Casa de la Sabiduría junto al oro.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-ayy-s04",
+          "pop": null,
+          "time": 120,
+          "action": "Agregá un aldeano a ovejas.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s05",
+          "pop": null,
+          "time": 135,
+          "action": "Avanzá con el Ala cultural: Logística.",
+          "note": "Es la opción que proporciona derviches.",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s06",
+          "pop": null,
+          "time": 140,
+          "action": "Mandá 4 recolectores de comida y un nuevo aldeano a madera.",
+          "note": "Juntá 150 de madera, luego 50 de piedra sin campamento. Los siguientes van a comida.",
+          "villagers": {
+            "food": 4,
+            "wood": 5,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s07",
+          "pop": null,
+          "time": 180,
+          "action": "Un minero de oro construye una torre.",
+          "note": "Mejorala al reunir los 50 de piedra; reparto parcial en la fuente.",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s08",
+          "pop": null,
+          "time": 200,
+          "action": "Construí una casa.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 4,
+            "stone": 5
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s09",
+          "pop": null,
+          "time": 230,
+          "action": "Devolvé los 5 mineros de piedra a comida.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s10",
+          "pop": null,
+          "time": 255,
+          "action": "Reorganizá a 13 en comida y 5 en oro.",
+          "note": "Los siguientes aldeanos van a comida hasta Castillos.",
+          "villagers": {
+            "food": 13,
+            "wood": 0,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 13,
+              "gold": 5
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s11",
+          "pop": null,
+          "time": 372,
+          "action": "Entregá los recursos e iniciá Castillos con Industria.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s12",
+          "pop": null,
+          "time": 385,
+          "action": "Repartí 8 en comida, 8 en madera y 10 en oro.",
+          "note": "Dirigí los siguientes a oro hasta 12.",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 10,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s13",
+          "pop": null,
+          "time": 450,
+          "action": "Investigá Carretilla.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 8,
+            "gold": 10,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s14",
+          "pop": null,
+          "time": 505,
+          "action": "Construí 2–3 establos y una mezquita.",
+          "note": "Investigá Horticultura cuando alcance. La fuente añade una indicación ambigua de arqueros: consultala antes de ampliar producción.",
+          "villagers": {
+            "food": 12,
+            "wood": 8,
+            "gold": 10,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s15",
+          "pop": null,
+          "time": 600,
+          "action": "Añadí herrería y mejorá protección contra proyectiles; luego ataque a distancia.",
+          "note": "Continuá hacia los mamelucos del sultán.",
+          "villagers": {
+            "food": 15,
+            "wood": 8,
+            "gold": 10,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-kte",
+      "name": "Dos peregrinajes y presión Feudal",
+      "civ": "Caballeros Templarios",
+      "mode": "1v1",
+      "map": "Tierra",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/lZ5EiqDVzQmIQDLkrfSr",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-kte-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Poné 6 aldeanos en comida y construí una casa.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-kte-s1-t1",
+              "action": "Construí una casa.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-kte-s1-t2",
+              "action": "Mantené seis aldeanos en comida.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-kte-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Reuní 2 aldeanos en oro.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s3",
+          "pop": null,
+          "time": 60,
+          "action": "Enviá los nuevos aldeanos a comida hasta preparar Feudal.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s4",
+          "pop": null,
+          "time": 140,
+          "action": "Iniciá Feudal eligiendo la alianza hospitalaria.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s5",
+          "pop": null,
+          "time": 140,
+          "action": "Repartí 3 aldeanos en comida y 10 en madera.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 3,
+              "wood": 10
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s6",
+          "pop": null,
+          "time": 200,
+          "action": "Investigá Paso seguro (Safe Passage).",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s7",
+          "pop": null,
+          "time": null,
+          "action": "Después de Paso seguro, creá 2 aldeanos.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s8",
+          "pop": null,
+          "time": null,
+          "action": "Después, investigá Santuario (Sanctuary) y empezá a producir ejército.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-kte-s8-t1",
+              "action": "Después de crear los dos aldeanos, investigá Santuario (Sanctuary).",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-kte-s8-t2",
+              "action": "Empezá a producir ejército.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-kte-s9",
+          "pop": null,
+          "time": null,
+          "action": "Construí cuartel y arquería; después, herrería.",
+          "note": "Agregá establo si lo necesitás. Asegurá ciervos y jabalí con torres. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-kte-s9-t1",
+              "action": "Construí cuartel y arquería.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-kte-s9-t2",
+              "action": "Después, construí herrería; agregá establo si hace falta y protegé ciervos y jabalí con torres.",
+              "note": "Agregá establo si lo necesitás. Asegurá ciervos y jabalí con torres. Reparto no especificado en la fuente.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-kte-s10",
+          "pop": null,
+          "time": null,
+          "action": "Prepará Castillos hacia 12–14 minutos; producí hermanos templarios y arqueros.",
+          "note": "Asigná 5 aldeanos a piedra para la Fortaleza. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-hol",
+      "name": "Dos centros urbanos hacia Torre Blanca",
+      "civ": "Casa de Lancaster",
+      "mode": "1v1",
+      "map": "Tierra",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "JampiX",
+        "source": "https://aoe4guides.com/builds/rXGNCeikXFWoOQtpWThQ",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-hol-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Poné 6 aldeanos en ovejas junto al centro urbano.",
+          "note": "El explorador busca más ovejas.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s2",
+          "pop": null,
+          "time": null,
+          "action": "Mandá los siguientes 3 al oro; construí campamento minero y después casa.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-hol-s2-t1",
+              "action": "El primer minero construye campamento junto al oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hol-s2-t2",
+              "action": "Después, construí una casa.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hol-s2-t3",
+              "action": "Completá tres mineros de oro.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-hol-s3",
+          "pop": null,
+          "time": null,
+          "action": "Con 3 en oro, enviá nuevos aldeanos a ovejas.",
+          "note": "Con 400 comida y 200 oro, prepará el Castillo de Lancaster cubriendo oro y madera.",
+          "villagers": {
+            "food": 11,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s4",
+          "pop": null,
+          "time": null,
+          "action": "Construí el Castillo de Lancaster con los 3 mineros.",
+          "note": "Pasá 4 de ovejas a piedra; dejá 3 en ovejas y construí campamento maderero con el resto.",
+          "villagers": {
+            "food": 3,
+            "wood": 4,
+            "gold": 0,
+            "stone": 4
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s5",
+          "pop": null,
+          "time": null,
+          "action": "Al terminar el monumento, usá sus constructores para una mansión sobre oro y ovejas.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 8,
+            "gold": 0,
+            "stone": 4
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s6",
+          "pop": null,
+          "time": null,
+          "action": "Con 8 leñadores, enviá los nuevos a árboles junto a la mansión.",
+          "note": "Acumulá 800 piedra.",
+          "villagers": {
+            "food": 3,
+            "wood": 14,
+            "gold": 0,
+            "stone": 4
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s7",
+          "pop": null,
+          "time": null,
+          "action": "Levantá el segundo centro urbano con 9 aldeanos.",
+          "note": "Asigná 8 al oro; nuevos aldeanos a ovejas.",
+          "villagers": {
+            "food": 3,
+            "wood": 4,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-hol-s7-t1",
+              "action": "Construí el segundo centro urbano con nueve aldeanos.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hol-s7-t2",
+              "action": "Asigná ocho recolectores al oro; dirigí los nuevos a ovejas.",
+              "note": "Asigná 8 al oro; nuevos aldeanos a ovejas.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-hol-s8",
+          "pop": null,
+          "time": null,
+          "action": "Mandá los constructores y los nuevos aldeanos de ambos centros a ovejas.",
+          "note": "Alternativa Feudal: más piedra para otra mansión y madera para producción militar.",
+          "villagers": {
+            "food": 14,
+            "wood": 4,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s9",
+          "pop": null,
+          "time": null,
+          "action": "Avanzá a Castillos con la Torre Blanca protegiendo madera.",
+          "note": "Contra un rival pasivo, podés usar Llamada a las armas y hostigar primero con 5 semilanceros.",
+          "villagers": {
+            "food": 14,
+            "wood": 6,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s10",
+          "pop": null,
+          "time": null,
+          "action": "En Castillos, agregá establo y cuartel.",
+          "note": "Referencia aproximada de la fuente: 8:30 con dos centros urbanos y una mansión.",
+          "villagers": {
+            "food": 16,
+            "wood": 6,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-goh",
+      "name": "Keshiks y torguuds en Feudal",
+      "civ": "Horda de Oro",
+      "mode": "1v1",
+      "map": "Tierra",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/InVCf1SztRCvgzi1gEFf",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-goh-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Abrí con 4 en ovejas; el quinto construye ovoo, Tienda Dorada y ger junto al oro.",
+          "note": "Después, ese constructor recoge oro.",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 1,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-goh-s1-t1",
+              "action": "El quinto aldeano construye el ovoo; cuatro recogen ovejas.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-goh-s1-t2",
+              "action": "Construí la Tienda Dorada.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-goh-s1-t3",
+              "action": "Construí el ger junto al oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-goh-s1-t4",
+              "action": "Mandá el constructor al oro.",
+              "note": "Después, ese constructor recoge oro.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-goh-s2",
+          "pop": null,
+          "time": 37,
+          "action": "Aumentá a 7 aldeanos en comida.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 7
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s3",
+          "pop": null,
+          "time": 76,
+          "action": "Completá 2 aldeanos en oro.",
+          "note": "Incluí al constructor del ger.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s4",
+          "pop": null,
+          "time": 112,
+          "action": "Enviá los nuevos aldeanos a ovejas hasta iniciar Feudal.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s5",
+          "pop": null,
+          "time": 171,
+          "action": "Iniciá Feudal con la opción del kan en la Tienda Dorada.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s6",
+          "pop": null,
+          "time": 180,
+          "action": "Repartí 5 en comida, 8 en madera y 2 en oro.",
+          "note": "Mandá los siguientes a comida.",
+          "villagers": {
+            "food": 5,
+            "wood": 8,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 5,
+              "wood": 8,
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s7",
+          "pop": null,
+          "time": 265,
+          "action": "Adelantá un leñador hacia otra piedra para el segundo ovoo.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 8,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s8",
+          "pop": null,
+          "time": 277,
+          "action": "Al llegar a Feudal, construí ovoo y establo; poné en cola kan y torguuds.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 7,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-goh-s8-t1",
+              "action": "Al llegar a Feudal, construí el segundo ovoo y el establo.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-goh-s8-t2",
+              "action": "Poné en cola el kan y los torguuds.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-goh-s9",
+          "pop": null,
+          "time": 316,
+          "action": "Producí keshiks.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 8,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s10",
+          "pop": null,
+          "time": null,
+          "action": "Hostigá con 2 keshiks, 2 torguuds y el kan.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s11",
+          "pop": null,
+          "time": 335,
+          "action": "Llevá 5 aldeanos a ciervos y protegé la zona con un puesto fortificado.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s12",
+          "pop": null,
+          "time": null,
+          "action": "Respondé al ejército rival: sostené Feudal o presioná sus recursos antes de subir.",
+          "note": "Para Castillos, la guía elige la opción Lumber Shields de la Tienda Dorada. Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-mac",
+      "name": "Hipódromo y presión hacia Castillos",
+      "civ": "Dinastía Macedónica",
+      "mode": "1v1",
+      "map": "Tierra",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/HuzXbYxxy3LMgjhXA9n0",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-mac-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Dejá 6 en ovejas; explorá alrededor de la base buscando ciervos.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mac-s1-t1",
+              "action": "Asigná los seis aldeanos a ovejas.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-mac-s1-t2",
+              "action": "Explorá alrededor de la base hasta localizar ciervos.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mac-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Sumá aldeanos al oro hasta llegar a 3.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 3
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s3",
+          "pop": null,
+          "time": null,
+          "action": "Cuando encuentres ciervos, trasladá allí 5 aldeanos de ovejas.",
+          "note": "La fuente sitúa esta búsqueda alrededor de 0:30.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 1,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s4",
+          "pop": null,
+          "time": null,
+          "action": "Investigá Técnicas de supervivencia.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s5",
+          "pop": null,
+          "time": 80,
+          "action": "Volvé a enviar los nuevos aldeanos a ovejas hasta preparar Feudal.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s6",
+          "pop": null,
+          "time": 165,
+          "action": "Construí el Hipódromo Imperial con 4 aldeanos.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 1,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s7",
+          "pop": null,
+          "time": 170,
+          "action": "Aumentá el grupo de madera a 8 aldeanos.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s8",
+          "pop": null,
+          "time": 260,
+          "action": "Al terminar Feudal, devolvé los constructores a ovejas; poné en cola Carretilla y jinetes.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 7,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mac-s8-t1",
+              "action": "Al terminar Feudal, devolvé los constructores a ovejas.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mac-s8-t2",
+              "action": "Investigá Carretilla.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mac-s8-t3",
+              "action": "Empezá a producir jinetes.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mac-s9",
+          "pop": null,
+          "time": 310,
+          "action": "Investigá Hacha de doble filo y construí el bastión varego con recolectores de ciervos.",
+          "note": "Protegé la zona con una torre.",
+          "villagers": {
+            "food": 10,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mac-s9-t1",
+              "action": "Investigá Hacha de doble filo.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mac-s9-t2",
+              "action": "Los recolectores de ciervos construyen el bastión varego.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mac-s9-t3",
+              "action": "Protegé la zona con una torre.",
+              "note": "Protegé la zona con una torre.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mac-s10",
+          "pop": null,
+          "time": null,
+          "action": "Producí lo necesario para hostigar y asegurar jabalí y otro grupo de ciervos.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s11",
+          "pop": null,
+          "time": 360,
+          "action": "Construí arsenal varego sobre oro.",
+          "note": "Priorizá armadura de caballería y ataque de arqueros si los usás.",
+          "villagers": {
+            "food": 13,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s12",
+          "pop": null,
+          "time": null,
+          "action": "Hacia el minuto 9–10, pasá leñadores al oro para preparar Castillos.",
+          "note": "Reparto no especificado en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-sen",
+      "civ": "Daimio Sengoku",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Tres yatai y daimio temprano",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/1RhBij4kaJESj1anpCIC",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-sen-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Seis aldeanos a madera; construí un Matsuri como depósito.",
+          "note": "",
+          "villagers": {
+            "food": 0,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sen-s1-t1",
+              "action": "Construí el Matsuri como depósito de madera.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sen-s1-t2",
+              "action": "Asigná seis aldeanos a madera.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "wood": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sen-s2",
+          "pop": null,
+          "time": 20,
+          "action": "El siguiente construye una granja en bayas; investigá Tawara inmediatamente.",
+          "note": "",
+          "villagers": {
+            "food": 1,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sen-s2-t1",
+              "action": "El siguiente aldeano construye una granja en bayas.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sen-s2-t2",
+              "action": "Investigá Tawara inmediatamente.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sen-s3",
+          "pop": null,
+          "time": 40,
+          "action": "Enviá otros tres aldeanos a las bayas.",
+          "note": "La fila muestra el reparto inicial de esta secuencia; confirmá manualmente.",
+          "villagers": {
+            "food": 2,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s4",
+          "pop": null,
+          "time": 68,
+          "action": "Producí el primer yatai y mandalo al jabalí.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s5",
+          "pop": null,
+          "time": 100,
+          "action": "Dirigí los nuevos aldeanos a ovejas.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s6",
+          "pop": null,
+          "time": 114,
+          "action": "Enviá el segundo yatai a ciervos.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s7",
+          "pop": null,
+          "time": 142,
+          "action": "Dejá el tercer yatai en la base, entre ovejas y bayas.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s8",
+          "pop": null,
+          "time": 170,
+          "action": "Con 100 de madera acumulados, trasladá los seis leñadores a oro.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s9",
+          "pop": null,
+          "time": 200,
+          "action": "Mandá los nuevos a madera.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 1,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s10",
+          "pop": null,
+          "time": 230,
+          "action": "Cinco de ovejas construyen el Municipio de Koka.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 2,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s11",
+          "pop": null,
+          "time": 260,
+          "action": "Seguí enviando los nuevos a madera.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 3,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s12",
+          "pop": null,
+          "time": 312,
+          "action": "Comprá 100 de madera dos veces con el oro sobrante.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 6,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s13",
+          "pop": null,
+          "time": 320,
+          "action": "Construí dos establos; elegí Takeda Daimyo e investigá Horse Training.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 7,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sen-s13-t1",
+              "action": "Construí dos establos.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sen-s13-t2",
+              "action": "Elegí Takeda Daimyo.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sen-s13-t3",
+              "action": "Investigá Horse Training.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sen-s14",
+          "pop": null,
+          "time": null,
+          "action": "Producí daimios; agregá yumi ashigaru si hace falta y hostigá.",
+          "note": "Transición propuesta: Castillos y lanceros. Reparto no especificado.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-tug",
+      "civ": "Dinastía Tughlaq",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Fuerte y segundo centro urbano",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/xpvxxr73hj7CwnbqB5AK",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-tug-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Cuatro a bayas con el elefante trabajador y dos a ovejas.",
+          "note": "Producí otro elefante, recogé ovejas cercanas y envialo a oro.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-tug-s1-t1",
+              "action": "Asigná cuatro a bayas con el elefante y dos a ovejas.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-tug-s1-t2",
+              "action": "Producí un segundo elefante trabajador.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-tug-s1-t3",
+              "action": "Recogé ovejas cercanas con ese elefante y después envialo a oro.",
+              "note": "Producí otro elefante, recogé ovejas cercanas y envialo a oro.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-tug-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Mandá dos aldeanos nuevos a oro.",
+          "note": "Objetivo textual: dos mineros; la fila es previa.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s3",
+          "pop": null,
+          "time": 60,
+          "action": "Volvé a dirigir los nuevos a ovejas hasta preparar Feudal.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s4",
+          "pop": null,
+          "time": 125,
+          "action": "Dos aldeanos de ovejas construyen la Cúpula de la Fe.",
+          "note": "",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s5",
+          "pop": null,
+          "time": 125,
+          "action": "Trasladá los mineros y su elefante desde oro hacia piedra.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 0,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s6",
+          "pop": null,
+          "time": 130,
+          "action": "Pasá cuatro aldeanos de ovejas a los árboles cercanos.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 4,
+            "gold": 0,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s7",
+          "pop": null,
+          "time": null,
+          "action": "Dirigí nuevos a piedra para financiar el fuerte y el segundo centro urbano.",
+          "note": "La fuente no fija un objetivo final de aldeanos; reparto no especificado.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s8",
+          "pop": null,
+          "time": 272,
+          "action": "Los dos constructores del monumento levantan el fuerte Tughlaq.",
+          "note": "Ubicalo entre ambos centros, dejando ocho casillas de separación según la guía.",
+          "villagers": {
+            "food": 4,
+            "wood": 4,
+            "gold": 0,
+            "stone": 9
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s9",
+          "pop": null,
+          "time": 315,
+          "action": "Cuando queden 470 de la veta inicial de 1200, retiralos hacia oro y construí el segundo centro urbano.",
+          "note": "Umbral de la fuente: confirmá recursos y construcción manualmente.",
+          "villagers": {
+            "food": 4,
+            "wood": 4,
+            "gold": 0,
+            "stone": 11
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-tug-s9-t1",
+              "action": "Esperá a que queden 470 de la veta inicial de 1200; confirmá el umbral manualmente.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-tug-s9-t2",
+              "action": "Retirá los mineros hacia oro y construí el segundo centro urbano.",
+              "note": "Umbral de la fuente: confirmá recursos y construcción manualmente.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-tug-s10",
+          "pop": null,
+          "time": null,
+          "action": "Explorá al rival: prepará ejército o Castillos si también invierte en economía.",
+          "note": "Reparto no especificado.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-jin",
+      "name": "Castillos rápido con Pabellón del Dragón",
+      "civ": "Dinastía Jin",
+      "mode": "1v1",
+      "map": "Tierra",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Jupiter01",
+        "source": "https://aoe4guides.com/builds/4QvVeQaYlhiJks8oGPUF",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-jin-s1",
+          "pop": null,
+          "time": null,
+          "action": "Enviá un aldeano montado a renos; los otros 2 construyen campamento minero en oro.",
+          "note": "",
+          "villagers": {
+            "food": 1,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jin-s1-t1",
+              "action": "Dos aldeanos montados construyen campamento minero en oro; el otro recoge renos.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jin-s1-t2",
+              "action": "Completá dos recolectores de oro.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jin-s2",
+          "pop": null,
+          "time": null,
+          "action": "Continuá creando aldeanos montados y mandándolos a renos.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s3",
+          "pop": null,
+          "time": 160,
+          "action": "El séptimo aldeano construye Gran Pastizal.",
+          "note": "El leñador permanece hasta terminar un árbol.",
+          "villagers": {
+            "food": 3,
+            "wood": 1,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s4",
+          "pop": null,
+          "time": 180,
+          "action": "Enviá el octavo aldeano montado al oro.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 1,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s5",
+          "pop": null,
+          "time": 180,
+          "action": "El noveno aldeano construye una casa y luego recoge comida.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 1,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jin-s5-t1",
+              "action": "El noveno aldeano construye una casa.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jin-s5-t2",
+              "action": "Después, mandalo a comida; la fuente no fija un total final fiable.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jin-s6",
+          "pop": null,
+          "time": null,
+          "action": "Al terminar el monumento, su constructor crea una pradera.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 1,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s7",
+          "pop": null,
+          "time": null,
+          "action": "Pasá el leñador a comida y construí una torre en el oro.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s8",
+          "pop": null,
+          "time": null,
+          "action": "Prepará un reparto de 9 aldeanos en comida y 4 en oro.",
+          "note": "La fuente mantiene además un constructor.",
+          "villagers": {
+            "food": 9,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 9,
+              "gold": 4
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s9",
+          "pop": null,
+          "time": 380,
+          "action": "Iniciá Castillos con 5 aldeanos montados en el Pabellón del Dragón.",
+          "note": "Ubicalo cerca del centro urbano, en una posición central.",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s10",
+          "pop": null,
+          "time": null,
+          "action": "Construí monasterio y empezá a producir Pagodas de Hierro.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 4,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jin-s10-t1",
+              "action": "Construí un monasterio.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jin-s10-t2",
+              "action": "Empezá a producir Pagodas de Hierro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-vik",
+      "civ": "Vikingos",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Presión feudal con hirdmen",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/WiWD5PRXgC5LVHet9Hth",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-vik-s1",
+          "pop": null,
+          "time": null,
+          "action": "Seis a ovejas y construí una casa larga.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-vik-s1-t1",
+              "action": "Construí una casa larga.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-vik-s1-t2",
+              "action": "Asigná los seis aldeanos iniciales a ovejas.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-vik-s2",
+          "pop": null,
+          "time": 22,
+          "action": "Los siguientes tres aldeanos construyen campamento minero y recogen oro.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-vik-s2-t1",
+              "action": "Construí campamento minero junto al oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-vik-s2-t2",
+              "action": "Completá tres mineros de oro con los nuevos aldeanos.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-vik-s3",
+          "pop": null,
+          "time": 88,
+          "action": "Mandá los siguientes cinco a madera.",
+          "note": "Objetivo textual; el reparto de la fila es previo.",
+          "villagers": {
+            "food": 6,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 5
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s4",
+          "pop": null,
+          "time": 115,
+          "action": "Cuatro de ovejas construyen Baugr Fort para subir a Feudal.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 4,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s5",
+          "pop": null,
+          "time": 157,
+          "action": "Construí campamento maderero y aumentá ovejas hasta doce.",
+          "note": "",
+          "villagers": {
+            "food": 1,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s6",
+          "pop": null,
+          "time": 213,
+          "action": "Al llegar a Feudal, investigá Pasture and Loom y construí Sacred Grove en la reliquia más cercana.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-vik-s6-t1",
+              "action": "Al llegar a Feudal, investigá Pasture and Loom.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-vik-s6-t2",
+              "action": "Construí Sacred Grove sobre la reliquia más cercana.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-vik-s7",
+          "pop": null,
+          "time": 243,
+          "action": "Añadí una segunda casa larga y mantené la producción de hirdmen.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s8",
+          "pop": null,
+          "time": 290,
+          "action": "Mandá cinco aldeanos a ciervos; construí puesto avanzado y molino.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s9",
+          "pop": null,
+          "time": 360,
+          "action": "Con doce en comida, aumentá los mineros de oro hasta ocho.",
+          "note": "Objetivo textual; el reparto de la fila es previo.",
+          "villagers": {
+            "food": 12,
+            "wood": 5,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 12,
+              "gold": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s10",
+          "pop": null,
+          "time": 370,
+          "action": "Construí cuartel.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 4,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s11",
+          "pop": null,
+          "time": 420,
+          "action": "Añadí otros dos Sacred Groves, hasta tres en total.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 5,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s12",
+          "pop": null,
+          "time": 430,
+          "action": "Aumentá madera hasta ocho aldeanos.",
+          "note": "Objetivo textual; el reparto de la fila es previo.",
+          "villagers": {
+            "food": 12,
+            "wood": 8,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 8
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-sco",
+      "civ": "Escoceses",
+      "mode": "1v1",
+      "map": "Tierra",
+      "name": "Ganado y presión feudal",
+      "provenance": {
+        "packId": "starter-2026-11",
+        "author": "Shaada",
+        "source": "https://aoe4guides.com/builds/votoiVwKyd52EJHcCAdv",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-sco-s1",
+          "pop": null,
+          "time": null,
+          "action": "Construí una casa torre junto a bayas u oro; su constructor pasa a oro.",
+          "note": "La fuente muestra cuatro en comida y dos en madera como referencia inicial.",
+          "villagers": {
+            "food": 4,
+            "wood": 2,
+            "gold": 1,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sco-s1-t1",
+              "action": "Construí una casa torre junto a bayas u oro.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s1-t2",
+              "action": "Mandá su constructor al oro.",
+              "note": "La fuente muestra cuatro en comida y dos en madera como referencia inicial.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sco-s2",
+          "pop": null,
+          "time": null,
+          "action": "Producí hasta seis vacas; al reunir 50 de madera, pasá los dos leñadores a oro.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sco-s2-t1",
+              "action": "Producí hasta seis vacas.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s2-t2",
+              "action": "Esperá a reunir 50 de madera; confirmá los recursos manualmente.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s2-t3",
+              "action": "Trasladá los dos leñadores a oro: tres mineros en total.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sco-s3",
+          "pop": null,
+          "time": null,
+          "action": "Cinco aldeanos construyen Abbey of the Isles; dejá dos en comida.",
+          "note": "Nuevos a madera hasta ocho; con los primeros 150, construí cuartel. Continuá el ganado.",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sco-s4",
+          "pop": null,
+          "time": null,
+          "action": "En Feudal, llevá la reliquia del santo al cuartel y producí caterans.",
+          "note": "Contra caballeros, piqueros. Investigá Hacha doble y añadí arquería.",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sco-s4-t1",
+              "action": "Al llegar a Feudal, llevá la reliquia del santo al cuartel.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s4-t2",
+              "action": "Producí caterans; contra caballeros, elegí piqueros.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s4-t3",
+              "action": "Investigá Hacha doble y añadí arquería.",
+              "note": "Contra caballeros, piqueros. Investigá Hacha doble y añadí arquería.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sco-s5",
+          "pop": null,
+          "time": null,
+          "action": "Con el ganado produciendo, enviá ocho aldeanos a ciervos.",
+          "note": "Casa torre si hace falta. Priorizá Highland Archers y trasladá la reliquia a su arquería.",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sco-s5-t1",
+              "action": "Con el ganado produciendo, enviá ocho aldeanos a ciervos; casa torre si hace falta.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s5-t2",
+              "action": "Priorizá Highland Archers y trasladá la reliquia a su arquería.",
+              "note": "Casa torre si hace falta. Priorizá Highland Archers y trasladá la reliquia a su arquería.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sco-s6",
+          "pop": null,
+          "time": null,
+          "action": "Con los ciervos funcionando, dirigí los nuevos a madera y añadí herrería.",
+          "note": "Mejorá ataque y armadura a distancia; producí tropas y atacá. Reparto incompleto en la fuente.",
+          "villagers": {
+            "food": 0,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sco-s6-t1",
+              "action": "Con los ciervos funcionando, dirigí los nuevos a madera y construí herrería.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s6-t2",
+              "action": "Mejorá ataque y armadura a distancia; mantené la producción y atacá.",
+              "note": "Mejorá ataque y armadura a distancia; producí tropas y atacá. Reparto incompleto en la fuente.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

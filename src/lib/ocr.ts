@@ -1,4 +1,4 @@
-import { RESOURCES, type Build, type Villagers } from './types';
+import { RESOURCES, type Villagers } from './types';
 
 /** All four rows must be present: an unreadable gray zero is not an implicit zero. */
 export function parseWorkerRows(rows: string[]): Villagers | null {
@@ -18,14 +18,6 @@ export function parseVillagerReading(rows: string[]): { workers: Villagers; idle
   if (!workers) return null;
   const idle = Number(rows[4].trim()), total = villagerTotal(workers) + idle;
   return total <= 200 ? { workers, idle, total } : null;
-}
-
-export function nextWorkerTarget(build: Build, index: number): number | null {
-  const current = build.steps[index], next = build.steps[index + 1];
-  if (!current || !next) return null;
-  const target = villagerTotal(next.villagers);
-  // Redistribution, building actions and unknown allocations need manual control.
-  return Number.isInteger(target) && target > villagerTotal(current.villagers) && target <= 200 ? target : null;
 }
 
 export class VillagerTotalGate {

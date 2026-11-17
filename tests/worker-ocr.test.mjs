@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseWorkerRows, parseVillagerReading, villagerTotal, nextWorkerTarget, VillagerTotalGate } from '../src/lib/ocr.ts';
+import { parseWorkerRows, parseVillagerReading, villagerTotal, VillagerTotalGate } from '../src/lib/ocr.ts';
 import { defaultData, normalize } from '../src/lib/defaults.ts';
 
 test('reads all four worker counts including explicit gray zeroes, not population or resources', () => {
@@ -20,20 +20,6 @@ test('adds inactive villagers from their separate counter and rejects missing re
   for (const rows of [['2','8','3','0'], ['2','8','3','0',''], ['2','8','3','0','30/30'], ['100','50','40','0','11']]) {
     assert.equal(parseVillagerReading(rows), null);
   }
-});
-
-test('automatic target uses the next step worker sum, independent of distribution and military population', () => {
-  const b = defaultData().builds[0];
-  b.steps[0].villagers = { food: 6, wood: 0, gold: 0, stone: 0 };
-  b.steps[1].villagers = { food: 6, wood: 0, gold: 3, stone: 0 };
-  b.steps[1].pop = 30;
-  assert.equal(nextWorkerTarget(b, 0), 9);
-  assert.equal(parseVillagerReading(['2','2','0','0','5']).total, nextWorkerTarget(b, 0));
-  assert.equal(villagerTotal(parseWorkerRows(['4','5','0','0'])), nextWorkerTarget(b, 0));
-  b.steps[1].villagers = { food: 2, wood: 4, gold: 0, stone: 0 };
-  assert.equal(nextWorkerTarget(b, 0), null, 'equal totals need manual advancement');
-  b.steps[1].villagers.food = 0;
-  assert.equal(nextWorkerTarget(b, 0), null, 'lower totals must not cascade through steps');
 });
 
 test('three stable worker totals required and invalid/missing readings reset confirmation', () => {

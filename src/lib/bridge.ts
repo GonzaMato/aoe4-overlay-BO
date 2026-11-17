@@ -19,6 +19,7 @@ import { eventToHotkey } from './hotkeys';
 import type { AppData, Corner, Settings } from './types';
 import { uid } from './util';
 import type { Rectangle } from './region';
+import type { GameGeometry, GameInspection, SetupProfile } from './setup';
 
 export const isTauri = typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window;
 
@@ -119,6 +120,15 @@ export async function makeClickThrough(): Promise<void> {
 }
 
 export const gameActive = () => isTauri ? invoke<boolean>('is_game_active') : Promise.resolve(true);
+export const nativeDiagnostic = () => isTauri ? invoke<import('./diagnostics').NativeDiagnostic>('ocr_diagnostic') : Promise.resolve(null);
+export const openReleases = () => isTauri ? invoke<void>('open_releases') : Promise.resolve(window.open('https://github.com/GonzaMato/aoe4-overlay-BO/releases','_blank','noopener,noreferrer'));
+export const gameGeometry = () => isTauri ? invoke<GameGeometry | null>('game_geometry') : Promise.resolve(null);
+export const inspectGame = (expected:GameGeometry, hint:SetupProfile|null, exclude:Rectangle|null) => invoke<GameInspection>('inspect_game',{expected,hint,exclude});
+export async function overlayBounds():Promise<Rectangle|null> {
+ if(!isTauri)return null;
+ const win=getCurrentWindow(),p=await win.outerPosition(),s=await win.outerSize();
+ return {x:p.x,y:p.y,width:s.width,height:s.height};
+}
 export function onGameFocus(handler: (active: boolean) => void): () => void {
 	if (!isTauri) return () => {};
 	const stop = listen<boolean>('game-focus', e => handler(e.payload)); return () => void stop.then(fn => fn());
@@ -170,28 +180,31 @@ export async function placeOverlay(
 	corner: Corner,
 	offsetX: number,
 	offsetY: number,
-	position: Settings['position'] = null
+	position: Settings['position'] = null,
+	game: GameGeometry | null = null
 ): Promise<void> {
 	if (!isTauri) return;
 	const monitors = await availableMonitors();
-	const monitor = (position && monitors.find(m => position.x >= m.position.x && position.x < m.position.x + m.size.width && position.y >= m.position.y && position.y < m.position.y + m.size.height)) || (await currentMonitor()) || (await primaryMonitor());
+	const anchor=game??position;
+	const monitor = (anchor && monitors.find(m => anchor.x >= m.position.x && anchor.x < m.position.x + m.size.width && anchor.y >= m.position.y && anchor.y < m.position.y + m.size.height)) || (await currentMonitor()) || (await primaryMonitor());
 	if (!monitor) return;
 	const factor = monitor.scaleFactor;
 	const width = Math.ceil(cssWidth * factor);
 	const height = Math.ceil(cssHeight * factor);
 	const dx = Math.round((Number(offsetX) || 0) * factor);
 	const dy = Math.round((Number(offsetY) || 0) * factor);
+	const area=game??{...monitor.position,...monitor.size};
 	const x = corner.endsWith('left')
-		? monitor.position.x + dx
-		: monitor.position.x + monitor.size.width - width - dx;
+		? area.x + dx
+		: area.x + area.width - width - dx;
 	const y = corner.startsWith('top')
-		? monitor.position.y + dy
-		: monitor.position.y + monitor.size.height - height - dy;
+		? area.y + dy
+		: area.y + area.height - height - dy;
 	const win = getCurrentWindow();
 	await win.setSize(new PhysicalSize(width, height));
 	await win.setPosition(new PhysicalPosition(
-		Math.max(monitor.position.x, Math.min(position?.x ?? x, monitor.position.x + monitor.size.width - width)),
-		Math.max(monitor.position.y, Math.min(position?.y ?? y, monitor.position.y + monitor.size.height - height))
+		Math.max(area.x, Math.min(position?.x ?? x, area.x + area.width - width)),
+		Math.max(area.y, Math.min(position?.y ?? y, area.y + area.height - height))
 	));
 }
 

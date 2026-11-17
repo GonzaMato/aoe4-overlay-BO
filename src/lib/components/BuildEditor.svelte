@@ -1,5 +1,7 @@
 <script lang="ts">
 	import ResIcon from './ResIcon.svelte';
+	import StepAdvanceEditor from './StepAdvanceEditor.svelte';
+	import SubtaskEditor from './SubtaskEditor.svelte';
 	import { newStep } from '$lib/defaults';
 	import { RESOURCES, RES_LABEL, type Build, type Settings } from '$lib/types';
 	import { formatTime, parseTime } from '$lib/util';
@@ -61,6 +63,9 @@
 </script>
 
 <div class="editor">
+	{#if build.provenance}
+		<div class="provenance"><strong>Autor: {build.provenance.author}</strong><span>Revisión de instrucciones: {build.provenance.reviewedAt} · No implica validación del parche actual.</span><span>Fuente: {build.provenance.source}</span></div>
+	{/if}
 	<div class="meta">
 		<label class="field wide">
 			<span class="label">Nombre</span>
@@ -179,6 +184,8 @@
 						<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6" /></svg>
 					</button>
 				</span>
+				{#if !step.subtasks?.length}<StepAdvanceEditor bind:step={build.steps[i]} previous={build.steps[i-1]} index={i} />{/if}
+				<SubtaskEditor bind:step={build.steps[i]} previous={build.steps[i-1]} index={i} />
 			</div>
 		{/each}
 	</div>
@@ -193,6 +200,8 @@
 </div>
 
 <style>
+	.provenance { display:flex;flex-direction:column;gap:4px;padding:12px 16px;border-left:3px solid var(--accent);background:var(--card);color:var(--dim);font-size:12px;overflow-wrap:anywhere; }
+	.provenance strong { color:var(--soft); }
 	.editor {
 		display: flex;
 		flex-direction: column;

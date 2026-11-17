@@ -8,7 +8,13 @@ pub fn recognize_rows(
     let mut rows = recognize_config(pixels, width, height, count, 70, 3, 2)?;
     // Thin digits (especially 1 and 2) need different spacing/contrast from
     // round digits. Retry only missing rows, preserving their resource index.
-    for (threshold, scale, spacing) in [(60, 2, 2), (60, 4, 10)] {
+    for (threshold, scale, spacing) in [
+        (60, 2, 2),
+        (60, 4, 10),
+        (70, 5, 2),
+        (70, 1, 10),
+        (70, 1, 20),
+    ] {
         if rows.iter().all(|row| !row.is_empty()) {
             break;
         }
@@ -66,11 +72,14 @@ fn recognize_config(
         let padding = 12;
         let is_ink = |x: i32, y: i32| {
             let source = ((y * width + x) * 4) as usize;
-            (u32::from(pixels[source]) * 11
-                + u32::from(pixels[source + 1]) * 59
-                + u32::from(pixels[source + 2]) * 30)
-                / 100
-                >= threshold
+            let color = &pixels[source..source + 3];
+            // Digits are white/gray; the blue idle button is not ink.
+            color.iter().max().unwrap() - color.iter().min().unwrap() < 55
+                && (u32::from(pixels[source]) * 11
+                    + u32::from(pixels[source + 1]) * 59
+                    + u32::from(pixels[source + 2]) * 30)
+                    / 100
+                    >= threshold
         };
         let mut left = width;
         let mut right = -1;

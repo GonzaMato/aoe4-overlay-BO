@@ -4,6 +4,8 @@
 	import { isTauri, monitorOptions, on, openRegionSelector, send } from '$lib/bridge';
 	import HotkeyInput from './HotkeyInput.svelte';
 	import ListEditor from './ListEditor.svelte';
+	import SetupView from './SetupView.svelte';
+	import type { SetupStatus } from '$lib/setup';
 	import { HOTKEY_ACTIONS, HOTKEY_LABEL, type Build, type Corner, type Settings } from '$lib/types';
 
 	interface Props {
@@ -12,16 +14,20 @@
 		failedHotkeys: string[];
 		backup: Snippet;
 		activeBuild: Build | null;
+		setupStatus: SetupStatus | null;
+		builds: Build[];
+		onUse: (id:string)=>void;
 	}
-	let { settings = $bindable(), failedHotkeys, backup, activeBuild }: Props = $props();
+	let { settings = $bindable(), failedHotkeys, backup, activeBuild, setupStatus, builds, onUse }: Props = $props();
 	const sections = [
+		{ id: 'setup', title: 'Setup automático', detail: 'Preparar la partida' },
 		{ id: 'overlay', title: 'Overlay', detail: 'Posición y apariencia' },
 		{ id: 'keys', title: 'Atajos', detail: 'Teclado y práctica' },
 		{ id: 'ocr', title: 'Avance automático', detail: 'Aldeanos por recurso' },
 		{ id: 'lists', title: 'Listas', detail: 'Opciones de tus builds' },
 		{ id: 'backup', title: 'Respaldo', detail: 'Exportar e importar' }
 	];
-	let section = $state('overlay');
+	let section = $state('setup');
 	const currentSection = $derived(sections.find(s => s.id === section)!);
 	const shortcutGroups = [
 		{ title: 'Pasos y builds', actions: ['next', 'prev', 'cycleBuild'] },
@@ -74,7 +80,9 @@
 	</aside>
 	<div class="settings-content">
 		<header class="page-heading"><div><span class="label">Configuración</span><h2>{currentSection.title}</h2><p>{currentSection.detail}</p></div><span class="state-badge">{section === 'ocr' ? (settings.ocr.enabled ? 'OCR activado' : 'OCR desactivado') : 'AoE4 Overlay'}</span></header>
-	{#if section === 'keys'}
+	{#if section === 'setup'}
+	<SetupView bind:settings status={setupStatus} {builds} {onUse}/>
+	{:else if section === 'keys'}
 	<section>
 		<h3>Atajos dentro del juego</h3>
 		<p class="help">
@@ -187,7 +195,7 @@
 	{:else if section === 'ocr'}
 	<section>
 		<div class="section-title"><h3>Avanzar por total de aldeanos</h3><span class="state-badge experimental">Experimental</span></div>
-		<label class="toggle-row"><span><strong>Leer aldeanos e inactivos</strong><small>Suma comida + madera + oro + piedra + inactivos y compara con el total de aldeanos del siguiente paso. El reparto puede ser distinto.</small></span><input type="checkbox" role="switch" disabled={!isTauri || settings.ocr.source !== 'workers' || !settings.ocr.idleRegion} bind:checked={settings.ocr.enabled} /></label>
+		<label class="toggle-row"><span><strong>Leer aldeanos e inactivos</strong><small>Comprueba la condición del paso actual: total, mínimos por recurso o traslado. Revisá «Avance del paso» en el editor.</small></span><input type="checkbox" role="switch" disabled={!isTauri || settings.ocr.source !== 'workers' || !settings.ocr.idleRegion} bind:checked={settings.ocr.enabled} /></label>
 		{#if settings.ocr.source !== 'workers' || !settings.ocr.idleRegion}<p class="help footnote">Primero seleccioná las dos regiones: los cuatro recursos y el número de inactivos. La región del contador de población ya no se utiliza.</p>{/if}
 	</section>
 	<section>
@@ -202,7 +210,7 @@
 		<p class="help">Marcá aparte el número junto al aldeano con “Z”, arriba de los recursos. Dejá espacio para tres cifras y excluí el ícono y la población.</p>
 		{#if selectionError}<p class="warn" role="alert">{selectionError}</p>{/if}
 		<div class="reading" role="status"><span class="label">Estado de lectura</span><p>{isTauri ? ocrStatus : 'OCR disponible en la app de Windows.'}</p></div>
-		<p class="help footnote">Necesita el reloj en marcha, AoE4 en primer plano y tres totales iguales (hasta 200). Incluye inactivos; no cuenta militares ni constructores que no aparezcan en estos contadores. Si un número no se lee, espera. Los pasos que mantienen o bajan el total se avanzan manualmente.</p>
+		<p class="help footnote">Necesita el reloj en marcha, AoE4 en primer plano y tres lecturas que confirmen la condición (hasta 200 aldeanos). Los inactivos cuentan para el total, pero no para cumplir un recurso. Un traslado exige ver bajar el origen y subir el destino. Construir o subir de edad se confirma con AvPág. Si falta una lectura, espera.</p>
 	</section>
 	{:else if section === 'lists'}
 	<section>

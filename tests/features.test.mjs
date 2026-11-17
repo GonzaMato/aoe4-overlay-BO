@@ -46,6 +46,7 @@ test('clock pause/resume and negative correction clamp correctly', () => {
 });
 test('practice preserves first arrival and snapshots targets', () => {
   const b=defaultData().builds[0]; const p=newPractice(b,1000);
+  b.steps[1].time=60;
   recordArrival(p,b,1,70); recordArrival(p,b,1,95); b.steps[1].time=999;
   assert.equal(p.arrivals[0].elapsed,70); assert.equal(p.arrivals[0].target,60);
 });

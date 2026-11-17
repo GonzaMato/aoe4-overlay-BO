@@ -1,6 +1,10 @@
+import starterPack from '../../static/builds/starter-pack.json' with { type: 'json' };
 import type { AppData, Build, Settings, Step, Villagers } from './types';
 import { HOTKEY_ACTIONS } from './types';
 import { uid } from './util';
+import { setupDefaults, normalizeSetup } from './setup';
+import { validAdvance, copyAdvance } from './advance';
+import { validSubtasks, copySubtasks } from './subtasks';
 
 const v = (food: number, wood: number, gold: number, stone: number): Villagers => ({
 	food,
@@ -19,6 +23,8 @@ const step = (
 
 export function defaultSettings(): Settings {
 	return {
+		setup: setupDefaults(),
+		onboarding: 'pending',
 		hotkeys: {
 			next: 'PageDown',
 			prev: 'PageUp',
@@ -59,7 +65,8 @@ export function defaultSettings(): Settings {
 			'Juana de Arco',
 			'Ayubíes',
 			'Caballeros Templarios',
-			'Casa de Lancaster'
+			'Casa de Lancaster', 'Horda de Oro', 'Dinastía Macedónica', 'Daimio Sengoku',
+			'Dinastía Tughlaq', 'Dinastía Jin', 'Vikingos', 'Escoceses'
 		],
 		defaults: {},
 		activeBuildId: null,
@@ -68,59 +75,8 @@ export function defaultSettings(): Settings {
 	};
 }
 
-/** Builds de ejemplo para que la app no arranque vacía. Los números son ilustrativos, no un build real. */
-function sampleBuilds(): Build[] {
-	const builds: Build[] = [
-		{
-			id: 'ejemplo-fast-castle',
-			name: 'Ejemplo · Fast Castle',
-			civ: 'Ingleses',
-			mode: '1v1',
-			map: '',
-			steps: [
-				step(7, null, '6 aldeanos a ovejas', 'El scout sale a buscar más ovejas.', v(6, 0, 0, 0)),
-				step(10, 60, '3 aldeanos a oro', 'Campamento minero pegado al oro.', v(6, 0, 3, 0)),
-				step(11, 80, '1 aldeano más a comida', '', v(7, 0, 3, 0)),
-				step(
-					14,
-					150,
-					'Casa + campamento maderero',
-					'Los próximos 3 aldeanos van a madera.',
-					v(7, 3, 3, 0)
-				),
-				step(
-					17,
-					210,
-					'Subir a Edad Feudal',
-					'2 aldeanos de comida construyen el landmark.',
-					v(8, 4, 4, 0)
-				),
-				step(20, 300, 'Segundo campamento maderero', '', v(8, 6, 5, 0))
-			]
-		},
-		{
-			id: 'ejemplo-rush-feudal',
-			name: 'Ejemplo · Rush feudal',
-			civ: 'Franceses',
-			mode: '1v1',
-			map: '',
-			steps: [
-				step(7, null, '6 aldeanos a ovejas', '', v(6, 0, 0, 0)),
-				step(9, 40, '2 aldeanos a oro', '', v(6, 0, 2, 0)),
-				step(12, 100, 'Casa + 3 aldeanos a madera', '', v(6, 3, 2, 0)),
-				step(14, 150, 'Subir a Edad Feudal', 'Establo apenas termina el landmark.', v(7, 3, 3, 0))
-			]
-		}
-	];
-	// Ids fijos: las dos ventanas generan los mismos datos iniciales en el primer arranque.
-	for (const build of builds) {
-		build.steps.forEach((s, i) => (s.id = `${build.id}-${i + 1}`));
-	}
-	return builds;
-}
-
 export function defaultData(): AppData {
-	const builds = sampleBuilds();
+	const builds = starterPack.builds.map(b => normalizeBuild(b as unknown as Build));
 	const settings = defaultSettings();
 	settings.activeBuildId = builds[0].id;
 	return { version: 1, builds, settings, practices: [] };
@@ -137,6 +93,8 @@ export function normalize(raw: unknown): AppData {
 		if (typeof settings.hotkeys[action] !== 'string') settings.hotkeys[action] = '';
 	}
 	settings.defaults = { ...(input.settings?.defaults ?? {}) };
+	settings.setup = normalizeSetup(input.settings?.setup);
+	settings.onboarding = ['pending','detecting','complete','skipped'].includes(input.settings?.onboarding ?? '') ? input.settings!.onboarding! : 'skipped';
 	settings.ocr = { ...base.ocr, ...(input.settings?.ocr ?? {}) };
 	if (!settings.ocr.idleRegion) settings.ocr.enabled = false;
 	if (input.settings?.ocr?.source !== 'workers') {
@@ -153,6 +111,7 @@ export function normalize(raw: unknown): AppData {
 
 export function normalizeBuild(raw: Partial<Build>): Build {
 	return {
+		...(raw.provenance && ['packId','author','source','reviewedAt'].every(k=>typeof raw.provenance?.[k as keyof NonNullable<Build['provenance']>]==='string') ? {provenance:{packId:raw.provenance.packId,author:raw.provenance.author,source:raw.provenance.source,reviewedAt:raw.provenance.reviewedAt}} : {}),
 		id: typeof raw.id === 'string' && raw.id ? raw.id : uid(),
 		name: String(raw.name ?? 'Sin nombre'),
 		civ: String(raw.civ ?? ''),
@@ -169,6 +128,8 @@ function num(value: unknown): number | null {
 function normalizeStep(raw: Partial<Step>): Step {
 	const vill = (raw.villagers ?? {}) as Partial<Villagers>;
 	return {
+		...(raw.advance===undefined?{}:{advance:validAdvance(raw.advance)?copyAdvance(raw.advance):{kind:'manual' as const}}),
+		...(raw.subtasks===undefined?{}:validSubtasks(raw.subtasks)?{subtasks:copySubtasks(raw.subtasks)}:{advance:{kind:'manual' as const}}),
 		id: typeof raw.id === 'string' && raw.id ? raw.id : uid(),
 		pop: num(raw.pop),
 		time: num(raw.time),
@@ -205,6 +166,6 @@ export function cloneBuild(source: Build): Build {
 		...source,
 		id: uid(),
 		name: `${source.name} (copia)`,
-		steps: source.steps.map((s) => ({ ...s, id: uid(), villagers: { ...s.villagers } }))
+		steps: source.steps.map((s) => ({ ...s, id: uid(), villagers: { ...s.villagers }, ...(s.advance?{advance:copyAdvance(s.advance)}:{}), ...(s.subtasks?{subtasks:copySubtasks(s.subtasks,true)}:{}) }))
 	};
 }

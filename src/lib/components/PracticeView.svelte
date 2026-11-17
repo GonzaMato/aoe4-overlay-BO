@@ -2,7 +2,7 @@
  import type { Practice, HotkeyAction } from '$lib/types';
  import { formatTime } from '$lib/util';
  import { send } from '$lib/bridge';
- export interface PracticeStatus { elapsed: number | null; running: boolean; step: number; buildName: string; recording: boolean; editing: boolean; }
+ export interface PracticeStatus { elapsed: number | null; running: boolean; step: number; buildName: string; recording: boolean; editing: boolean; automatic?:boolean; manualClock?:boolean; }
  let { practices, status, selectedId = null }: { practices: Practice[]; status: PracticeStatus | null; selectedId?: string | null } = $props();
  let chosen = $state<string | null>(null);
  const selected = $derived(practices.find(p => p.id === (chosen ?? selectedId)) ?? practices.at(-1));
@@ -18,7 +18,9 @@
   <button onclick={() => action('clockMinus')}>−5 s</button><button onclick={() => action('clockPlus')}>+5 s</button>
   <button onclick={() => action('resetPractice')}>Nueva práctica</button>
   <button onclick={() => action('finishPractice')}>Terminar práctica</button>
+  {#if status?.automatic}<button onclick={()=>void send('setup-clock-resume')}>Volver al reloj del juego</button>{/if}
  </div>
+ {#if status?.automatic}<p>{status.manualClock ? 'Reloj manual: la detección no cambia tus ajustes.' : 'Reloj del juego: espera cuando no puede leerlo. La sincronización conserva las llegadas ya registradas.'}</p>{/if}
  <p>Se registra la primera llegada a cada paso. Volver atrás no la reemplaza. Corregir el reloj también corrige los tiempos registrados. Al terminar, el resumen queda guardado acá.</p>
  <label>Historial <select value={chosen ?? selected?.id ?? ''} onchange={e => chosen = e.currentTarget.value}>
   {#each [...practices].reverse() as p (p.id)}<option value={p.id}>{new Date(p.startedAt).toLocaleString()} · {p.buildName}{p.finishedAt === null ? ' · Sin terminar' : ''}</option>{/each}

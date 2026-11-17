@@ -1,6 +1,10 @@
 import { normalize, normalizeBuild } from './defaults';
 import type { AppData, Build, Villagers } from './types';
 import { parseTime, uid } from './util';
+import { validProfile } from './setup';
+import { validAdvance } from './advance';
+import { copySubtasks, validSubtasks } from './subtasks';
+import { parsePack } from './build-pack';
 
 const civs: Record<string, string> = { English:'Ingleses', French:'Franceses', 'Holy Roman Empire':'Sacro Imperio Romano Germánico', Mongols:'Mongoles', Chinese:'Chinos', 'Delhi Sultanate':'Sultanato de Delhi', 'Abbasid Dynasty':'Dinastía Abasí', Ottomans:'Otomanos', Malians:'Malienses', Byzantines:'Bizantinos', Japanese:'Japoneses', 'Order of the Dragon':'Orden del Dragón', "Zhu Xi's Legacy":'Legado de Zhu Xi', "Jeanne d'Arc":'Juana de Arco', Ayyubids:'Ayubíes', 'Knights Templar':'Caballeros Templarios', 'House of Lancaster':'Casa de Lancaster' };
 function object(value: unknown): Record<string, any> {
@@ -13,7 +17,9 @@ function plain(value: unknown): string {
 }
 const nonnegative = (v: unknown) => typeof v === 'number' && Number.isFinite(v) && v >= 0;
 export function importBuilds(text: string): Build[] {
-  const parsed = JSON.parse(text); const list = Array.isArray(parsed) ? parsed : [parsed];
+  const parsed = JSON.parse(text);
+  if(parsed?.format==='aoe4-overlay-build-pack')return parsePack(text).builds;
+  const list = Array.isArray(parsed) ? parsed : [parsed];
   if (!list.length) throw new Error('El archivo no contiene builds.');
   return list.map(raw => {
     const b = object(raw);
@@ -28,11 +34,11 @@ export function importBuilds(text: string): Build[] {
       }) };
     } else {
       if (!Array.isArray(b.steps)) throw new Error('Falta steps o build_order. Exportá desde aoe4guides con «Overlay Tool».');
-      b.steps.forEach((s: unknown) => { const step = object(s); if (step.type || Array.isArray(step.steps)) throw new Error('Usá la exportación «Overlay Tool» de aoe4guides.'); });
+      b.steps.forEach((s: unknown) => { const step = object(s); if (step.type || Array.isArray(step.steps)) throw new Error('Usá la exportación «Overlay Tool» de aoe4guides.'); if(step.subtasks!==undefined && !validSubtasks(step.subtasks))throw new Error('Subtareas inválidas o IDs duplicados.'); });
       converted = b;
     }
     const result = normalizeBuild(converted);
-    result.id = uid(); result.steps.forEach(s => s.id = uid()); return result;
+    result.id = uid(); result.steps.forEach(s => {s.id = uid(); if(s.subtasks)s.subtasks=copySubtasks(s.subtasks,true);}); return result;
   });
 }
 export function exportBackup(data: AppData): string {
@@ -51,6 +57,8 @@ export function importBackup(text: string): AppData {
     const stepIds = new Set();
     for (const rawStep of b.steps) {
       const s = object(rawStep), villagers = object(s.villagers);
+      if(s.advance!==undefined && !validAdvance(s.advance))throw new Error('Criterio de avance inválido.');
+      if(s.subtasks!==undefined && !validSubtasks(s.subtasks))throw new Error('Subtareas inválidas o IDs duplicados.');
       if (typeof s.id !== 'string' || !s.id || stepIds.has(s.id) || typeof s.action !== 'string' || typeof s.note !== 'string' || (s.time !== null && !nonnegative(s.time)) || (s.pop !== null && !nonnegative(s.pop)) || ['food','wood','gold','stone'].some(k => !nonnegative(villagers[k]))) throw new Error('Paso inválido o ID duplicado.');
       stepIds.add(s.id);
     }
@@ -60,6 +68,10 @@ export function importBackup(text: string): AppData {
   if (!['top-left','top-right','bottom-left','bottom-right'].includes(settings.corner) || typeof settings.accent !== 'string') throw new Error('Apariencia inválida.');
   for (const v of Object.values(object(settings.hotkeys))) if (typeof v !== 'string') throw new Error('Teclas inválidas.');
   object(settings.defaults);
+  if (settings.setup !== undefined) {
+    const s = object(settings.setup);
+    if (typeof s.enabled !== 'boolean' || typeof s.playerName !== 'string' || s.playerName.length > 80 || typeof s.mode !== 'string' || s.mode.length > 80 || !Array.isArray(s.profiles) || s.profiles.length > 24 || s.profiles.some((p: unknown) => !validProfile(p)) || new Set(s.profiles.map((p: any) => p.key)).size !== s.profiles.length) throw new Error('Perfiles de setup inválidos.');
+  }
   if (!nonnegative(settings.offsetX) || !nonnegative(settings.offsetY) || typeof settings.compact !== 'boolean' || typeof settings.showClock !== 'boolean' || (settings.activeBuildId !== null && !ids.has(settings.activeBuildId)) || Object.values(settings.defaults).some(id => !ids.has(id))) throw new Error('Ajustes o referencias a builds inválidos.');
   if (settings.position != null) { const p=object(settings.position); if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) throw new Error('Posición inválida.'); }
   if (settings.ocr) { const o=object(settings.ocr); if (typeof o.enabled !== 'boolean' || !Number.isInteger(o.x) || !Number.isInteger(o.y) || !Number.isInteger(o.width) || !Number.isInteger(o.height) || o.width < 10 || o.width > 1000 || o.height < 10 || o.height > 500) throw new Error('Región OCR inválida.'); }
