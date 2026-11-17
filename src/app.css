@@ -1,0 +1,55 @@
+@import '@fontsource/barlow/400.css';
+@import '@fontsource/barlow/500.css';
+@import '@fontsource/barlow/600.css';
+@import '@fontsource/barlow-condensed/500.css';
+@import '@fontsource/barlow-condensed/600.css';
+
+:root {
+	--bg: #12151a;
+	--card: #1b2028;
+	--line: #2a2f38;
+	--line-strong: #323946;
+	--text: #e8ebef;
+	--soft: #c3c9d2;
+	--dim: #9aa2ae;
+	--late: #f08a5c;
+	--accent: #f2b33d;
+	--font: 'Barlow', system-ui, sans-serif;
+	--font-num: 'Barlow Condensed', 'Barlow', system-ui, sans-serif;
+	color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* El fondo queda transparente a propósito: la ventana del overlay lo necesita.
+   La ventana de gestión pinta su propio fondo. */
+html,
+body {
+	margin: 0;
+	background: transparent;
+	color: var(--text);
+	font-family: var(--font);
+	font-size: 14px;
+	line-height: 1.45;
+}
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
+	color: inherit;
+}
+
+.label {
+	font-size: 11px;
+	line-height: 14px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--dim);
+}
