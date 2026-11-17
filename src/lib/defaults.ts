@@ -25,7 +25,10 @@ export function defaultSettings(): Settings {
 			start: 'Ctrl+Alt+KeyS',
 			toggleVisible: 'Ctrl+Alt+KeyH',
 			toggleCompact: 'Ctrl+Alt+KeyC',
-			cycleBuild: 'Ctrl+Alt+KeyB'
+			cycleBuild: 'Ctrl+Alt+KeyB',
+			editPosition: 'Ctrl+Alt+KeyE', resetPractice: 'Ctrl+Alt+KeyR', resetClock: '',
+			pauseClock: 'Ctrl+Alt+KeyP', clockPlus: 'Ctrl+Alt+ArrowRight',
+			clockMinus: 'Ctrl+Alt+ArrowLeft', finishPractice: 'Ctrl+Alt+KeyF'
 		},
 		corner: 'top-right',
 		offsetX: 40,
@@ -59,7 +62,9 @@ export function defaultSettings(): Settings {
 			'Casa de Lancaster'
 		],
 		defaults: {},
-		activeBuildId: null
+		activeBuildId: null,
+		position: null,
+		ocr: { enabled: false, source: null, x: 0, y: 0, width: 70, height: 212, idleRegion: null }
 	};
 }
 
@@ -118,7 +123,7 @@ export function defaultData(): AppData {
 	const builds = sampleBuilds();
 	const settings = defaultSettings();
 	settings.activeBuildId = builds[0].id;
-	return { version: 1, builds, settings };
+	return { version: 1, builds, settings, practices: [] };
 }
 
 /** Completa lo que falte en datos guardados por versiones anteriores o editados a mano. */
@@ -132,12 +137,18 @@ export function normalize(raw: unknown): AppData {
 		if (typeof settings.hotkeys[action] !== 'string') settings.hotkeys[action] = '';
 	}
 	settings.defaults = { ...(input.settings?.defaults ?? {}) };
+	settings.ocr = { ...base.ocr, ...(input.settings?.ocr ?? {}) };
+	if (!settings.ocr.idleRegion) settings.ocr.enabled = false;
+	if (input.settings?.ocr?.source !== 'workers') {
+		settings.ocr.source = null;
+		settings.ocr.enabled = false;
+	}
 
 	const builds: Build[] = Array.isArray(input.builds) ? input.builds.map(normalizeBuild) : [];
 	if (!builds.some((b) => b.id === settings.activeBuildId)) {
 		settings.activeBuildId = builds[0]?.id ?? null;
 	}
-	return { version: 1, builds, settings };
+	return { version: 1, builds, settings, practices: Array.isArray(input.practices) ? input.practices : [] };
 }
 
 export function normalizeBuild(raw: Partial<Build>): Build {

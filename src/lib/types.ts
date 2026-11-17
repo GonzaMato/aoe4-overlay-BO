@@ -13,7 +13,7 @@ export type Villagers = Record<Resource, number>;
 
 export interface Step {
 	id: string;
-	/** Población que dispara el paso (incluye al scout). */
+	/** Población de referencia (incluye al scout); el OCR usa la suma de villagers. */
 	pop: number | null;
 	/** Tiempo objetivo en segundos de partida. */
 	time: number | null;
@@ -38,14 +38,28 @@ export const HOTKEY_ACTIONS = [
 	'start',
 	'toggleVisible',
 	'toggleCompact',
-	'cycleBuild'
+	'cycleBuild',
+	'editPosition',
+	'resetPractice',
+	'resetClock',
+	'pauseClock',
+	'clockPlus',
+	'clockMinus',
+	'finishPractice'
 ] as const;
 export type HotkeyAction = (typeof HOTKEY_ACTIONS)[number];
 
 export const HOTKEY_LABEL: Record<HotkeyAction, string> = {
 	next: 'Paso siguiente',
 	prev: 'Paso anterior',
-	start: 'Iniciar partida (paso 1 y reloj en 0:00)',
+	start: 'Iniciar / reanudar reloj (conserva el paso)',
+	editPosition: 'Editar posición del overlay',
+	resetPractice: 'Nueva práctica (paso 1 y reloj en 0:00)',
+	resetClock: 'Reiniciar reloj (conserva el paso)',
+	pauseClock: 'Pausar / reanudar reloj',
+	clockPlus: 'Reloj +5 segundos',
+	clockMinus: 'Reloj −5 segundos',
+	finishPractice: 'Terminar práctica',
 	toggleVisible: 'Mostrar / ocultar overlay',
 	toggleCompact: 'Modo compacto',
 	cycleBuild: 'Cambiar de build (misma civilización)'
@@ -69,10 +83,16 @@ export interface Settings {
 	/** Build predeterminado por `civ|modo`. */
 	defaults: Record<string, string>;
 	activeBuildId: string | null;
+	position: { x: number; y: number } | null;
+	ocr: { enabled: boolean; source: 'workers' | null; x: number; y: number; width: number; height: number; idleRegion: { x: number; y: number; width: number; height: number } | null };
 }
+
+export interface Arrival { stepId: string; index: number; action: string; target: number | null; elapsed: number; }
+export interface Practice { id: string; buildId: string; buildName: string; startedAt: number; finishedAt: number | null; arrivals: Arrival[]; }
 
 export interface AppData {
 	version: 1;
 	builds: Build[];
 	settings: Settings;
+	practices: Practice[];
 }

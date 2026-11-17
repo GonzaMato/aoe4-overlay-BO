@@ -3,13 +3,18 @@
 
 	import BuildEditor from '$lib/components/BuildEditor.svelte';
 	import SettingsView from '$lib/components/SettingsView.svelte';
-	import { isTauri, loadData, on, onDataChanged, saveData, send } from '$lib/bridge';
-	import { cloneBuild, newBuild, normalizeBuild } from '$lib/defaults';
-	import type { AppData, Build } from '$lib/types';
-	import { defaultKey, uid } from '$lib/util';
+	import BackupView from '$lib/components/BackupView.svelte';
+	import PracticeView, { type PracticeStatus } from '$lib/components/PracticeView.svelte';
+	import { importBuilds } from '$lib/imports';
+	import { isTauri, keepAlive, loadData, on, onDataChanged, onQuitRequested, onRegionSelected, quitApp, saveData, send } from '$lib/bridge';
+	import { cloneBuild, newBuild } from '$lib/defaults';
+	import type { AppData, Build, Practice } from '$lib/types';
+	import { defaultKey } from '$lib/util';
 
 	let data = $state<AppData | null>(null);
-	let tab = $state<'builds' | 'settings'>('builds');
+	let tab = $state<'builds' | 'settings' | 'practice'>('builds');
+	let practiceStatus = $state<PracticeStatus | null>(null);
+	let finishedId = $state<string | null>(null);
 	let selectedId = $state<string | null>(null);
 	let filterCiv = $state('');
 	let filterMode = $state('');
@@ -19,6 +24,8 @@
 	let importText = $state('');
 	let importError = $state('');
 	let toast = $state('');
+	let restoring = $state(false);
+	let quitting = $state(false);
 
 	let lastSaved = '';
 	let saveTimer: ReturnType<typeof setTimeout> | null = null;
@@ -111,21 +118,38 @@
 	function runImport() {
 		if (!data) return;
 		try {
-			const parsed: unknown = JSON.parse(importText);
-			const list = (Array.isArray(parsed) ? parsed : [parsed]) as Partial<Build>[];
-			if (!list.length || list.some((b) => !b || typeof b !== 'object' || !Array.isArray(b.steps))) {
-				throw new Error('formato');
-			}
-			const builds = list.map((b) => ({ ...normalizeBuild(b), id: uid() }));
+			const builds = importBuilds(importText);
 			data.builds.push(...builds);
 			selectedId = builds[0].id;
+			filterCiv = ''; filterMode = ''; filterMap = '';
 			importing = false;
 			importText = '';
 			importError = '';
 			notify(builds.length === 1 ? 'Build importado' : `${builds.length} builds importados`);
-		} catch {
-			importError = 'No es un build válido: pegá el JSON que genera "Copiar JSON".';
+		} catch (e) {
+			importError = e instanceof Error ? e.message : 'JSON inválido.';
 		}
+	}
+
+	async function restore(incoming: AppData) {
+		restoring = true;
+		if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
+		try {
+			await send('restore-session');
+			await saveData(incoming);
+			lastSaved = JSON.stringify(incoming); data = incoming;
+			selectedId = incoming.settings.activeBuildId; filterCiv = ''; filterMode = ''; filterMap = '';
+			notify('Respaldo restaurado');
+		} catch (e) { notify(`No se pudo restaurar: ${String(e)}`); }
+		finally { restoring = false; }
+	}
+
+	async function exitApp() {
+		if (!data || restoring || quitting) return;
+		quitting = true;
+		if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
+		try { await saveData($state.snapshot(data) as AppData); await quitApp(); }
+		catch (e) { quitting = false; notify(`No se pudo guardar antes de salir: ${String(e)}`); }
 	}
 
 	onMount(() => {
@@ -136,7 +160,31 @@
 		});
 
 		const stops = [
-			// El overlay también guarda (modo compacto, cambio de build por tecla).
+			keepAlive(),
+			onQuitRequested(() => void exitApp()),
+			onRegionSelected(({ region, target }) => {
+				if (!data) return;
+				data.settings.ocr = target === 'idle'
+					? { ...data.settings.ocr, idleRegion: region }
+					: { ...data.settings.ocr, ...region, source: 'workers' };
+				notify('Región OCR guardada');
+			}),
+			on('overlay-settings', value => {
+				if (!data || restoring) return;
+				const patch = value as Partial<Pick<AppData['settings'], 'compact' | 'activeBuildId' | 'position'>>;
+				if (typeof patch.compact === 'boolean') data.settings.compact = patch.compact;
+				if (patch.activeBuildId !== undefined && data.builds.some(b => b.id === patch.activeBuildId)) data.settings.activeBuildId = patch.activeBuildId;
+				if ('position' in patch) data.settings.position = patch.position ?? null;
+			}),
+			on('practice-update', value => {
+				if (!data || restoring) return;
+				const practice = value as Practice;
+				const at = data.practices.findIndex(p => p.id === practice.id);
+				if (at < 0) data.practices.push(practice); else data.practices[at] = practice;
+			}),
+			on('practice-status', value => practiceStatus = value as PracticeStatus),
+			on('practice-finished', value => { finishedId = String(value); tab = 'practice'; notify('Práctica guardada: revisá los atrasos'); }),
+			// Sync another manager tab in browser preview; native writes have one owner.
 			onDataChanged((incoming) => {
 				if (!data || !saveTimer) {
 					lastSaved = JSON.stringify(incoming);
@@ -153,20 +201,20 @@
 			on('hotkey-status', (failed) => (failedHotkeys = Array.isArray(failed) ? (failed as string[]) : []))
 		];
 		void send('hotkey-status-request');
+		void send('practice-status-request');
 
 		return () => stops.forEach((stop) => stop());
 	});
 
 	// Guardado automático con una pequeña espera para no escribir en cada tecla.
 	$effect(() => {
-		if (!data) return;
+		if (!data || restoring) return;
 		const snapshot = JSON.stringify(data);
 		if (snapshot === lastSaved) return;
 		if (saveTimer) clearTimeout(saveTimer);
 		saveTimer = setTimeout(() => {
 			saveTimer = null;
-			lastSaved = snapshot;
-			void saveData(JSON.parse(snapshot) as AppData);
+			void saveData(JSON.parse(snapshot) as AppData).then(() => lastSaved = snapshot).catch(e => notify(`Error al guardar: ${String(e)}`));
 		}, 250);
 	});
 </script>
@@ -180,10 +228,14 @@
 		<h1>AoE4 Overlay</h1>
 		<nav aria-label="Secciones">
 			<button type="button" aria-current={tab === 'builds' ? 'page' : undefined} onclick={() => (tab = 'builds')}>Builds</button>
+			<button type="button" aria-current={tab === 'practice' ? 'page' : undefined} onclick={() => tab = 'practice'}>Práctica</button>
 			<button type="button" aria-current={tab === 'settings' ? 'page' : undefined} onclick={() => (tab = 'settings')}>
 				Ajustes{failedHotkeys.length ? ' · revisar teclas' : ''}
 			</button>
 		</nav>
+		{#if isTauri}
+			<button type="button" class="exit" disabled={!data || restoring || quitting} onclick={() => void exitApp()}>{quitting ? 'Guardando y cerrando…' : 'Salir de la app'}</button>
+		{/if}
 		{#if !isTauri}
 			<span class="dev">Vista de navegador: los datos se guardan en este navegador. Abrí <a href="/overlay" target="_blank" rel="noreferrer">/overlay</a> en otra pestaña para ver el panel.</span>
 		{/if}
@@ -193,8 +245,12 @@
 		<p class="loading">Cargando…</p>
 	{:else if tab === 'settings'}
 		<main class="scroll pad full">
-			<SettingsView bind:settings={data.settings} {failedHotkeys} />
+			<SettingsView bind:settings={data.settings} {failedHotkeys} activeBuild={data.builds.find(b => b.id === data!.settings.activeBuildId) ?? null}>
+				{#snippet backup()}{#if data}<BackupView {data} onRestore={incoming => void restore(incoming)} />{/if}{/snippet}
+			</SettingsView>
 		</main>
+	{:else if tab === 'practice'}
+		<main class="scroll pad full"><PracticeView practices={data.practices} status={practiceStatus} selectedId={finishedId} /></main>
 	{:else}
 		<div class="columns">
 			<aside>
@@ -259,8 +315,9 @@
 					<section class="import">
 						<h2>Importar build</h2>
 						<label class="field">
-							<span class="label">JSON del build</span>
-							<textarea rows="12" bind:value={importText} placeholder="Pegá acá el JSON copiado con «Copiar JSON»"></textarea>
+							<span class="label">JSON propio o exportado de aoe4guides (Overlay Tool)</span>
+							<textarea rows="12" bind:value={importText} placeholder="Pegá el JSON de «Copiar JSON» o de «Overlay Tool» en aoe4guides"></textarea>
+							<p class="tip">Si aoe4guides no exporta población total, queda vacía. Completala para usar avance por OCR. Los iconos se convierten a texto.</p>
 						</label>
 						{#if importError}<p class="error">{importError}</p>{/if}
 						<div class="foot">
@@ -298,6 +355,9 @@
 </div>
 
 <style>
+	.exit { margin-left: auto; padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--card); cursor: pointer; }
+	.exit:hover { border-color: var(--accent); }
+	.exit:disabled { opacity: .5; cursor: default; }
 	.app {
 		display: flex;
 		flex-direction: column;
