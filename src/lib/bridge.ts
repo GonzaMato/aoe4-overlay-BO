@@ -2,7 +2,13 @@
 // navegador) usa localStorage y BroadcastChannel, así la interfaz se puede probar sin compilar.
 
 import { emit, listen } from '@tauri-apps/api/event';
-import { invoke } from '@tauri-apps/api/core';
+import { invoke as nativeInvoke } from '@tauri-apps/api/core';
+import { errorText } from './errors';
+import type { Language } from './i18n';
+async function invoke<T>(command:string,args?:Record<string,unknown>):Promise<T> {
+	try { return await nativeInvoke<T>(command,args); } catch(error) { throw new Error(errorText(error)); }
+}
+export const syncLanguage = (language:Language) => isTauri ? invoke<void>('set_language',{language}).catch(console.error) : Promise.resolve();
 import {
 	getCurrentWindow,
 	currentMonitor,
@@ -156,7 +162,7 @@ export function onRegionSelecting(handler: (selecting: boolean) => void): () => 
 	const stop = listen<boolean>('region-selecting', e => handler(e.payload));
 	return () => void stop.then(fn => fn());
 }
-export const readWorkers = (region: Settings['ocr']) => isTauri ? invoke<string[]>('read_workers', { region, idleRegion: region.idleRegion }) : Promise.reject(new Error('OCR disponible en la app de Windows.'));
+export const readWorkers = (region: Settings['ocr']) => isTauri ? invoke<string[]>('read_workers', { region, idleRegion: region.idleRegion }) : Promise.reject(new Error(errorText('OCR disponible en la app de Windows.')));
 export async function setEditing(editing: boolean) {
 	if (isTauri) await getCurrentWindow().setIgnoreCursorEvents(!editing);
 }

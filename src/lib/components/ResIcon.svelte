@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { RES_LABEL, type Resource } from '$lib/types';
+	import { locale, resourceLabel } from '$lib/i18n';
+	import { type Resource } from '$lib/types';
 
 	interface Props {
 		res: Resource;
@@ -27,7 +28,7 @@
 	stroke-linecap="round"
 	stroke-linejoin="round"
 	role={labelled ? 'img' : undefined}
-	aria-label={labelled ? RES_LABEL[res] : undefined}
+	aria-label={labelled ? resourceLabel(res, $locale) : undefined}
 	aria-hidden={labelled ? undefined : 'true'}
 >
 	{#if res === 'food'}

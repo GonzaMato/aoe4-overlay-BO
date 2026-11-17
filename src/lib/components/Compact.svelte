@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { t } from '$lib/i18n';
 	import ResIcon from './ResIcon.svelte';
 	import { deltas } from '$lib/steps';
 	import { RESOURCES, type Build } from '$lib/types';
@@ -27,20 +28,20 @@
 
 <div class="bar" style="--accent: {accent}">
 	{#if !step}
-		<span class="text">Este build todavía no tiene pasos.</span>
+		<span class="text">{$t("Este build todavía no tiene pasos.", "This build has no steps yet.")}</span>
 	{:else}
 		{#key step.id}
 			<div class="pop">
 				<span class="big">{step.pop ?? stepIndex + 1}</span>
-				<span class="label">{step.pop != null ? 'pob' : 'paso'}</span>
+				<span class="label">{step.pop != null ? $t("pob", "pop") : $t("paso", "step")}</span>
 			</div>
 		{/key}
 		<span class="sep" aria-hidden="true"></span>
 		<div class="main">
-			<span class="action">{task?.action || 'Sin acción cargada'}</span>
+			<span class="action">{task?.action || $t("Sin acción cargada", "No action entered")}</span>
 			<span class="meta">
-				Paso {stepIndex + 1} / {build.steps.length}{step.subtasks?.length?` · Tarea ${subtaskIndex+1}/${step.subtasks.length}`:''}{step.time != null
-					? ` · objetivo ${formatTime(step.time)}`
+				{$t(`Paso ${stepIndex + 1} / ${build.steps.length}`, `Step ${stepIndex + 1} / ${build.steps.length}`)}{step.subtasks?.length?$t(` · Tarea ${subtaskIndex+1}/${step.subtasks.length}`, ` · Task ${subtaskIndex+1}/${step.subtasks.length}`):''}{step.time != null
+					? $t(` · objetivo ${formatTime(step.time)}`, ` · target ${formatTime(step.time)}`)
 					: ''}
 			</span>
 		</div>

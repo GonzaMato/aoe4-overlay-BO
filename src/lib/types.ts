@@ -87,6 +87,7 @@ export const HOTKEY_LABEL: Record<HotkeyAction, string> = {
 export type Corner = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
 export interface Settings {
+	language: import('./i18n').Language;
 	onboarding: import('./onboarding').OnboardingState;
 	setup: import('./setup').SetupSettings;
 	hotkeys: Record<HotkeyAction, string>;

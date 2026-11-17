@@ -10,7 +10,7 @@ if (-not (Test-Path -LiteralPath $installerPath)) { throw 'Generá primero el in
 $releaseDir = Join-Path $projectRoot "release/$releaseVersion"
 New-Item -ItemType Directory -Path $releaseDir -Force | Out-Null
 Copy-Item -LiteralPath $installerPath -Destination $releaseDir
-foreach ($releaseFile in @('LICENSE','THIRD-PARTY-NOTICES.txt','static/builds/starter-pack.json','docs/quick-start.md','docs/compatibility.md','docs/build-pack-sources.md',"docs/releases/$releaseVersion.md")) {
+foreach ($releaseFile in @('LICENSE','THIRD-PARTY-NOTICES.txt','static/builds/starter-pack.json','static/builds/starter-pack.en.json','docs/quick-start.md','docs/compatibility.md','docs/build-pack-sources.md',"docs/releases/$releaseVersion.md")) {
     Copy-Item -LiteralPath (Join-Path $projectRoot $releaseFile) -Destination $releaseDir
 }
 

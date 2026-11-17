@@ -1,4 +1,5 @@
 <script lang="ts">
+ import { t, locale, label, uniqueLabels } from '$lib/i18n';
 	import { onMount } from 'svelte';
 
 	import BuildEditor from '$lib/components/BuildEditor.svelte';
@@ -9,10 +10,10 @@
 	import BackupView from '$lib/components/BackupView.svelte';
 	import PracticeView, { type PracticeStatus } from '$lib/components/PracticeView.svelte';
 	import { importBuilds } from '$lib/imports';
-	import { isTauri, keepAlive, loadData, on, onDataChanged, onQuitRequested, onRegionSelected, quitApp, saveData, send } from '$lib/bridge';
+	import { syncLanguage, isTauri, keepAlive, loadData, on, onDataChanged, onQuitRequested, onRegionSelected, quitApp, saveData, send } from '$lib/bridge';
 	import { cloneBuild, newBuild } from '$lib/defaults';
 	import type { AppData, Build, Practice } from '$lib/types';
-	import { defaultKey } from '$lib/util';
+	import { preferredBuildId, setDefaultBuild } from '$lib/util';
 	import { profileKey, relativeRect, validProfile, type SetupStatus, type SetupProfile } from '$lib/setup';
 
 	let data = $state<AppData | null>(null);
@@ -40,22 +41,22 @@
 	const civOptions = $derived.by(() => {
 		if (!data) return [];
 		const extra = data.builds.map((b) => b.civ).filter((c) => c && !data!.settings.civs.includes(c));
-		return [...data.settings.civs, ...new Set(extra)];
+		return uniqueLabels([...data.settings.civs, ...new Set(extra)]);
 	});
-	const civsInUse = $derived(data ? [...new Set(data.builds.map((b) => b.civ).filter(Boolean))].sort() : []);
+	const civsInUse = $derived(data ? [...new Set(data.builds.map((b) => label(b.civ,'en')).filter(Boolean))].sort() : []);
 	const filtered = $derived(
 		data
 			? data.builds.filter(
 					(b) =>
-						(!filterCiv || b.civ === filterCiv) &&
-						(!filterMode || b.mode === filterMode) &&
-						(!filterMap || !b.map || b.map === filterMap)
+						(!filterCiv || label(b.civ,'en') === label(filterCiv,'en')) &&
+						(!filterMode || label(b.mode,'en') === label(filterMode,'en')) &&
+						(!filterMap || !b.map || label(b.map,'en') === label(filterMap,'en'))
 				)
 			: []
 	);
 	const selectedIndex = $derived(data ? data.builds.findIndex((b) => b.id === selectedId) : -1);
 
-	const isDefault = (b: Build) => !!data && data.settings.defaults[defaultKey(b.civ, b.mode)] === b.id;
+	const isDefault = (b: Build) => !!data && preferredBuildId(data.settings,b.civ,b.mode) === b.id;
 
 	function notify(message: string) {
 		toast = message;
@@ -65,27 +66,25 @@
 
 	function use(id: string) {
 		manualBuild=true;void send('setup-manual-build');
-		if (data) { data.settings.activeBuildId = id;const build=data.builds.find(b=>b.id===id);if(build?.civ&&build.mode)data.settings.defaults[defaultKey(build.civ,build.mode)]=id; }
+		if (data) { data.settings.activeBuildId = id;const build=data.builds.find(b=>b.id===id);if(build?.civ&&build.mode)setDefaultBuild(data.settings,build); }
 	}
 
 	function toggleDefault(b: Build) {
 		if (!data || !b.civ || !b.mode) return;
-		const key = defaultKey(b.civ, b.mode);
-		if (data.settings.defaults[key] === b.id) delete data.settings.defaults[key];
-		else data.settings.defaults[key] = b.id;
+		setDefaultBuild(data.settings,b,!isDefault(b));
 	}
 
 	/** Al elegir civilización y modo se carga solo el predeterminado de esa combinación. */
 	function onMatchChange() {
 		if (!data || !filterCiv || !filterMode) return;
-		const candidates = data.builds.filter((b) => b.civ === filterCiv && b.mode === filterMode);
+		const candidates = data.builds.filter((b) => label(b.civ,'en') === label(filterCiv,'en') && label(b.mode,'en') === label(filterMode,'en'));
 		const preferred =
-			candidates.find((b) => b.id === data!.settings.defaults[defaultKey(filterCiv, filterMode)]) ??
+			candidates.find((b) => b.id === preferredBuildId(data!.settings,b.civ,b.mode)) ??
 			(candidates.length === 1 ? candidates[0] : null);
 		if (preferred) {
 			use(preferred.id);
 			selectedId = preferred.id;
-			notify(`En el overlay: ${preferred.name}`);
+			notify($t(`En el overlay: ${preferred.name}`, `In the overlay: ${preferred.name}`));
 		}
 	}
 
@@ -116,9 +115,9 @@
 	async function copyJson(b: Build) {
 		try {
 			await navigator.clipboard.writeText(JSON.stringify($state.snapshot(b), null, 2));
-			notify('Build copiado al portapapeles');
+			notify($t("Build copiado al portapapeles", "Build copied to clipboard"));
 		} catch {
-			notify('No se pudo copiar al portapapeles');
+			notify($t("No se pudo copiar al portapapeles", "Could not copy to clipboard"));
 		}
 	}
 
@@ -133,9 +132,9 @@
 			importing = false;
 			importText = '';
 			importError = '';
-			notify(additions.length ? `${additions.length} builds importados` : 'Ese paquete ya está en tu biblioteca; se conservaron tus cambios');
+			notify(additions.length ? $t(`${additions.length} builds importados`, `${additions.length} builds imported`) : $t("Ese paquete ya está en tu biblioteca; se conservaron tus cambios", "That pack is already in your library; your edits were preserved"));
 		} catch (e) {
-			importError = e instanceof Error ? e.message : 'JSON inválido.';
+			importError = e instanceof Error ? e.message : $t("JSON inválido.", "Invalid JSON.");
 		}
 	}
 	function addPack(pack:BuildPack) {
@@ -143,7 +142,7 @@
 		const before=data.builds.length;
 		data.builds=mergePack($state.snapshot(data.builds),pack);
 		if(!data.settings.activeBuildId&&data.builds.length){use(data.builds[0].id);selectedId=data.builds[0].id;}
-		notify(data.builds.length===before?'El paquete ya está añadido; se conservaron tus cambios':`${data.builds.length-before} builds añadidos`);
+		notify(data.builds.length===before?$t("El paquete ya está añadido; se conservaron tus cambios", "The pack is already installed; your edits were preserved"):$t(`${data.builds.length-before} builds añadidos`, `${data.builds.length-before} builds added`));
 	}
 
 	async function restore(incoming: AppData) {
@@ -155,8 +154,8 @@
 			await saveData(incoming);
 			lastSaved = JSON.stringify(incoming); data = incoming;
 			selectedId = incoming.settings.activeBuildId; filterCiv = ''; filterMode = ''; filterMap = '';
-			notify('Respaldo restaurado');
-		} catch (e) { notify(`No se pudo restaurar: ${String(e)}`); }
+			notify($t("Respaldo restaurado", "Backup restored"));
+		} catch (e) { notify($t(`No se pudo restaurar: ${String(e)}`, `Could not restore: ${String(e)}`)); }
 		finally { restoring = false; }
 	}
 
@@ -165,7 +164,7 @@
 		quitting = true;
 		if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
 		try { await saveData($state.snapshot(data) as AppData); await quitApp(); }
-		catch (e) { quitting = false; notify(`No se pudo guardar antes de salir: ${String(e)}`); }
+		catch (e) { quitting = false; notify($t(`No se pudo guardar antes de salir: ${String(e)}`, `Could not save before exiting: ${String(e)}`)); }
 	}
 
 	onMount(() => {
@@ -192,7 +191,7 @@
 					const profile={key:profileKey(g),width:g.width,height:g.height,workers,idle,clock:old?.clock??null,position:old?.position??null,manual:true};
 					if(validProfile(profile)) {data.settings.setup.profiles=[...data.settings.setup.profiles.filter(p=>p.key!==profile.key),profile].slice(-24);void send('setup-manual-profile',profile);}
 				}
-				notify('Región OCR guardada');
+				notify($t("Región OCR guardada", "OCR region saved"));
 			}),
 			on('setup-status',value=>setupStatus=value as SetupStatus),
 			on('setup-new-match',()=>manualBuild=false),
@@ -218,7 +217,7 @@
 				if (at < 0) data.practices.push(practice); else data.practices[at] = practice;
 			}),
 			on('practice-status', value => practiceStatus = value as PracticeStatus),
-			on('practice-finished', value => { finishedId = String(value); tab = 'practice'; notify('Práctica guardada: revisá los atrasos'); }),
+			on('practice-finished', value => { finishedId = String(value); tab = 'practice'; notify($t("Práctica guardada: revisá los atrasos", "Practice saved: review your timing")); }),
 			// Sync another manager tab in browser preview; native writes have one owner.
 			onDataChanged((incoming) => {
 				if (!data || !saveTimer) {
@@ -241,6 +240,7 @@
 		return () => stops.forEach((stop) => stop());
 	});
 
+	$effect(() => { if(data) { locale.set(data.settings.language); void syncLanguage(data.settings.language); } });
 	// Guardado automático con una pequeña espera para no escribir en cada tecla.
 	$effect(() => {
 		if (!data || restoring) return;
@@ -249,7 +249,7 @@
 		if (saveTimer) clearTimeout(saveTimer);
 		saveTimer = setTimeout(() => {
 			saveTimer = null;
-			void saveData(JSON.parse(snapshot) as AppData).then(() => lastSaved = snapshot).catch(e => notify(`Error al guardar: ${String(e)}`));
+			void saveData(JSON.parse(snapshot) as AppData).then(() => lastSaved = snapshot).catch(e => notify($t(`Error al guardar: ${String(e)}`, `Could not save: ${String(e)}`)));
 		}, 250);
 	});
 </script>
@@ -261,25 +261,25 @@
 <div class="app" style="--accent: {data?.settings.accent ?? '#F2B33D'}">
 	<header class="bar">
 		<h1>AoE4 Overlay</h1>
-		<nav aria-label="Secciones">
-			<button type="button" aria-current={tab === 'welcome' ? 'page' : undefined} onclick={() => tab='welcome'}>Inicio</button>
+		<nav aria-label={$t("Secciones", "Sections")}>
+			<button type="button" aria-current={tab === 'welcome' ? 'page' : undefined} onclick={() => tab='welcome'}>{$t("Inicio", "Home")}</button>
 			<button type="button" aria-current={tab === 'builds' ? 'page' : undefined} onclick={() => (tab = 'builds')}>Builds</button>
-			<button type="button" aria-current={tab === 'practice' ? 'page' : undefined} onclick={() => tab = 'practice'}>Práctica</button>
+			<button type="button" aria-current={tab === 'practice' ? 'page' : undefined} onclick={() => tab = 'practice'}>{$t("Práctica", "Practice")}</button>
 			<button type="button" aria-current={tab === 'settings' ? 'page' : undefined} onclick={() => (tab = 'settings')}>
-				Ajustes{failedHotkeys.length ? ' · revisar teclas' : ''}
+				{$t("Ajustes", "Settings")}{failedHotkeys.length ? $t(" · revisar teclas", " · check hotkeys") : ''}
 			</button>
-			<button type="button" aria-current={tab === 'help' ? 'page' : undefined} onclick={() => tab='help'}>Ayuda</button>
+			<button type="button" aria-current={tab === 'help' ? 'page' : undefined} onclick={() => tab='help'}>{$t("Ayuda", "Help")}</button>
 		</nav>
 		{#if isTauri}
-			<button type="button" class="exit" disabled={!data || restoring || quitting} onclick={() => void exitApp()}>{quitting ? 'Guardando y cerrando…' : 'Salir de la app'}</button>
+			<button type="button" class="exit" disabled={!data || restoring || quitting} onclick={() => void exitApp()}>{quitting ? $t("Guardando y cerrando…", "Saving and exiting…") : $t("Salir de la app", "Exit app")}</button>
 		{/if}
 		{#if !isTauri}
-			<span class="dev">Vista de navegador: los datos se guardan en este navegador. Abrí <a href="/overlay" target="_blank" rel="noreferrer">/overlay</a> en otra pestaña para ver el panel.</span>
+			<span class="dev">{$t("Vista de navegador: los datos se guardan en este navegador. Abrí", "Browser preview: data is saved in this browser. Open")} <a href="/overlay" target="_blank" rel="noreferrer">/overlay</a> {$t("en otra pestaña para ver el panel.", "in another tab to see the overlay.")}</span>
 		{/if}
 	</header>
 
 	{#if !data}
-		<p class="loading">Cargando…</p>
+		<p class="loading">{$t("Cargando…", "Loading…")}</p>
 	{:else if tab === 'welcome'}
 		<main class="scroll pad full"><WelcomeView bind:settings={data.settings} builds={data.builds} status={setupStatus} onUse={use} onPack={addPack} onDone={()=>tab='builds'} /></main>
 	{:else if tab === 'help'}
@@ -297,35 +297,35 @@
 			<aside>
 				<div class="filters">
 					<label class="field">
-						<span class="label">Civilización</span>
+						<span class="label">{$t("Civilización", "Civilization")}</span>
 						<select bind:value={filterCiv} onchange={onMatchChange}>
-							<option value="">Todas</option>
+							<option value="">{$t("Todas", "All")}</option>
 							{#each civsInUse as civ (civ)}
-								<option value={civ}>{civ}</option>
+								<option value={civ}>{label(civ,$locale)}</option>
 							{/each}
 						</select>
 					</label>
 					<div class="pair">
 						<label class="field">
-							<span class="label">Modo</span>
+							<span class="label">{$t("Modo", "Mode")}</span>
 							<select bind:value={filterMode} onchange={onMatchChange}>
-								<option value="">Todos</option>
+								<option value="">{$t("Todos", "All")}</option>
 								{#each data.settings.modes as mode (mode)}
-									<option value={mode}>{mode}</option>
+									<option value={mode}>{label(mode,$locale)}</option>
 								{/each}
 							</select>
 						</label>
 						<label class="field">
-							<span class="label">Mapa</span>
+							<span class="label">{$t("Mapa", "Map")}</span>
 							<select bind:value={filterMap}>
-								<option value="">Todos</option>
+								<option value="">{$t("Todos", "All")}</option>
 								{#each data.settings.maps as map (map)}
-									<option value={map}>{map}</option>
+									<option value={map}>{label(map,$locale)}</option>
 								{/each}
 							</select>
 						</label>
 					</div>
-					<p class="tip">Al elegir civilización y modo se carga el predeterminado en el overlay.</p>
+					<p class="tip">{$t("Al elegir civilización y modo se carga el predeterminado en el overlay.", "Choosing a civilization and mode loads its default build in the overlay.")}</p>
 				</div>
 
 				<ul class="builds">
@@ -333,37 +333,37 @@
 						<li class:selected={b.id === selectedId}>
 							<button type="button" class="pick" onclick={() => (selectedId = b.id)}>
 								<span class="name">{b.name}</span>
-								<span class="sub">{[b.civ || 'Sin civilización', b.mode, b.map].filter(Boolean).join(' · ')}</span>
+								<span class="sub">{[b.civ || $t("Sin civilización", "No civilization"), b.mode, b.map].filter(Boolean).map(v=>label(v,$locale)).join(' · ')}</span>
 								<span class="tags">
-									{#if b.id === data.settings.activeBuildId}<span class="tag on">En uso</span>{/if}
-									{#if isDefault(b)}<span class="tag">Predeterminado</span>{/if}
+									{#if b.id === data.settings.activeBuildId}<span class="tag on">{$t("En uso", "Active")}</span>{/if}
+									{#if isDefault(b)}<span class="tag">{$t("Predeterminado", "Default")}</span>{/if}
 								</span>
 							</button>
 						</li>
 					{:else}
-						<li class="none">No hay builds con ese filtro.</li>
+						<li class="none">{$t("No hay builds con ese filtro.", "No builds match this filter.")}</li>
 					{/each}
 				</ul>
 
 				<div class="foot">
-					<button type="button" class="primary" onclick={addBuild}>Nuevo build</button>
-					<button type="button" onclick={() => (importing = true)}>Importar</button>
+					<button type="button" class="primary" onclick={addBuild}>{$t("Nuevo build", "New build")}</button>
+					<button type="button" onclick={() => (importing = true)}>{$t("Importar", "Import")}</button>
 				</div>
 			</aside>
 
 			<main class="scroll pad">
 				{#if importing}
 					<section class="import">
-						<h2>Importar build</h2>
+						<h2>{$t("Importar build", "Import build")}</h2>
 						<label class="field">
-							<span class="label">JSON propio o exportado de aoe4guides (Overlay Tool)</span>
-							<textarea rows="12" bind:value={importText} placeholder="Pegá el JSON de «Copiar JSON» o de «Overlay Tool» en aoe4guides"></textarea>
-							<p class="tip">También acepta paquetes de builds. La población puede quedar vacía: el OCR usa los aldeanos por recurso. Los iconos se convierten a texto.</p>
+							<span class="label">{$t("JSON propio o exportado de aoe4guides (Overlay Tool)", "App JSON or aoe4guides export (Overlay Tool)")}</span>
+							<textarea rows="12" bind:value={importText} placeholder={$t("Pegá el JSON de «Copiar JSON» o de «Overlay Tool» en aoe4guides", "Paste JSON from Copy JSON or aoe4guides Overlay Tool")}></textarea>
+							<p class="tip">{$t("También acepta paquetes de builds. La población puede quedar vacía: el OCR usa los aldeanos por recurso. Los iconos se convierten a texto.", "Build packs are also supported. Population may be blank: OCR uses resource villager counts. Icons are converted to text.")}</p>
 						</label>
 						{#if importError}<p class="error">{importError}</p>{/if}
 						<div class="foot">
-							<button type="button" class="primary" onclick={runImport}>Importar</button>
-							<button type="button" onclick={() => ((importing = false), (importError = ''))}>Cancelar</button>
+							<button type="button" class="primary" onclick={runImport}>{$t("Importar", "Import")}</button>
+							<button type="button" onclick={() => ((importing = false), (importError = ''))}>{$t("Cancelar", "Cancel")}</button>
 						</div>
 					</section>
 				{:else if selectedIndex >= 0}
@@ -384,7 +384,7 @@
 						/>
 					{/key}
 				{:else}
-					<p class="loading">Elegí un build de la lista o creá uno nuevo.</p>
+					<p class="loading">{$t("Elegí un build de la lista o creá uno nuevo.", "Choose a build from the list or create a new one.")}</p>
 				{/if}
 			</main>
 		</div>

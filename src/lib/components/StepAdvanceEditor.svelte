@@ -1,5 +1,6 @@
 <script lang="ts">
- import { RESOURCES, RES_LABEL, type Step, type Resource, type Villagers } from '$lib/types';
+ import { t, locale, resourceLabel } from '$lib/i18n';
+ import { RESOURCES, type Step, type Resource, type Villagers } from '$lib/types';
  import { resolveAdvance, advanceLabel } from '$lib/advance';
  import { villagerTotal } from '$lib/ocr';
  let {step=$bindable(),previous,index,allocation,label}:{step:Pick<Step,'action'|'note'|'advance'> & Partial<Step>;previous?:Step;index:number;allocation?:Villagers;label?:string}=$props();
@@ -29,26 +30,26 @@
 </script>
 
 <details class="advance-editor">
- <summary><span>{label??`Avance del paso ${index+1}`}</span><strong>{mode==='auto'?'Sugerido · ':''}{advanceLabel(effective)}</strong></summary>
+ <summary><span>{label??$t(`Avance del paso ${index+1}`, `Step ${index+1} advancement`)}</span><strong>{mode==='auto'?$t("Sugerido · ", "Suggested · "):''}{advanceLabel(effective, $locale)}</strong></summary>
  <div class="controls">
-  <label>Al completar este paso<select aria-label="Criterio de avance del paso {index+1}" value={mode} onchange={e=>changeMode(e.currentTarget.value)}>
-   <option value="auto">Sugerir según la instrucción</option><option value="manual">Manual (AvPág)</option><option value="total">Total de aldeanos</option><option value="resources">Mínimos por recurso</option><option value="transfer">Traslado entre recursos</option>
+  <label>{$t("Al completar este paso", "When this step is complete")}<select aria-label={$t(`Criterio de avance del paso ${index+1}`, `Advancement rule for step ${index+1}`)} value={mode} onchange={e=>changeMode(e.currentTarget.value)}>
+   <option value="auto">{$t("Sugerir según la instrucción", "Suggest from instructions")}</option><option value="manual">{$t("Manual (AvPág)", "Manual (Page Down)")}</option><option value="total">{$t("Total de aldeanos", "Total villagers")}</option><option value="resources">{$t("Mínimos por recurso", "Resource minimums")}</option><option value="transfer">{$t("Traslado entre recursos", "Resource transfer")}</option>
   </select></label>
   {#if step.advance?.kind==='total'}
-   <label>Total mínimo<input aria-label="Total mínimo del paso {index+1}" type="number" min="1" max="200" value={step.advance.count} onchange={e=>{step.advance={kind:'total',count:bounded(e.currentTarget.value)};}} /></label>
+   <label>{$t("Total mínimo", "Minimum total")}<input aria-label={$t(`Total mínimo del paso ${index+1}`, `Minimum total for step ${index+1}`)} type="number" min="1" max="200" value={step.advance.count} onchange={e=>{step.advance={kind:'total',count:bounded(e.currentTarget.value)};}} /></label>
   {:else if step.advance?.kind==='resources'}
    <div class="resources">{#each RESOURCES as r}
     {@const selected=step.advance.minimum[r]!==undefined}
-    <label class="resource"><span><input type="checkbox" aria-label="Comprobar {RES_LABEL[r]} en paso {index+1}" checked={selected} disabled={selected && Object.keys(step.advance.minimum).length===1 || !selected && Object.values(step.advance.minimum).reduce((a,b)=>a+b,0)>=200} onchange={e=>setMinimum(r,e.currentTarget.checked?Math.min(200,Math.max(1,fullStep.villagers[r])):null)} />{RES_LABEL[r]}</span>
-    {#if selected}<input aria-label="Mínimo de {RES_LABEL[r]} del paso {index+1}" type="number" min="1" max="200" value={step.advance.minimum[r]} onchange={e=>setMinimum(r,bounded(e.currentTarget.value))} />{/if}</label>
+    <label class="resource"><span><input type="checkbox" aria-label={$t(`Comprobar ${resourceLabel(r, $locale)} en paso ${index+1}`, `Check ${resourceLabel(r, $locale)} in step ${index+1}`)} checked={selected} disabled={selected && Object.keys(step.advance.minimum).length===1 || !selected && Object.values(step.advance.minimum).reduce((a,b)=>a+b,0)>=200} onchange={e=>setMinimum(r,e.currentTarget.checked?Math.min(200,Math.max(1,fullStep.villagers[r])):null)} />{resourceLabel(r, $locale)}</span>
+    {#if selected}<input aria-label={$t(`Mínimo de ${resourceLabel(r, $locale)} del paso ${index+1}`, `${resourceLabel(r, $locale)} minimum for step ${index+1}`)} type="number" min="1" max="200" value={step.advance.minimum[r]} onchange={e=>setMinimum(r,bounded(e.currentTarget.value))} />{/if}</label>
    {/each}</div>
   {:else if step.advance?.kind==='transfer'}
-   <label>Desde<select aria-label="Origen del traslado del paso {index+1}" value={step.advance.from} onchange={e=>setResource('from',e.currentTarget.value as Resource)}>{#each RESOURCES as r}<option value={r}>{RES_LABEL[r]}</option>{/each}</select></label>
-   <label>Hacia<select aria-label="Destino del traslado del paso {index+1}" value={step.advance.to} onchange={e=>setResource('to',e.currentTarget.value as Resource)}>{#each RESOURCES as r}<option value={r}>{RES_LABEL[r]}</option>{/each}</select></label>
-   <label>Cantidad<input aria-label="Cantidad a trasladar del paso {index+1}" type="number" min="1" max="200" value={step.advance.count} onchange={e=>{if(step.advance?.kind==='transfer')step.advance={...step.advance,count:bounded(e.currentTarget.value)};}} /></label>
+   <label>{$t("Desde", "From")}<select aria-label={$t(`Origen del traslado del paso ${index+1}`, `Transfer source for step ${index+1}`)} value={step.advance.from} onchange={e=>setResource('from',e.currentTarget.value as Resource)}>{#each RESOURCES as r}<option value={r}>{resourceLabel(r, $locale)}</option>{/each}</select></label>
+   <label>{$t("Hacia", "To")}<select aria-label={$t(`Destino del traslado del paso ${index+1}`, `Transfer destination for step ${index+1}`)} value={step.advance.to} onchange={e=>setResource('to',e.currentTarget.value as Resource)}>{#each RESOURCES as r}<option value={r}>{resourceLabel(r, $locale)}</option>{/each}</select></label>
+   <label>{$t("Cantidad", "Count")}<input aria-label={$t(`Cantidad a trasladar del paso ${index+1}`, `Transfer count for step ${index+1}`)} type="number" min="1" max="200" value={step.advance.count} onchange={e=>{if(step.advance?.kind==='transfer')step.advance={...step.advance,count:bounded(e.currentTarget.value)};}} /></label>
   {/if}
  </div>
- <p>{effective.kind==='transfer'?'Espera que el origen baje y el destino suba respecto del reparto al entrar al paso. Si ya hiciste el traslado antes de la lectura inicial, usá AvPág.':effective.kind==='resources'?'Solo exige los mínimos indicados. Permite aldeanos extra en cualquier recurso; los inactivos no cumplen un mínimo de recurso.':effective.kind==='total'?'Suma los cuatro recursos y los inactivos. No usa población ni exige un reparto.':'Las construcciones, subidas de edad e instrucciones ambiguas necesitan confirmación manual.'} El OCR confirma tres lecturas antes de avanzar.</p>
+ <p>{effective.kind==='transfer'?$t("Espera que el origen baje y el destino suba respecto del reparto al entrar al paso. Si ya hiciste el traslado antes de la lectura inicial, usá AvPág.", "The source must decrease and the destination must increase from the initial reading. If you transferred villagers before that reading, press Page Down."):effective.kind==='resources'?$t("Solo exige los mínimos indicados. Permite aldeanos extra en cualquier recurso; los inactivos no cumplen un mínimo de recurso.", "Villagers on each selected resource must meet its minimum. Extra villagers are allowed. Idle villagers count only toward the total."):effective.kind==='total'?$t("Suma los cuatro recursos y los inactivos. No usa población ni exige un reparto.", "Adds villagers from all four resources and idle villagers."):$t("Las construcciones, subidas de edad e instrucciones ambiguas necesitan confirmación manual.", "Buildings, age-ups, and ambiguous instructions require manual confirmation.")} {$t("El OCR confirma tres lecturas antes de avanzar.", "OCR confirms three readings before advancing.")}</p>
 </details>
 
 <style>

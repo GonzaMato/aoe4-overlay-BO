@@ -1,6 +1,7 @@
 import type { Build, Step, Subtask } from './types';
 import { copyAdvance, resolveAdvance, validAdvance } from './advance';
 import { uid } from './util';
+import { tr } from './i18n';
 
 export const MAX_SUBTASKS = 16;
 export type Cursor = { step: number; task: number };
@@ -55,7 +56,7 @@ export function suggestSubtasks(step: Step, previous?: Step): Subtask[] {
  const clauses = [step.action, step.note].flatMap(text => text.split(/\s*[;+\n]\s*|\.\s+(?=[A-ZÁÉÍÓÚÑ])/u)).map(s => s.trim()).filter(Boolean);
  // Keep overflow together instead of discarding instructions.
  const bounded = clauses.length > MAX_SUBTASKS ? [...clauses.slice(0, MAX_SUBTASKS - 1), clauses.slice(MAX_SUBTASKS - 1).join('; ')] : clauses;
- const tasks:Subtask[] = (bounded.length ? bounded : ['Nueva tarea']).map(action => ({
+ const tasks:Subtask[] = (bounded.length ? bounded : [tr('Nueva tarea','New task')]).map(action => ({
   id: uid(), action, note: '', advance: resolveAdvance({ ...step, action, note: '', advance: undefined }, previous)
  }));
  // A final allocation cannot define two intermediate goals on the same resource.

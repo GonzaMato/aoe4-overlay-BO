@@ -1,0 +1,6471 @@
+{
+  "format": "aoe4-overlay-build-pack",
+  "version": 1,
+  "id": "starter-2026-11-en",
+  "name": "One build per civilization",
+  "reviewedAt": "2026-11-17",
+  "builds": [
+    {
+      "id": "starter-2026-11-eng-en",
+      "civ": "English",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Longbows into Castle Age",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/3j9fiuhUJIXVPvYmjHnP",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-eng-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Send all 6 villagers to sheep and build a house.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-eng-s01-t1",
+              "action": "Build a house.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-eng-s01-t2",
+              "action": "Keep six villagers on sheep.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-eng-s02",
+          "pop": null,
+          "time": 20,
+          "action": "Send 2 new villagers to gold and build a Mining Camp.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-eng-s02-t1",
+              "action": "Build a Mining Camp by the gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-eng-s02-t2",
+              "action": "Bring the number of gold miners to two with new villagers.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-eng-s03",
+          "pop": null,
+          "time": 60,
+          "action": "Send the next villager to food to make 7.",
+          "note": "Keep rallying new villagers to sheep.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 7
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s04",
+          "pop": null,
+          "time": 130,
+          "action": "When 3,900 of 4,000 gold remains in the vein, move the miners to wood.",
+          "note": "Build a Lumber Camp. The source gives a partial villager split.",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s05",
+          "pop": null,
+          "time": 131,
+          "action": "Build the Council Hall with 4 villagers from sheep.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 2,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s06",
+          "pop": null,
+          "time": 141,
+          "action": "Rally new villagers to wood until you have 11.",
+          "note": "You'll reach this target over the next few steps.",
+          "villagers": {
+            "food": 6,
+            "wood": 3,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s07",
+          "pop": null,
+          "time": 200,
+          "action": "Pull one landmark builder to build a Barracks.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s08",
+          "pop": null,
+          "time": 215,
+          "action": "Have another landmark builder build a house.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s09",
+          "pop": null,
+          "time": null,
+          "action": "When the Council Hall is complete, send its builders back to sheep.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s10",
+          "pop": null,
+          "time": 240,
+          "action": "Train Longbowmen and Spearmen.",
+          "note": "Attack with 5 Longbowmen and 2–3 Spearmen.",
+          "villagers": {
+            "food": 10,
+            "wood": 8,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s11",
+          "pop": null,
+          "time": 340,
+          "action": "Add one villager to food, then rally to gold until you have 5.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 11,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-eng-s12",
+          "pop": null,
+          "time": null,
+          "action": "Gather from deer if you control the map. Around 10–11 minutes, pause unit production and prepare for Castle Age.",
+          "note": "Use the White Tower for knights and resources, or the King's Palace for economy. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-fre-en",
+      "civ": "French",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Feudal Knights and Archers",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "JampiX",
+        "source": "https://aoe4guides.com/builds/WTb8ufQnXZH0jJTjGJ04",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-fre-s01a",
+          "pop": null,
+          "time": 0,
+          "action": "Send all 6 starting villagers to sheep.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 6
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s01b",
+          "pop": null,
+          "time": null,
+          "action": "Have the next 3 villagers build a house and a Mining Camp at gold.",
+          "note": "Then send them to gold. The villager split shown is the starting split.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-fre-s01b-t1",
+              "action": "Have the new villagers build a house.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-fre-s01b-t2",
+              "action": "Build a Mining Camp by the gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-fre-s01b-t3",
+              "action": "Bring the number of gold miners to three.",
+              "note": "Then send them to gold. The villager split shown is the starting split.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-fre-s01c",
+          "pop": null,
+          "time": null,
+          "action": "Bring home at least 2 sheep with your Scout and send new villagers to food.",
+          "note": "Then scout the opponent's economy.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s02",
+          "pop": null,
+          "time": 135,
+          "action": "At 14 villagers, build the School of Cavalry with 5 villagers from food.",
+          "note": "Leave room for a Keep and production buildings. Keep rallying to food until you have 12 and scout the opponent.",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s03",
+          "pop": null,
+          "time": 220,
+          "action": "On completion, send 2 builders to gold. Have the other 3 build a house and gather wood.",
+          "note": "Keep training Royal Knights and raid enemy villagers.",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s04a",
+          "pop": null,
+          "time": 250,
+          "action": "Once the first knight is out, move 8 food gatherers to deer and build a Mill.",
+          "note": "Once you have 12 on food, rally to wood and gold as needed.",
+          "villagers": {
+            "food": 12,
+            "wood": 3,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s04b",
+          "pop": null,
+          "time": null,
+          "action": "Research Survival Techniques, Specialized Pick, Wheelbarrow, and Double Broadax.",
+          "note": "Research the upgrades in that order.",
+          "villagers": {
+            "food": 12,
+            "wood": 3,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-fre-s04b-t1",
+              "action": "Research Survival Techniques.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-fre-s04b-t2",
+              "action": "Then research Specialized Pick.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-fre-s04b-t3",
+              "action": "Then research Wheelbarrow.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-fre-s04b-t4",
+              "action": "Then research Double Broadax.",
+              "note": "Research the upgrades in that order.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-fre-s05a",
+          "pop": null,
+          "time": null,
+          "action": "Against lots of Spearmen, prioritize an Archery Range. Otherwise, build a Stable first and then an Archery Range.",
+          "note": "Keep training knights and Archers to maintain pressure.",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s05b",
+          "pop": null,
+          "time": null,
+          "action": "When preparing for Castle Age, move woodcutters to food and gold.",
+          "note": "The published villager split is from before the reassignment.",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s06",
+          "pop": null,
+          "time": null,
+          "action": "Build the Guild Hall or Royal Institute with 12 gold miners.",
+          "note": "Add a Blacksmith. The source gives an approximate timing of 13:10.",
+          "villagers": {
+            "food": 18,
+            "wood": 4,
+            "gold": 20,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-fre-s07",
+          "pop": null,
+          "time": 830,
+          "action": "Upgrade knights and Archers upon reaching Castle Age.",
+          "note": "Send about 10 villagers to stone. At 900 stone, build a Keep to cover your production buildings.",
+          "villagers": {
+            "food": 26,
+            "wood": 6,
+            "gold": 13,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-hre-en",
+      "name": "Meinwerk Feudal Pressure",
+      "civ": "Holy Roman Empire",
+      "mode": "1v1",
+      "map": "Land",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/PZycr2KliA5cvZCB5gWI",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-hre-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Send 3 villagers to food and 3 to gold.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 3,
+              "gold": 3
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s2",
+          "pop": null,
+          "time": 10,
+          "action": "Use your gold villagers to build a house and a Mining Camp.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-hre-s2-t1",
+              "action": "Build a house with one gold villager.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hre-s2-t2",
+              "action": "Build a Mining Camp by the gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hre-s2-t3",
+              "action": "Bring the number of gold miners back to three.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-hre-s3",
+          "pop": null,
+          "time": 20,
+          "action": "Send new villagers to food until you're ready to age up to Feudal.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s4",
+          "pop": null,
+          "time": 60,
+          "action": "Inspire your miners once with the Prelate, then send it back to food.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s5",
+          "pop": null,
+          "time": 131,
+          "action": "Build Meinwerk Palace with the 3 gold miners.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s6",
+          "pop": null,
+          "time": 140,
+          "action": "Leave 3 villagers on food and bring wood to 7.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 7,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 3,
+              "wood": 7
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s7",
+          "pop": null,
+          "time": 160,
+          "action": "If deer are nearby and safe, send 5 villagers and research Survival Techniques.",
+          "note": "Otherwise, keep gathering from sheep.",
+          "villagers": {
+            "food": 4,
+            "wood": 7,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s8",
+          "pop": null,
+          "time": 245,
+          "action": "On reaching Feudal Age, return the builders to gold and build a Barracks and an Archery Range.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 7,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-hre-s8-t1",
+              "action": "On reaching Feudal Age, return the builders to gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hre-s8-t2",
+              "action": "Build a Barracks and an Archery Range.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-hre-s9",
+          "pop": null,
+          "time": 245,
+          "action": "Choose your army based on the opponent.",
+          "note": "Against Fast Castle, make Spearmen and Archers. Against Horsemen, Spearmen, and Archers, make Men-at-Arms and Archers. Against knights and Archers, make Horsemen and Spearmen and research Awl Pikes.",
+          "villagers": {
+            "food": 8,
+            "wood": 7,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hre-s10",
+          "pop": null,
+          "time": null,
+          "action": "Add economic upgrades and secure a boar.",
+          "note": "After dealing damage, consider Castle Age. If both players are still in Feudal, keep training units. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-mon-en",
+      "civ": "Mongols",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Early Tower, Keshiks and Archers",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Shaada",
+        "source": "https://aoe4guides.com/builds/YOcdrRav7QTIlwa6QGrJ",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-mon-s1",
+          "pop": null,
+          "time": null,
+          "action": "Settle your Town Center by wood. Have five villagers chop the nearby tree next to the Ger.",
+          "note": "Have the sixth villager build the Ovoo.",
+          "villagers": {
+            "food": 0,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mon-s1-t1",
+              "action": "Settle your Town Center by wood and place the Ger by the nearby tree.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s1-t2",
+              "action": "Have one villager build the Ovoo.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s1-t3",
+              "action": "Keep five villagers chopping the nearby tree.",
+              "note": "Have the sixth villager build the Ovoo.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "wood": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mon-s2",
+          "pop": null,
+          "time": null,
+          "action": "Once the tree is depleted, send three villagers to chop by the Town Center and two to food.",
+          "note": "Build a Barracks within Ovoo influence.",
+          "villagers": {
+            "food": 4,
+            "wood": 3,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s3",
+          "pop": null,
+          "time": null,
+          "action": "Train two Spearmen together and send them across the map with a villager.",
+          "note": "Build an Outpost to deny the opponent's gold.",
+          "villagers": {
+            "food": 4,
+            "wood": 3,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mon-s3-t1",
+              "action": "Train two Spearmen together.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s3-t2",
+              "action": "Send them across the map with a villager.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s3-t3",
+              "action": "Build the Outpost to deny the opponent's gold.",
+              "note": "Build an Outpost to deny the opponent's gold.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mon-s4",
+          "pop": null,
+          "time": null,
+          "action": "Add three more Spearmen with one single and one double production batch.",
+          "note": "Send the reinforcements to the Outpost.",
+          "villagers": {
+            "food": 4,
+            "wood": 3,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s5",
+          "pop": null,
+          "time": null,
+          "action": "Once you have the wood for five Spearmen and the Outpost, redistribute villagers to food and gold.",
+          "note": "Age up with six villagers building Deer Stones.",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s6",
+          "pop": null,
+          "time": null,
+          "action": "Bring wood to seven villagers, then food to twelve. Research Wheelbarrow when you can.",
+          "note": "Complete each task in the order shown.",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mon-s6-t1",
+              "action": "Bring wood to seven villagers.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "wood": 7
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s6-t2",
+              "action": "Then bring food to twelve villagers.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 12
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-mon-s6-t3",
+              "action": "Research Wheelbarrow when you can.",
+              "note": "Confirm the upgrade manually.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mon-s7",
+          "pop": null,
+          "time": null,
+          "action": "Build a Stable and research Arrowslits for the Outpost and the Spearman upgrade.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s8",
+          "pop": null,
+          "time": null,
+          "action": "Keep training Keshiks and use a double production batch.",
+          "note": "Add an Archery Range and train Archers continuously. Use double production when you can.",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s9",
+          "pop": null,
+          "time": null,
+          "action": "Send five villagers to deer and research Survival Techniques.",
+          "note": "Add an Outpost when possible.",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mon-s10",
+          "pop": null,
+          "time": null,
+          "action": "Build a Blacksmith and research ranged attack and ranged armor.",
+          "note": "Gradually add Pastures while keeping up the pressure.",
+          "villagers": {
+            "food": 12,
+            "wood": 7,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-chi-en",
+      "civ": "Chinese",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Imperial Academy and Tax-Funded Pressure",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/gzZ29Jf9aytL113LZOEm",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-chi-s01",
+          "pop": null,
+          "time": null,
+          "action": "Build a Mill toward the woodline with all 6 villagers.",
+          "note": "Leave room for a Lumber Camp and the Imperial Academy.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s02",
+          "pop": null,
+          "time": 20,
+          "action": "Send 2 new villagers to gold.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s03",
+          "pop": null,
+          "time": 60,
+          "action": "Send the next villager to food to make 7.",
+          "note": "Keep rallying to food until you start aging up.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 7
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s04",
+          "pop": null,
+          "time": 135,
+          "action": "Build the Imperial Academy with 5 villagers.",
+          "note": "Place it near the Mill and the woodline.",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s05",
+          "pop": null,
+          "time": 140,
+          "action": "Gather 35 gold for the Imperial Official, then move the miners to nearby trees.",
+          "note": "Reach 7 on food, then rally to wood. Build a Village and a Lumber Camp.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-chi-s05-t1",
+              "action": "Gather 35 gold for the Imperial Official and confirm the amount manually.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-chi-s05-t2",
+              "action": "Move the miners to nearby trees.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-chi-s05-t3",
+              "action": "Bring food to seven villagers.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 7
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-chi-s05-t4",
+              "action": "Then send new villagers to wood and build a Village and a Lumber Camp.",
+              "note": "Reach 7 on food, then rally to wood. Build a Village and a Lumber Camp.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-chi-s06",
+          "pop": null,
+          "time": 192,
+          "action": "Train Imperial Officials until you have 4.",
+          "note": "Supervise the Mill and Lumber Camp.",
+          "villagers": {
+            "food": 7,
+            "wood": 8,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s07",
+          "pop": null,
+          "time": 225,
+          "action": "Build a Village.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 9,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s08",
+          "pop": null,
+          "time": 240,
+          "action": "Build a Lumber Camp when the second Imperial Official comes out.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s09",
+          "pop": null,
+          "time": 260,
+          "action": "Queue the third Imperial Official and add military production based on the opponent.",
+          "note": "Build an Archery Range, Barracks, or Stable. Rally new villagers to food.",
+          "villagers": {
+            "food": 8,
+            "wood": 11,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-chi-s09-t1",
+              "action": "Queue the third Imperial Official.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-chi-s09-t2",
+              "action": "Add an Archery Range, Barracks, or Stable based on the opponent. Rally new villagers to food.",
+              "note": "Build an Archery Range, Barracks, or Stable. Rally new villagers to food.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-chi-s10",
+          "pop": null,
+          "time": 410,
+          "action": "Prepare Professional Scouts, a Stable, and 4 Scouts.",
+          "note": "Add a Blacksmith for upgrades.",
+          "villagers": {
+            "food": 12,
+            "wood": 14,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-chi-s11",
+          "pop": null,
+          "time": null,
+          "action": "Pay for Professional Scouts with taxes and bring home deer carcasses.",
+          "note": "Maintain pressure and adjust your economy. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-del-en",
+      "civ": "Delhi Sultanate",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Early Ghazi Raiders into Castle Age",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/S3FUuhz7WEB8VYUL5qPb",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-del-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Gather 50 wood with 5 villagers and build a Mill at the berries.",
+          "note": "Have the sixth villager build a Mosque.",
+          "villagers": {
+            "food": 0,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-del-s01-t1",
+              "action": "Assign five villagers to chop nearby trees.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "wood": 5
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-del-s01-t4",
+              "action": "Have the sixth villager build the Mosque while the others chop wood.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-del-s01-t2",
+              "action": "Gather 50 wood with those five and confirm the amount manually.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-del-s01-t3",
+              "action": "Build a Mill at the berries and confirm that the Mosque is complete.",
+              "note": "Have the sixth villager build a Mosque.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-del-s02",
+          "pop": null,
+          "time": 20,
+          "action": "Have the new villager build a house and then gather berries.",
+          "note": "",
+          "villagers": {
+            "food": 0,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s03",
+          "pop": null,
+          "time": 40,
+          "action": "Send the next villager to food.",
+          "note": "The source counts 8 once the builder joins. The split shown has 7.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s04",
+          "pop": null,
+          "time": 60,
+          "action": "Send the next 3 villagers to gold and build a Mining Camp.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-del-s04-t1",
+              "action": "Have the first miner build a Mining Camp by the gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-del-s04-t2",
+              "action": "Bring gold to three villagers with the new villagers.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-del-s05",
+          "pop": null,
+          "time": 120,
+          "action": "Send 2 villagers to nearby trees and another to build a Lumber Camp.",
+          "note": "At 50 wood, move the 2 villagers to the woodline and keep rallying until you have 5 on wood.",
+          "villagers": {
+            "food": 8,
+            "wood": 1,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s06",
+          "pop": null,
+          "time": 150,
+          "action": "Build the Dome of the Faith with 4 berry gatherers.",
+          "note": "Place it by the berries.",
+          "villagers": {
+            "food": 4,
+            "wood": 2,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s07",
+          "pop": null,
+          "time": null,
+          "action": "Once you have 5 on wood, rally to food until you have 12, then to wood until you have 12.",
+          "note": "Aim for 5 on wood, then 12 on food, then 12 on wood. Confirm the plan and start building while working toward these targets.",
+          "villagers": {
+            "food": 10,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s08",
+          "pop": null,
+          "time": 255,
+          "action": "Start the Feudal upgrades and build a Stable with 2 woodcutters.",
+          "note": "Garrison a Scholar and keep training Ghazi Raiders.",
+          "villagers": {
+            "food": 11,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s09",
+          "pop": null,
+          "time": 385,
+          "action": "Add an Archery Range, Barracks, and Blacksmith as the game calls for.",
+          "note": "Prioritize military production. The guide suggests 2 Blacksmiths around minutes 8–10.",
+          "villagers": {
+            "food": 12,
+            "wood": 9,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s10",
+          "pop": null,
+          "time": null,
+          "action": "Secure 2 deer herds with Professional Scouts before Castle Age.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-del-s11",
+          "pop": null,
+          "time": null,
+          "action": "In Castle Age, train War Elephants and add 2 Archery Ranges.",
+          "note": "Train Archers and Crossbowmen and gather stone for Keeps and Village Fortresses. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-abb-en",
+      "civ": "Abbasid Dynasty",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Economic Wing into a Second Town Center",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/q7ShhrWaVgMCyDjPQX9F",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-abb-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Send 5 villagers to berries and build a house and the House of Wisdom.",
+          "note": "Send the House of Wisdom builder to sheep afterward.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-abb-s01-t1",
+              "action": "Build a house and the House of Wisdom while five villagers gather berries.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-abb-s01-t2",
+              "action": "Send the builder back to sheep for six food gatherers in total.",
+              "note": "Send the House of Wisdom builder to sheep afterward.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-abb-s02",
+          "pop": null,
+          "time": 20,
+          "action": "Send the next 2 villagers to gold and build a Mining Camp.",
+          "note": "The villager split shown is the starting split.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-abb-s02-t1",
+              "action": "Build a Mining Camp by the gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-abb-s02-t2",
+              "action": "Send both new villagers to gold.",
+              "note": "The villager split shown is the starting split.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-abb-s03",
+          "pop": null,
+          "time": 60,
+          "action": "Send the next villager to food to make 7.",
+          "note": "Keep rallying to sheep until you start the Economic Wing.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 7
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s04",
+          "pop": null,
+          "time": 130,
+          "action": "Start aging up with the Economic Wing.",
+          "note": "",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s05",
+          "pop": null,
+          "time": 132,
+          "action": "Move 5 villagers from sheep to trees by the Town Center.",
+          "note": "Save the woodline for the second Town Center and use the nearby trees first.",
+          "villagers": {
+            "food": 5,
+            "wood": 5,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s06",
+          "pop": null,
+          "time": 140,
+          "action": "Send the next villagers to stone until you have 4 miners.",
+          "note": "Keep rallying to stone during the age-up.",
+          "villagers": {
+            "food": 5,
+            "wood": 5,
+            "gold": 2,
+            "stone": 1
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s07",
+          "pop": null,
+          "time": null,
+          "action": "Have a stone miner build the Mining Camp.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s08",
+          "pop": null,
+          "time": 240,
+          "action": "Research Fertile Crescent and Fresh Foodstuffs.",
+          "note": "Do this upon reaching Feudal Age.",
+          "villagers": {
+            "food": 5,
+            "wood": 7,
+            "gold": 2,
+            "stone": 4
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s09",
+          "pop": null,
+          "time": null,
+          "action": "Send new villagers to wood, then move the gold miners there too.",
+          "note": "Move the miners when 3,750 of 4,000 gold remains in the vein.",
+          "villagers": {
+            "food": 5,
+            "wood": 8,
+            "gold": 2,
+            "stone": 4
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-abb-s10",
+          "pop": null,
+          "time": 290,
+          "action": "Build the second Town Center to protect the woodline.",
+          "note": "The source gives a partial villager split during construction. Then choose whether to stay in Feudal or age up to Castle.",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-rus-en",
+      "civ": "Rus",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Kremlin into Two Town Centers",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Munchy",
+        "source": "https://aoe4guides.com/builds/1tfWsW7TmU88pmBMndSo",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-rus-s1",
+          "pop": null,
+          "time": null,
+          "action": "Have two villagers build a Hunting Cabin and a house. Rally new villagers to sheep.",
+          "note": "Train two or three Scouts from the Hunting Cabin.",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-rus-s1-t1",
+              "action": "Have two villagers build the Hunting Cabin.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-rus-s1-t2",
+              "action": "Build a house and rally new villagers to sheep.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-rus-s1-t3",
+              "action": "Train two or three Scouts from the Hunting Cabin.",
+              "note": "Train two or three Scouts from the Hunting Cabin.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-rus-s2",
+          "pop": null,
+          "time": 155,
+          "action": "Build the Kremlin near deer with two villagers.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s3",
+          "pop": null,
+          "time": 165,
+          "action": "Keep four on food, send the rest to nearby trees, and rally new villagers to stone.",
+          "note": "Build a Mining Camp once you have 50 wood.",
+          "villagers": {
+            "food": 4,
+            "wood": 8,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s4",
+          "pop": null,
+          "time": 210,
+          "action": "When the first tree is depleted, move all woodcutters to stone.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 0,
+            "stone": 10
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s5",
+          "pop": null,
+          "time": 285,
+          "action": "At 300 stone, move the miners to wood.",
+          "note": "Send the Kremlin builders and new villagers to wood as well.",
+          "villagers": {
+            "food": 4,
+            "wood": 16,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s6",
+          "pop": null,
+          "time": 340,
+          "action": "At 400 wood, use nine woodcutters to build the second Town Center near the Kremlin.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s7",
+          "pop": null,
+          "time": 360,
+          "action": "Keep four villagers on wood and move the other gatherers to deer.",
+          "note": "Keep the first Town Center rallied to sheep.",
+          "villagers": {
+            "food": 11,
+            "wood": 4,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s8",
+          "pop": null,
+          "time": 385,
+          "action": "When the second Town Center is complete, rally it to deer and research Survival Techniques.",
+          "note": "",
+          "villagers": {
+            "food": 17,
+            "wood": 8,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-rus-s8-t1",
+              "action": "Confirm the second Town Center is complete and rally it to deer.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-rus-s8-t2",
+              "action": "Research Survival Techniques.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-rus-s9",
+          "pop": null,
+          "time": null,
+          "action": "If you're being raided, add a Barracks or Archery Range and protect your base with Palisade Walls.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s10",
+          "pop": null,
+          "time": 445,
+          "action": "Rally both Town Centers to gold until you have nine, then switch to food.",
+          "note": "Research Wheelbarrow, Horticulture, and Double Broadax in that order.",
+          "villagers": {
+            "food": 17,
+            "wood": 8,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s11",
+          "pop": null,
+          "time": 565,
+          "action": "Age up with the High Trade House or Abbey of the Trinity.",
+          "note": "The guide suggests the Abbey for Horse Archers, Warrior Monks, and Men-at-Arms.",
+          "villagers": {
+            "food": 12,
+            "wood": 8,
+            "gold": 9,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s12",
+          "pop": null,
+          "time": null,
+          "action": "Rally both Town Centers to wood during the age-up.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-rus-s13",
+          "pop": null,
+          "time": 620,
+          "action": "On reaching Castle Age, return the builders to deer.",
+          "note": "",
+          "villagers": {
+            "food": 22,
+            "wood": 14,
+            "gold": 9,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-ott-en",
+      "civ": "Ottomans",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Military School and Sipahi",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/V125Ljbch5hAHFBNTg7F",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-ott-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Have five villagers gather 50 stone without a Mining Camp and another build a house.",
+          "note": "",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 5
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-ott-s1-t1",
+              "action": "Have one villager build a house while the other five start mining stone.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-ott-s1-t2",
+              "action": "Bring the number of stone miners to five.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "stone": 5
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-ott-s1-t3",
+              "action": "Gather 50 stone without a Mining Camp and confirm the amount manually.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-ott-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Send new villagers to food.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 0,
+            "gold": 0,
+            "stone": 5
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s3",
+          "pop": null,
+          "time": 30,
+          "action": "Drop off the stone, then have those five gather 50 wood before moving them to food.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s4",
+          "pop": null,
+          "time": 30,
+          "action": "Build the first Military School.",
+          "note": "",
+          "villagers": {
+            "food": 1,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s5",
+          "pop": null,
+          "time": 55,
+          "action": "Send the woodcutters back to food and bring the total to eight.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s6",
+          "pop": null,
+          "time": 64,
+          "action": "Once you have eight on food, bring gold to three.",
+          "note": "The instructions give the target. The villager split shown is from before the reassignment.",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 3
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s7",
+          "pop": null,
+          "time": 120,
+          "action": "Resume rallying new villagers to food.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s8",
+          "pop": null,
+          "time": 170,
+          "action": "Use four food gatherers to build the Twin Minaret Medrese.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s9",
+          "pop": null,
+          "time": 180,
+          "action": "Redistribute villagers to stone and wood. Have five chop nearby trees.",
+          "note": "The source shows two on stone. Bring that to three in the next step.",
+          "villagers": {
+            "food": 4,
+            "wood": 5,
+            "gold": 0,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s10",
+          "pop": null,
+          "time": 200,
+          "action": "Bring stone to three miners. Build their Mining Camp once you have 50 wood.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 5,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s11",
+          "pop": null,
+          "time": 220,
+          "action": "Build a house and rally new villagers to wood.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 5,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s12",
+          "pop": null,
+          "time": 240,
+          "action": "Build the Lumber Camp.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 6,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s13",
+          "pop": null,
+          "time": 270,
+          "action": "Send the four landmark builders back to food.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s14",
+          "pop": null,
+          "time": 285,
+          "action": "Build a Stable and train Sipahi.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 9,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-ott-s14-t1",
+              "action": "Build a Stable.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-ott-s14-t2",
+              "action": "Start training Sipahi.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-ott-s15",
+          "pop": null,
+          "time": 320,
+          "action": "Build the second Military School.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 11,
+            "gold": 0,
+            "stone": 3
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s16",
+          "pop": null,
+          "time": null,
+          "action": "Gather another 100 stone and move the miners to wood.",
+          "note": "Save it for the Military Campus. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s17",
+          "pop": null,
+          "time": 330,
+          "action": "Build a Blacksmith.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 13,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ott-s18",
+          "pop": null,
+          "time": null,
+          "action": "Choose whether to build up your army or prepare for Castle Age based on the opponent.",
+          "note": "The guide leaves this decision open. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-mal-en",
+      "civ": "Malians",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Early Pit Mine and Cattle Economy",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/0DSW4iLRlv22BXBjlirM",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-mal-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Send five villagers to wood. Have one build the Pit Mine and seven houses.",
+          "note": "Once you've gathered 150 wood, move the woodcutters to food.",
+          "villagers": {
+            "food": 0,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mal-s1-t1",
+              "action": "Send five villagers to wood.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "wood": 5
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-mal-s1-t4",
+              "action": "Have the sixth villager build the Pit Mine and start on the houses.",
+              "note": "Keep that villager building until you have seven houses.",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mal-s1-t2",
+              "action": "Gather 150 wood and move those five villagers to food while the builder keeps working.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mal-s1-t3",
+              "action": "Confirm the Pit Mine and all seven houses are complete.",
+              "note": "Once you've gathered 150 wood, move the woodcutters to food.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mal-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Have the next villager chop another tree until they've gathered 25 wood, then rally new villagers to food.",
+          "note": "",
+          "villagers": {
+            "food": 0,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s3",
+          "pop": null,
+          "time": 165,
+          "action": "Build Mansa Quarry with five villagers.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s4",
+          "pop": null,
+          "time": 170,
+          "action": "Gather 50 wood, build a Lumber Camp, and bring wood to ten.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 4,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s5",
+          "pop": null,
+          "time": 251,
+          "action": "Send the builders back to sheep and research Wheelbarrow and Double Broadax.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 9,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s6",
+          "pop": null,
+          "time": 275,
+          "action": "Build a Barracks and start training Donso.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mal-s6-t1",
+              "action": "Build a Barracks.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mal-s6-t2",
+              "action": "Start training Donso.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mal-s7",
+          "pop": null,
+          "time": 285,
+          "action": "Once you have ten on wood, rally new villagers to food.",
+          "note": "Advance manually. The source gives no final target for food gatherers.",
+          "villagers": {
+            "food": 8,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s8",
+          "pop": null,
+          "time": 300,
+          "action": "Build an Archery Range and train Javelin Throwers.",
+          "note": "",
+          "villagers": {
+            "food": 10,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mal-s8-t1",
+              "action": "Build an Archery Range.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mal-s8-t2",
+              "action": "Start training Javelin Throwers.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mal-s9",
+          "pop": null,
+          "time": 350,
+          "action": "Once you have two Donso and two Javelin Throwers, build the second Pit Mine.",
+          "note": "",
+          "villagers": {
+            "food": 13,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s10",
+          "pop": null,
+          "time": 370,
+          "action": "Research Horticulture.",
+          "note": "",
+          "villagers": {
+            "food": 14,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s11",
+          "pop": null,
+          "time": 420,
+          "action": "Move five villagers from sheep to deer and build a Toll Outpost.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 9,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mal-s12",
+          "pop": null,
+          "time": null,
+          "action": "Start building your cattle economy and keep training units.",
+          "note": "The guide calls for at least twelve cattle before Castle Age. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-byz-en",
+      "civ": "Byzantines",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Grand Winery and Feudal Pressure",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/fnCZRz1f0MP7YeECIdro",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-byz-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Start with 3 on sheep, 1 on gold, and 2 on stone.",
+          "note": "Build Mining Camps. Have one stone miner build a house and a Cistern.",
+          "villagers": {
+            "food": 3,
+            "wood": 0,
+            "gold": 1,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-byz-s01-t1",
+              "action": "Build the gold and stone Mining Camps while three villagers gather from sheep.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-byz-s01-t2",
+              "action": "Have one stone villager build a house and a Cistern.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-byz-s01-t3",
+              "action": "Bring food to three villagers, gold to one, and stone to two.",
+              "note": "Build Mining Camps. Have one stone miner build a house and a Cistern.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 3,
+                  "gold": 1,
+                  "stone": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-byz-s02",
+          "pop": null,
+          "time": 20,
+          "action": "Rally new villagers to sheep until you have 7 on food.",
+          "note": "Keep rallying to sheep as your economy grows.",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 1,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s03",
+          "pop": null,
+          "time": 100,
+          "action": "Add one villager to gold, then keep rallying to food.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s04",
+          "pop": null,
+          "time": 140,
+          "action": "Have a stone miner build the second Cistern.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 0,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s05",
+          "pop": null,
+          "time": 150,
+          "action": "Build the Grand Winery with 4 villagers from sheep.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s06",
+          "pop": null,
+          "time": 160,
+          "action": "Rally new villagers to wood until you have 8.",
+          "note": "Do this during the age-up.",
+          "villagers": {
+            "food": 4,
+            "wood": 2,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s07",
+          "pop": null,
+          "time": 210,
+          "action": "Build a Lumber Camp.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 4,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s08",
+          "pop": null,
+          "time": 240,
+          "action": "Use gold miners to build the third Cistern and a house.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 6,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s09",
+          "pop": null,
+          "time": 254,
+          "action": "Research Horticulture and Wheelbarrow, then move the sheep gatherers to berries.",
+          "note": "Do this upon reaching Feudal Age.",
+          "villagers": {
+            "food": 8,
+            "wood": 6,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-byz-s09-t1",
+              "action": "Research Horticulture upon reaching Feudal Age.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-byz-s09-t2",
+              "action": "Research Wheelbarrow.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-byz-s09-t3",
+              "action": "Move the sheep gatherers to berries.",
+              "note": "Do this upon reaching Feudal Age.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-byz-s10",
+          "pop": null,
+          "time": 300,
+          "action": "Build a Barracks and the fourth Cistern.",
+          "note": "Stop mining stone after the fourth Cistern. The published split still shows 2 miners.",
+          "villagers": {
+            "food": 9,
+            "wood": 8,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s11",
+          "pop": null,
+          "time": 330,
+          "action": "Build the Mercenary House.",
+          "note": "",
+          "villagers": {
+            "food": 10,
+            "wood": 8,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s12",
+          "pop": null,
+          "time": 390,
+          "action": "Add the fifth Cistern and a Blacksmith.",
+          "note": "Research ranged attack, ranged armor, and Siege Engineering. The source doesn't specify the new villager split.",
+          "villagers": {
+            "food": 13,
+            "wood": 8,
+            "gold": 2,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-byz-s13",
+          "pop": null,
+          "time": null,
+          "action": "Keep training units and build Battering Rams for an attack between 8 and 10 minutes.",
+          "note": "Alternatively, age up to Castle with the Golden Horn Tower. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-jap-en",
+      "name": "Floating Gate Fast Castle",
+      "civ": "Japanese",
+      "mode": "1v1",
+      "map": "Land",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/yeDbJIwrrgHzUdJJb7gi",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-jap-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Keep 5 villagers on sheep. Have one build a Farmhouse and research Tawara.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jap-s1-t1",
+              "action": "Have one villager build the Farmhouse while the other five gather from sheep.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jap-s1-t2",
+              "action": "Research Tawara.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jap-s1-t3",
+              "action": "Keep at least five villagers on food.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jap-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Rally the next villagers to gold until you have 3.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 3
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s3",
+          "pop": null,
+          "time": 62,
+          "action": "When Tawara finishes, move the sheep gatherers to berries.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s4",
+          "pop": null,
+          "time": 80,
+          "action": "Rally new villagers to sheep.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s5",
+          "pop": null,
+          "time": 140,
+          "action": "Build the Kura Storehouse with one villager from sheep.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s6",
+          "pop": null,
+          "time": 154,
+          "action": "Send 3 villagers to wood to prepare for an Outpost.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 3,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 3
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s7",
+          "pop": null,
+          "time": 235,
+          "action": "Build an Outpost at your gold and research Arrowslits and Fortify Outpost.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 3,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jap-s7-t1",
+              "action": "Build an Outpost to protect your gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jap-s7-t2",
+              "action": "Research Arrowslits at the Outpost.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jap-s7-t3",
+              "action": "Research Fortify Outpost.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jap-s8",
+          "pop": null,
+          "time": null,
+          "action": "Keep adding villagers to food and add one more to gold.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s9",
+          "pop": null,
+          "time": 394,
+          "action": "Start aging up to Castle with the Floating Gate and 8 villagers from food.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 0,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s10",
+          "pop": null,
+          "time": 400,
+          "action": "Assign 5 to 8 villagers to wood depending on what you need to produce.",
+          "note": "Build a Barracks against pressure from units that cost wood. Build a Stable against knights or if there's no pressure.",
+          "villagers": {
+            "food": 7,
+            "wood": 5,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jap-s11",
+          "pop": null,
+          "time": 460,
+          "action": "In Castle Age, build a Stable, train Mounted Samurai, and collect relics.",
+          "note": "The guide suggests Yumi Ashigaru and Mounted Samurai. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-dra-en",
+      "civ": "Order of the Dragon",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Regnitz Castle Age",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/Osr0kBDqupiejJsGQcFy",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-dra-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Send all 5 villagers to sheep.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 5
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s02",
+          "pop": null,
+          "time": 23,
+          "action": "Send the next 2 villagers to gold.",
+          "note": "The published split shows the first miner. Bring gold to two villagers.",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 1,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s03",
+          "pop": null,
+          "time": null,
+          "action": "Once you find deer, move 4–5 villagers there and research Survival Techniques.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-dra-s03-t1",
+              "action": "Once you find deer, move four or five villagers there.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-dra-s03-t2",
+              "action": "Research Survival Techniques.",
+              "note": "The source doesn't specify the villager split.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-dra-s04",
+          "pop": null,
+          "time": 69,
+          "action": "Rally new villagers to food until you have 8.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s05",
+          "pop": null,
+          "time": 140,
+          "action": "Send one villager to wood.",
+          "note": "The source gives only the villager split for this step.",
+          "villagers": {
+            "food": 8,
+            "wood": 1,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 1
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s06",
+          "pop": null,
+          "time": 175,
+          "action": "Build the Aachen Chapel with 3 villagers.",
+          "note": "Place it by the woodline.",
+          "villagers": {
+            "food": 8,
+            "wood": 2,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s07",
+          "pop": null,
+          "time": 255,
+          "action": "Resume rallying new villagers to food.",
+          "note": "The villager split during the age-up is approximate.",
+          "villagers": {
+            "food": 4,
+            "wood": 6,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s08",
+          "pop": null,
+          "time": 265,
+          "action": "Build a Stable and train a Gilded Horseman.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 6,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-dra-s08-t1",
+              "action": "Build a Stable.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-dra-s08-t2",
+              "action": "Train a Gilded Horseman.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-dra-s09",
+          "pop": null,
+          "time": null,
+          "action": "Save resources for defenses if needed. Otherwise, split villagers between food and gold at a 2:1 ratio.",
+          "note": "The source refers to the video for decisions along the way and leaves the villager split unspecified.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s11",
+          "pop": null,
+          "time": 415,
+          "action": "Build Regnitz Cathedral with 6 villagers from food.",
+          "note": "",
+          "villagers": {
+            "food": 14,
+            "wood": 0,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s12",
+          "pop": null,
+          "time": null,
+          "action": "Assign more villagers to wood to add an Archery Range and a Stable.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-dra-s13",
+          "pop": null,
+          "time": null,
+          "action": "In Castle Age, train religious units to collect relics and heal your army.",
+          "note": "Add knights and Gilded Archers, build farms around the Chapel, and protect your gold. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-zxl-en",
+      "civ": "Zhu Xi's Legacy",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Shaolin Fast Castle",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/axY2p0OCUpKZgZelOlux",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-zxl-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Have the five starting villagers build a Mill at the berries.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Build a Village between the Mill and Town Center.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s3",
+          "pop": null,
+          "time": 40,
+          "action": "Bring food to eight villagers.",
+          "note": "The instructions give the target. The villager split shown is from before the reassignment.",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s4",
+          "pop": null,
+          "time": 80,
+          "action": "Bring gold to four villagers.",
+          "note": "The instructions give the target. The villager split shown is from before the reassignment.",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 4
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s5",
+          "pop": null,
+          "time": 150,
+          "action": "Use one food gatherer to build the Meditation Gardens near several resources.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s6",
+          "pop": null,
+          "time": 160,
+          "action": "Rally new villagers to food while preparing for Castle Age.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s7",
+          "pop": null,
+          "time": 315,
+          "action": "Age up to Castle with the four gold miners building the Shaolin Monastery.",
+          "note": "",
+          "villagers": {
+            "food": 17,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s8",
+          "pop": null,
+          "time": 320,
+          "action": "Move five villagers from food to nearby trees.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-zxl-s9",
+          "pop": null,
+          "time": 375,
+          "action": "In Castle Age, train one to three Shaolin Monks and build a Stable.",
+          "note": "The guide suggests a Barracks if you're under Feudal pressure.",
+          "villagers": {
+            "food": 14,
+            "wood": 5,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-zxl-s9-t1",
+              "action": "Upon reaching Castle Age, train one to three Shaolin Monks.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-zxl-s9-t2",
+              "action": "Build a Stable to train Lancers and gain map control. If you're under Feudal pressure, build a Barracks.",
+              "note": "The guide suggests a Barracks if you're under Feudal pressure.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-zxl-s10",
+          "pop": null,
+          "time": null,
+          "action": "Train units, contest relics and Sacred Sites, and keep up pressure across the map.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-jda-en",
+      "name": "Deer Opening into Knights",
+      "civ": "Jeanne d'Arc",
+      "mode": "1v1",
+      "map": "Land",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/ss0UMX3M9DRmkcPLRvk5",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-jda-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Start with 6 on sheep and find the nearby deer herd.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s2",
+          "pop": null,
+          "time": 35,
+          "action": "Once you find deer, use 5 villagers to gather 50 wood and build a house.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 5,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s3",
+          "pop": null,
+          "time": 50,
+          "action": "Build a Mill at the deer, then research Survival Techniques followed by Wheelbarrow.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jda-s3-t1",
+              "action": "Build a Mill at the deer.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jda-s3-t2",
+              "action": "Research Survival Techniques.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jda-s3-t3",
+              "action": "Then research Wheelbarrow.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jda-s4",
+          "pop": null,
+          "time": 80,
+          "action": "Once the Mill is complete, move 4 villagers from sheep to gold.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s5",
+          "pop": null,
+          "time": null,
+          "action": "Rally new villagers to food until you're ready to age up to Feudal.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s6",
+          "pop": null,
+          "time": 193,
+          "action": "Build the School of Cavalry with Jeanne and 3 villagers from sheep.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s7",
+          "pop": null,
+          "time": 193,
+          "action": "Move the villagers still on sheep to wood.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 2,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s8",
+          "pop": null,
+          "time": 200,
+          "action": "Bring wood to 8 with new villagers.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 8,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s9",
+          "pop": null,
+          "time": 277,
+          "action": "Upon reaching Feudal Age, research Specialized Pick and train a Royal Knight.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 6,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jda-s9-t1",
+              "action": "Research Specialized Pick upon reaching Feudal Age.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jda-s9-t2",
+              "action": "Train the first Royal Knight.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jda-s10",
+          "pop": null,
+          "time": null,
+          "action": "Once you have 8 on wood, bring gold up to 8 and then rally back to food.",
+          "note": "Confirm the rally point change manually. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s11",
+          "pop": null,
+          "time": 336,
+          "action": "Add a second Stable.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jda-s12",
+          "pop": null,
+          "time": 390,
+          "action": "Build an Archery Range. If needed, protect your gold and deer with Outposts.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 8,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-ayy-en",
+      "civ": "Ayyubids",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Industry Fast Castle",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/8MtH2BAnxcC4isz3GqK3",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-ayy-s01",
+          "pop": null,
+          "time": 0,
+          "action": "Send all 6 villagers to berries and have 2 build the Mill.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-ayy-s01-t1",
+              "action": "Have two villagers build a Mill at the berries while the other four gather.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-ayy-s01-t2",
+              "action": "Bring the number of berry gatherers to six.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-ayy-s02",
+          "pop": null,
+          "time": 20,
+          "action": "Have the new villager build a house and then gather from sheep.",
+          "note": "Connect the Mill and Town Center through influence.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s03",
+          "pop": null,
+          "time": 40,
+          "action": "Send 4 new villagers to gold.",
+          "note": "Have the first build a Mining Camp and the second build the House of Wisdom next to gold.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-ayy-s03-t1",
+              "action": "Have the first new villager build a Mining Camp by the gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-ayy-s03-t2",
+              "action": "Have the second villager build the House of Wisdom next to gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-ayy-s03-t3",
+              "action": "Bring gold to four miners with the new villagers.",
+              "note": "Have the first build a Mining Camp and the second build the House of Wisdom next to gold.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 4
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-ayy-s04",
+          "pop": null,
+          "time": 120,
+          "action": "Add one villager to sheep.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s05",
+          "pop": null,
+          "time": 135,
+          "action": "Age up with Culture Wing: Logistics.",
+          "note": "This option grants Dervishes.",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s06",
+          "pop": null,
+          "time": 140,
+          "action": "Send 4 food gatherers and a new villager to wood.",
+          "note": "Gather 150 wood, then 50 stone without a Mining Camp. Rally new villagers to food.",
+          "villagers": {
+            "food": 4,
+            "wood": 5,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s07",
+          "pop": null,
+          "time": 180,
+          "action": "Have one gold miner build an Outpost.",
+          "note": "Upgrade it once you have 50 stone. The source gives a partial villager split.",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s08",
+          "pop": null,
+          "time": 200,
+          "action": "Build a house.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 4,
+            "stone": 5
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s09",
+          "pop": null,
+          "time": 230,
+          "action": "Send the 5 stone miners back to food.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s10",
+          "pop": null,
+          "time": 255,
+          "action": "Reassign villagers to reach 13 on food and 5 on gold.",
+          "note": "Rally new villagers to food until Castle Age.",
+          "villagers": {
+            "food": 13,
+            "wood": 0,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 13,
+              "gold": 5
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s11",
+          "pop": null,
+          "time": 372,
+          "action": "Drop off resources and start aging up to Castle with Industry.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s12",
+          "pop": null,
+          "time": 385,
+          "action": "Redistribute to 8 on food, 8 on wood, and 10 on gold.",
+          "note": "Rally new villagers to gold until you have 12.",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 10,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s13",
+          "pop": null,
+          "time": 450,
+          "action": "Research Wheelbarrow.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 8,
+            "gold": 10,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s14",
+          "pop": null,
+          "time": 505,
+          "action": "Build 2–3 Stables and a Mosque.",
+          "note": "Research Horticulture when you can afford it. The source's Archer instruction is ambiguous, so check it before adding production.",
+          "villagers": {
+            "food": 12,
+            "wood": 8,
+            "gold": 10,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-ayy-s15",
+          "pop": null,
+          "time": 600,
+          "action": "Add a Blacksmith and research ranged armor, then ranged attack.",
+          "note": "Work toward Sultan's Mamluks.",
+          "villagers": {
+            "food": 15,
+            "wood": 8,
+            "gold": 10,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-kte-en",
+      "name": "Double Pilgrimage and Feudal Pressure",
+      "civ": "Knights Templar",
+      "mode": "1v1",
+      "map": "Land",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/lZ5EiqDVzQmIQDLkrfSr",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-kte-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Send 6 villagers to food and build a house.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-kte-s1-t1",
+              "action": "Build a house.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-kte-s1-t2",
+              "action": "Keep six villagers on food.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-kte-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Bring gold to 2 villagers.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s3",
+          "pop": null,
+          "time": 60,
+          "action": "Send new villagers to food until you're ready to age up to Feudal.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s4",
+          "pop": null,
+          "time": 140,
+          "action": "Start aging up to Feudal with the Hospitaller alliance.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s5",
+          "pop": null,
+          "time": 140,
+          "action": "Assign 3 villagers to food and 10 to wood.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 3,
+              "wood": 10
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s6",
+          "pop": null,
+          "time": 200,
+          "action": "Research Safe Passage.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s7",
+          "pop": null,
+          "time": null,
+          "action": "After Safe Passage, train 2 villagers.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-kte-s8",
+          "pop": null,
+          "time": null,
+          "action": "Then research Sanctuary and start training military units.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 10,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-kte-s8-t1",
+              "action": "After training the two villagers, research Sanctuary.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-kte-s8-t2",
+              "action": "Start training military units.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-kte-s9",
+          "pop": null,
+          "time": null,
+          "action": "Build a Barracks and an Archery Range, then a Blacksmith.",
+          "note": "Add a Stable if needed. Secure deer and boar with Outposts. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-kte-s9-t1",
+              "action": "Build a Barracks and an Archery Range.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-kte-s9-t2",
+              "action": "Then build a Blacksmith. Add a Stable if needed and protect deer and boar with Outposts.",
+              "note": "Add a Stable if needed. Secure deer and boar with Outposts. The source doesn't specify the villager split.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-kte-s10",
+          "pop": null,
+          "time": null,
+          "action": "Prepare for Castle Age around 12–14 minutes. Train Templar Brothers and Archers.",
+          "note": "Assign 5 villagers to stone for the Fortress. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-hol-en",
+      "name": "Two Town Centers into White Tower",
+      "civ": "House of Lancaster",
+      "mode": "1v1",
+      "map": "Land",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "JampiX",
+        "source": "https://aoe4guides.com/builds/rXGNCeikXFWoOQtpWThQ",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-hol-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Send 6 villagers to sheep by the Town Center.",
+          "note": "Use the Scout to look for more sheep.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s2",
+          "pop": null,
+          "time": null,
+          "action": "Send the next 3 villagers to gold. Build a Mining Camp and then a house.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-hol-s2-t1",
+              "action": "Have the first miner build a Mining Camp by the gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hol-s2-t2",
+              "action": "Then build a house.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hol-s2-t3",
+              "action": "Bring the number of gold miners to three.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-hol-s3",
+          "pop": null,
+          "time": null,
+          "action": "Once you have 3 on gold, rally new villagers to sheep.",
+          "note": "At 400 food and 200 gold, prepare to place Lancaster Castle where it can cover gold and wood.",
+          "villagers": {
+            "food": 11,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s4",
+          "pop": null,
+          "time": null,
+          "action": "Build Lancaster Castle with the 3 miners.",
+          "note": "Move 4 villagers from sheep to stone. Keep 3 on sheep and have the rest build a Lumber Camp.",
+          "villagers": {
+            "food": 3,
+            "wood": 4,
+            "gold": 0,
+            "stone": 4
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s5",
+          "pop": null,
+          "time": null,
+          "action": "When the landmark is complete, have its builders place a Manor that covers gold and sheep.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 8,
+            "gold": 0,
+            "stone": 4
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s6",
+          "pop": null,
+          "time": null,
+          "action": "At 8 on wood, rally new villagers to the trees by the Manor.",
+          "note": "Stockpile 800 stone.",
+          "villagers": {
+            "food": 3,
+            "wood": 14,
+            "gold": 0,
+            "stone": 4
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s7",
+          "pop": null,
+          "time": null,
+          "action": "Build the second Town Center with 9 villagers.",
+          "note": "Assign 8 villagers to gold and rally new villagers to sheep.",
+          "villagers": {
+            "food": 3,
+            "wood": 4,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-hol-s7-t1",
+              "action": "Build the second Town Center with nine villagers.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-hol-s7-t2",
+              "action": "Assign eight villagers to gold and rally new villagers to sheep.",
+              "note": "Assign 8 villagers to gold and rally new villagers to sheep.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-hol-s8",
+          "pop": null,
+          "time": null,
+          "action": "Send the builders and new villagers from both Town Centers to sheep.",
+          "note": "To stay in Feudal, gather more stone for another Manor and wood for military production.",
+          "villagers": {
+            "food": 14,
+            "wood": 4,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s9",
+          "pop": null,
+          "time": null,
+          "action": "Age up to Castle with the White Tower covering the woodline.",
+          "note": "Against a passive opponent, you can use Call to Arms and raid with 5 Demilancers first.",
+          "villagers": {
+            "food": 14,
+            "wood": 6,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-hol-s10",
+          "pop": null,
+          "time": null,
+          "action": "In Castle Age, add a Stable and a Barracks.",
+          "note": "The source gives an approximate timing of 8:30 with two Town Centers and one Manor.",
+          "villagers": {
+            "food": 16,
+            "wood": 6,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-goh-en",
+      "name": "Feudal Keshiks and Torguuds",
+      "civ": "Golden Horde",
+      "mode": "1v1",
+      "map": "Land",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/InVCf1SztRCvgzi1gEFf",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-goh-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Start with 4 on sheep. Have the fifth villager build an Ovoo, the Golden Tent, and a Ger by the gold.",
+          "note": "Then send that builder to gold.",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 1,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-goh-s1-t1",
+              "action": "Have the fifth villager build the Ovoo while four gather from sheep.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-goh-s1-t2",
+              "action": "Build the Golden Tent.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-goh-s1-t3",
+              "action": "Build the Ger by the gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-goh-s1-t4",
+              "action": "Send the builder to gold.",
+              "note": "Then send that builder to gold.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-goh-s2",
+          "pop": null,
+          "time": 37,
+          "action": "Bring food to 7 villagers.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 7
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s3",
+          "pop": null,
+          "time": 76,
+          "action": "Bring gold to 2 villagers.",
+          "note": "Include the villager who built the Ger.",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s4",
+          "pop": null,
+          "time": 112,
+          "action": "Rally new villagers to sheep until you start aging up to Feudal.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s5",
+          "pop": null,
+          "time": 171,
+          "action": "Start aging up to Feudal with the Khan option at the Golden Tent.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s6",
+          "pop": null,
+          "time": 180,
+          "action": "Redistribute villagers to 5 on food, 8 on wood, and 2 on gold.",
+          "note": "Rally new villagers to food.",
+          "villagers": {
+            "food": 5,
+            "wood": 8,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 5,
+              "wood": 8,
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s7",
+          "pop": null,
+          "time": 265,
+          "action": "Send a woodcutter ahead to another stone deposit for the second Ovoo.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 8,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s8",
+          "pop": null,
+          "time": 277,
+          "action": "Once in Feudal, build an Ovoo and a Stable and queue the Khan and Torguuds.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 7,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-goh-s8-t1",
+              "action": "Once in Feudal, build the second Ovoo and the Stable.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-goh-s8-t2",
+              "action": "Queue the Khan and Torguuds.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-goh-s9",
+          "pop": null,
+          "time": 316,
+          "action": "Train Keshiks.",
+          "note": "",
+          "villagers": {
+            "food": 11,
+            "wood": 8,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s10",
+          "pop": null,
+          "time": null,
+          "action": "Raid with 2 Keshiks, 2 Torguuds, and the Khan.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s11",
+          "pop": null,
+          "time": 335,
+          "action": "Send 5 villagers to deer and protect the area with a Fortified Outpost.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-goh-s12",
+          "pop": null,
+          "time": null,
+          "action": "Respond to the opponent's army by staying in Feudal or pressuring their resources before aging up.",
+          "note": "For Castle Age, the guide chooses Lumber Shields at the Golden Tent. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-mac-en",
+      "name": "Hippodrome Pressure into Castle Age",
+      "civ": "Macedonian Dynasty",
+      "mode": "1v1",
+      "map": "Land",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/HuzXbYxxy3LMgjhXA9n0",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-mac-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Keep 6 villagers on sheep and scout around your base for deer.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mac-s1-t1",
+              "action": "Send all six villagers to sheep.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-mac-s1-t2",
+              "action": "Scout around your base until you find deer.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mac-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Bring gold to 3 villagers.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 3
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s3",
+          "pop": null,
+          "time": null,
+          "action": "Once you find deer, move 5 villagers there from sheep.",
+          "note": "The source places the search around 0:30.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 1,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s4",
+          "pop": null,
+          "time": null,
+          "action": "Research Survival Techniques.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s5",
+          "pop": null,
+          "time": 80,
+          "action": "Resume rallying to sheep until you're ready to age up to Feudal.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s6",
+          "pop": null,
+          "time": 165,
+          "action": "Build the Imperial Hippodrome with 4 villagers.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 1,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s7",
+          "pop": null,
+          "time": 170,
+          "action": "Bring wood to 8 villagers.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s8",
+          "pop": null,
+          "time": 260,
+          "action": "Once in Feudal, send the builders back to sheep and queue Wheelbarrow and Horsemen.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 7,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mac-s8-t1",
+              "action": "Once in Feudal, send the builders back to sheep.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mac-s8-t2",
+              "action": "Research Wheelbarrow.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mac-s8-t3",
+              "action": "Start training Horsemen.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mac-s9",
+          "pop": null,
+          "time": 310,
+          "action": "Research Double Broadax and have the deer gatherers build the Varangian Bastion.",
+          "note": "Protect the area with an Outpost.",
+          "villagers": {
+            "food": 10,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-mac-s9-t1",
+              "action": "Research Double Broadax.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mac-s9-t2",
+              "action": "Have the deer gatherers build the Varangian Bastion.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-mac-s9-t3",
+              "action": "Protect the area with an Outpost.",
+              "note": "Protect the area with an Outpost.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-mac-s10",
+          "pop": null,
+          "time": null,
+          "action": "Train enough units to raid and secure a boar and another deer herd.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s11",
+          "pop": null,
+          "time": 360,
+          "action": "Build a Varangian Arsenal by the gold.",
+          "note": "Prioritize cavalry armor and ranged attack if you're using Archers.",
+          "villagers": {
+            "food": 13,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-mac-s12",
+          "pop": null,
+          "time": null,
+          "action": "Around minutes 9–10, move woodcutters to gold to prepare for Castle Age.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-sen-en",
+      "civ": "Sengoku Daimyo",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Three Yatai and Early Daimyo",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/1RhBij4kaJESj1anpCIC",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-sen-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Send six villagers to wood and build a Matsuri as a drop-off point.",
+          "note": "",
+          "villagers": {
+            "food": 0,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sen-s1-t1",
+              "action": "Build the Matsuri as a wood drop-off point.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sen-s1-t2",
+              "action": "Send six villagers to wood.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "wood": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sen-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Have the next villager build a Farmhouse at the berries and research Tawara immediately.",
+          "note": "",
+          "villagers": {
+            "food": 1,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sen-s2-t1",
+              "action": "Have the next villager build a Farmhouse at the berries.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sen-s2-t2",
+              "action": "Research Tawara immediately.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sen-s3",
+          "pop": null,
+          "time": 40,
+          "action": "Send three more villagers to berries.",
+          "note": "The step shows the starting split for this sequence. Confirm it manually.",
+          "villagers": {
+            "food": 2,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s4",
+          "pop": null,
+          "time": 68,
+          "action": "Produce the first Yatai and send it to the boar.",
+          "note": "",
+          "villagers": {
+            "food": 3,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s5",
+          "pop": null,
+          "time": 100,
+          "action": "Rally new villagers to sheep.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s6",
+          "pop": null,
+          "time": 114,
+          "action": "Send the second Yatai to deer.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s7",
+          "pop": null,
+          "time": 142,
+          "action": "Keep the third Yatai at home between sheep and berries.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 6,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s8",
+          "pop": null,
+          "time": 170,
+          "action": "Once you have 100 wood, move the six woodcutters to gold.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s9",
+          "pop": null,
+          "time": 200,
+          "action": "Rally new villagers to wood.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 1,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s10",
+          "pop": null,
+          "time": 230,
+          "action": "Have five villagers from sheep build the Koka Township.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 2,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s11",
+          "pop": null,
+          "time": 260,
+          "action": "Keep rallying new villagers to wood.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 3,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s12",
+          "pop": null,
+          "time": 312,
+          "action": "Use spare gold to buy 100 wood twice.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 6,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sen-s13",
+          "pop": null,
+          "time": 320,
+          "action": "Build two Stables, choose the Takeda Daimyo, and research Horse Training.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 7,
+            "gold": 6,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sen-s13-t1",
+              "action": "Build two Stables.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sen-s13-t2",
+              "action": "Choose the Takeda Daimyo.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sen-s13-t3",
+              "action": "Research Horse Training.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sen-s14",
+          "pop": null,
+          "time": null,
+          "action": "Train daimyo, add Yumi Ashigaru if needed, and raid.",
+          "note": "The guide suggests transitioning to Castle Age and Lancers. The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-tug-en",
+      "civ": "Tughlaq Dynasty",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Fort into a Second Town Center",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/xpvxxr73hj7CwnbqB5AK",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-tug-s1",
+          "pop": null,
+          "time": 0,
+          "action": "Send four villagers to berries with the Worker Elephant and two to sheep.",
+          "note": "Train another Worker Elephant, collect nearby sheep with it, then send it to gold.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-tug-s1-t1",
+              "action": "Send four villagers to berries with the elephant and two to sheep.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            },
+            {
+              "id": "starter-2026-11-tug-s1-t2",
+              "action": "Train a second Worker Elephant.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-tug-s1-t3",
+              "action": "Collect nearby sheep with the elephant, then send it to gold.",
+              "note": "Train another Worker Elephant, collect nearby sheep with it, then send it to gold.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-tug-s2",
+          "pop": null,
+          "time": 20,
+          "action": "Send two new villagers to gold.",
+          "note": "The instructions call for two miners. The villager split shown is from before the reassignment.",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "gold": 2
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s3",
+          "pop": null,
+          "time": 60,
+          "action": "Resume rallying to sheep until you're ready to age up to Feudal.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s4",
+          "pop": null,
+          "time": 125,
+          "action": "Have two villagers from sheep build the Dome of the Faith.",
+          "note": "",
+          "villagers": {
+            "food": 10,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s5",
+          "pop": null,
+          "time": 125,
+          "action": "Move the gold miners and their elephant to stone.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 0,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s6",
+          "pop": null,
+          "time": 130,
+          "action": "Move four villagers from sheep to nearby trees.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 4,
+            "gold": 0,
+            "stone": 2
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s7",
+          "pop": null,
+          "time": null,
+          "action": "Rally new villagers to stone to pay for the Fort and second Town Center.",
+          "note": "The source gives no final villager target or split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s8",
+          "pop": null,
+          "time": 272,
+          "action": "Have the two landmark builders build the Tughlaq Fort.",
+          "note": "Place it between both Town Centers. The guide suggests leaving eight tiles of separation.",
+          "villagers": {
+            "food": 4,
+            "wood": 4,
+            "gold": 0,
+            "stone": 9
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-tug-s9",
+          "pop": null,
+          "time": 315,
+          "action": "When 470 of the starting 1,200 stone remains, move the miners to gold and build the second Town Center.",
+          "note": "Confirm the source's resource target and construction manually.",
+          "villagers": {
+            "food": 4,
+            "wood": 4,
+            "gold": 0,
+            "stone": 11
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-tug-s9-t1",
+              "action": "Wait until 470 of the starting 1,200 stone remains and confirm the threshold manually.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-tug-s9-t2",
+              "action": "Move the miners to gold and build the second Town Center.",
+              "note": "Confirm the source's resource target and construction manually.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-tug-s10",
+          "pop": null,
+          "time": null,
+          "action": "Scout the opponent. Prepare an army or age up to Castle if they're also investing in economy.",
+          "note": "The source doesn't specify the villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-jin-en",
+      "name": "Dragon Pavilion Fast Castle",
+      "civ": "Jin Dynasty",
+      "mode": "1v1",
+      "map": "Land",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Jupiter01",
+        "source": "https://aoe4guides.com/builds/4QvVeQaYlhiJks8oGPUF",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-jin-s1",
+          "pop": null,
+          "time": null,
+          "action": "Send one Mounted Villager to reindeer and have the other 2 build a Mining Camp at gold.",
+          "note": "",
+          "villagers": {
+            "food": 1,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jin-s1-t1",
+              "action": "Have two Mounted Villagers build a Mining Camp by the gold while the other gathers from reindeer.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jin-s1-t2",
+              "action": "Bring gold to two gatherers.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jin-s2",
+          "pop": null,
+          "time": null,
+          "action": "Keep training Mounted Villagers and sending them to reindeer.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s3",
+          "pop": null,
+          "time": 160,
+          "action": "Have the seventh villager build the Grand Pasture.",
+          "note": "Keep the woodcutter chopping until the tree is depleted.",
+          "villagers": {
+            "food": 3,
+            "wood": 1,
+            "gold": 2,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s4",
+          "pop": null,
+          "time": 180,
+          "action": "Send the eighth Mounted Villager to gold.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 1,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s5",
+          "pop": null,
+          "time": 180,
+          "action": "Have the ninth Mounted Villager build a house and then gather food.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 1,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jin-s5-t1",
+              "action": "Have the ninth Mounted Villager build a house.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jin-s5-t2",
+              "action": "Then send that villager to food. The source gives no reliable final total.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-jin-s6",
+          "pop": null,
+          "time": null,
+          "action": "Once the landmark is complete, have its builder create a Meadow.",
+          "note": "",
+          "villagers": {
+            "food": 5,
+            "wood": 1,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s7",
+          "pop": null,
+          "time": null,
+          "action": "Move the woodcutter to food and build an Outpost at the gold.",
+          "note": "",
+          "villagers": {
+            "food": 8,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s8",
+          "pop": null,
+          "time": null,
+          "action": "Prepare a split of 9 villagers on food and 4 on gold.",
+          "note": "The source also keeps one villager building.",
+          "villagers": {
+            "food": 9,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 9,
+              "gold": 4
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s9",
+          "pop": null,
+          "time": 380,
+          "action": "Start aging up to Castle with 5 Mounted Villagers building the Dragon Pavilion.",
+          "note": "Place it in a central spot near the Town Center.",
+          "villagers": {
+            "food": 5,
+            "wood": 0,
+            "gold": 4,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-jin-s10",
+          "pop": null,
+          "time": null,
+          "action": "Build a Monastery and start training Iron Pagodas.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 4,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-jin-s10-t1",
+              "action": "Build a Monastery.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-jin-s10-t2",
+              "action": "Start training Iron Pagodas.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-vik-en",
+      "civ": "Vikings",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Hirdmen Feudal Pressure",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Valdemar1902",
+        "source": "https://aoe4guides.com/builds/WiWD5PRXgC5LVHet9Hth",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-vik-s1",
+          "pop": null,
+          "time": null,
+          "action": "Send six villagers to sheep and build a Longhouse.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 0,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-vik-s1-t1",
+              "action": "Build a Longhouse.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-vik-s1-t2",
+              "action": "Send all six starting villagers to sheep.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "food": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-vik-s2",
+          "pop": null,
+          "time": 22,
+          "action": "Have the next three villagers build a Mining Camp and gather gold.",
+          "note": "",
+          "villagers": {
+            "food": 6,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-vik-s2-t1",
+              "action": "Build a Mining Camp by the gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-vik-s2-t2",
+              "action": "Bring gold to three miners with the new villagers.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-vik-s3",
+          "pop": null,
+          "time": 88,
+          "action": "Send the next five villagers to wood.",
+          "note": "The instructions give the target. The villager split shown is from before the reassignment.",
+          "villagers": {
+            "food": 6,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 5
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s4",
+          "pop": null,
+          "time": 115,
+          "action": "Age up to Feudal with four villagers from sheep building Baugr Fort.",
+          "note": "",
+          "villagers": {
+            "food": 2,
+            "wood": 4,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s5",
+          "pop": null,
+          "time": 157,
+          "action": "Build a Lumber Camp and bring sheep to twelve villagers.",
+          "note": "",
+          "villagers": {
+            "food": 1,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s6",
+          "pop": null,
+          "time": 213,
+          "action": "Once in Feudal, research Pasture and Loom and build a Sacred Grove on the nearest relic.",
+          "note": "",
+          "villagers": {
+            "food": 7,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-vik-s6-t1",
+              "action": "Research Pasture and Loom upon reaching Feudal Age.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-vik-s6-t2",
+              "action": "Build a Sacred Grove on the nearest relic.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-vik-s7",
+          "pop": null,
+          "time": 243,
+          "action": "Add a second Longhouse and keep training Hirdmen.",
+          "note": "",
+          "villagers": {
+            "food": 9,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s8",
+          "pop": null,
+          "time": 290,
+          "action": "Send five villagers to deer and build an Outpost and a Mill.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 5,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s9",
+          "pop": null,
+          "time": 360,
+          "action": "At twelve on food, bring gold to eight miners.",
+          "note": "The instructions give the target. The villager split shown is from before the reassignment.",
+          "villagers": {
+            "food": 12,
+            "wood": 5,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "food": 12,
+              "gold": 8
+            }
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s10",
+          "pop": null,
+          "time": 370,
+          "action": "Build a Barracks.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 4,
+            "gold": 5,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s11",
+          "pop": null,
+          "time": 420,
+          "action": "Build two more Sacred Groves for a total of three.",
+          "note": "",
+          "villagers": {
+            "food": 12,
+            "wood": 5,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-vik-s12",
+          "pop": null,
+          "time": 430,
+          "action": "Bring wood to eight villagers.",
+          "note": "The instructions give the target. The villager split shown is from before the reassignment.",
+          "villagers": {
+            "food": 12,
+            "wood": 8,
+            "gold": 8,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "resources",
+            "minimum": {
+              "wood": 8
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "starter-2026-11-sco-en",
+      "civ": "Scots",
+      "mode": "1v1",
+      "map": "Land",
+      "name": "Cattle and Feudal Pressure",
+      "provenance": {
+        "packId": "starter-2026-11-en",
+        "author": "Shaada",
+        "source": "https://aoe4guides.com/builds/votoiVwKyd52EJHcCAdv",
+        "reviewedAt": "2026-11-17"
+      },
+      "steps": [
+        {
+          "id": "starter-2026-11-sco-s1",
+          "pop": null,
+          "time": null,
+          "action": "Build a Tower House by berries or gold, then send its builder to gold.",
+          "note": "The source shows four on food and two on wood as the starting split.",
+          "villagers": {
+            "food": 4,
+            "wood": 2,
+            "gold": 1,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sco-s1-t1",
+              "action": "Build a Tower House by berries or gold.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s1-t2",
+              "action": "Send its builder to gold.",
+              "note": "The source shows four on food and two on wood as the starting split.",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sco-s2",
+          "pop": null,
+          "time": null,
+          "action": "Raise up to six cattle. Once you have 50 wood, move the two woodcutters to gold.",
+          "note": "",
+          "villagers": {
+            "food": 4,
+            "wood": 0,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sco-s2-t1",
+              "action": "Raise up to six cattle.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s2-t2",
+              "action": "Wait until you have 50 wood and confirm the amount manually.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s2-t3",
+              "action": "Move the two woodcutters to gold for a total of three miners.",
+              "note": "",
+              "advance": {
+                "kind": "resources",
+                "minimum": {
+                  "gold": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sco-s3",
+          "pop": null,
+          "time": null,
+          "action": "Have five villagers build the Abbey of the Isles and keep two on food.",
+          "note": "Rally to wood until you have eight. Use the first 150 wood to build a Barracks and keep raising cattle.",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          }
+        },
+        {
+          "id": "starter-2026-11-sco-s4",
+          "pop": null,
+          "time": null,
+          "action": "In Feudal, move the Saint's Relic to the Barracks and train Caterans.",
+          "note": "Train Pikemen against knights. Research Double Broadax and add an Archery Range.",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sco-s4-t1",
+              "action": "Once in Feudal, move the Saint's Relic to the Barracks.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s4-t2",
+              "action": "Train Caterans, or Pikemen against knights.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s4-t3",
+              "action": "Research Double Broadax and add an Archery Range.",
+              "note": "Train Pikemen against knights. Research Double Broadax and add an Archery Range.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sco-s5",
+          "pop": null,
+          "time": null,
+          "action": "Once you're producing cattle, send eight villagers to deer.",
+          "note": "Build a Tower House if needed. Prioritize Highland Archers and move the relic to their Archery Range.",
+          "villagers": {
+            "food": 8,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sco-s5-t1",
+              "action": "Once you're producing cattle, send eight villagers to deer. Add a Tower House if needed.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s5-t2",
+              "action": "Prioritize Highland Archers and move the relic to their Archery Range.",
+              "note": "Build a Tower House if needed. Prioritize Highland Archers and move the relic to their Archery Range.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        },
+        {
+          "id": "starter-2026-11-sco-s6",
+          "pop": null,
+          "time": null,
+          "action": "Once villagers are gathering from deer, rally new villagers to wood and add a Blacksmith.",
+          "note": "Research ranged attack and ranged armor, train units, and attack. The source gives a partial villager split.",
+          "villagers": {
+            "food": 0,
+            "wood": 8,
+            "gold": 3,
+            "stone": 0
+          },
+          "advance": {
+            "kind": "manual"
+          },
+          "subtasks": [
+            {
+              "id": "starter-2026-11-sco-s6-t1",
+              "action": "Once villagers are gathering from deer, rally new villagers to wood and build a Blacksmith.",
+              "note": "",
+              "advance": {
+                "kind": "manual"
+              }
+            },
+            {
+              "id": "starter-2026-11-sco-s6-t2",
+              "action": "Research ranged attack and ranged armor, keep training units, and attack.",
+              "note": "Research ranged attack and ranged armor, train units, and attack. The source gives a partial villager split.",
+              "advance": {
+                "kind": "manual"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

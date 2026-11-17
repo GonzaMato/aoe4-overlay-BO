@@ -1,4 +1,5 @@
 use crate::desktop::CaptureRegion;
+use std::sync::atomic::Ordering;
 use tauri::{
     Emitter, Manager, PhysicalPosition, PhysicalSize, WebviewUrl, WebviewWindow,
     WebviewWindowBuilder,
@@ -40,8 +41,17 @@ pub async fn open_region_selector(
         Target::Workers => "select-region?target=workers",
         Target::Idle => "select-region?target=idle",
     };
+    let title = if app
+        .state::<crate::NativeUi>()
+        .spanish
+        .load(Ordering::Relaxed)
+    {
+        "Seleccionar región OCR"
+    } else {
+        "Select OCR region"
+    };
     let selector = WebviewWindowBuilder::new(&app, LABEL, WebviewUrl::App(route.into()))
-        .title("Seleccionar región OCR")
+        .title(title)
         .transparent(true)
         .decorations(false)
         .shadow(false)

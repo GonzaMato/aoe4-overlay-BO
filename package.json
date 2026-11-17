@@ -1,7 +1,7 @@
 {
   "name": "aoe4-overlay",
-  "version": "0.3.0",
-  "description": "Overlay de build orders para Age of Empires IV",
+  "version": "0.3.1",
+  "description": "Build orders and practice overlay for Age of Empires IV",
   "type": "module",
   "scripts": {
     "test": "node --import ./tests/register.mjs --test tests/*.test.mjs",

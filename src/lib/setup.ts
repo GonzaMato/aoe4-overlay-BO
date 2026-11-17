@@ -1,6 +1,7 @@
 import type { AppData, Build } from './types';
 import type { Rectangle } from './region';
-import { defaultKey } from './util';
+import { preferredBuildId } from './util';
+import { label } from './i18n';
 
 export interface GameGeometry extends Rectangle { monitor: string; dpi: number; }
 export interface SetupProfile {
@@ -70,17 +71,19 @@ export function localCivilization(lines: OcrLine[], playerName: string, civs: st
   if (named.length!==1) return null;
   const row=named[0];
   const aligned=lines.filter(l=>Math.abs((l.y+l.height/2)-(row.y+row.height/2))<=Math.max(row.height,l.height)*.65);
-  const civLabel=(text:string)=>civs.some(c=>[clean(c),...(aliases[clean(c)]??[])].some(a=>clean(text)===a));
+  const names=(c:string)=>[clean(c),clean(label(c,'es')),clean(label(c,'en')),...(aliases[clean(label(c,'es'))]??[])];
+  const civLabel=(text:string)=>civs.some(c=>names(c).some(a=>clean(text)===a));
   // Separate player cards can share a baseline. Any extra name makes that row
   // ambiguous; never stitch distant text or a partial username into an identity.
   if(aligned.some(l=>l!==row && !civLabel(l.text) && !/^\d+$/.test(l.text.trim())))return null;
   const text=aligned.filter(l=>l===row || Math.max(0,l.x-row.x-row.width,row.x-l.x-l.width)<=row.height*16).map(l=>l.text).join(' ');
-  const matches=civs.filter(c=>[clean(c),...(aliases[clean(c)]??[])].some(a=>phrase(text,a)));
-  return matches.length===1?matches[0]:null;
+  const matches=civs.filter(c=>names(c).some(a=>phrase(text,a)));
+  const identities=new Set(matches.map(c=>label(c,'en')));
+  return identities.size===1?matches[0]:null;
 }
 export function chooseBuild(data: AppData, civ: string, mode: string): Build | null {
-  const options=data.builds.filter(b=>clean(b.civ)===clean(civ) && b.mode===mode);
-  const preferred=options.filter(b=>data.settings.defaults[defaultKey(b.civ,mode)]===b.id);
+  const options=data.builds.filter(b=>clean(label(b.civ,'en'))===clean(label(civ,'en')) && label(b.mode,'en')===label(mode,'en'));
+  const preferred=options.filter(b=>preferredBuildId(data.settings,civ,mode)===b.id);
   return preferred.length===1?preferred[0]:options.length===1?options[0]:null;
 }
 

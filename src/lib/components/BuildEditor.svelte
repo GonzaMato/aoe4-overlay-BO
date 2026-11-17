@@ -1,9 +1,10 @@
 <script lang="ts">
+ import { t, locale, label, resourceLabel, uniqueLabels } from '$lib/i18n';
 	import ResIcon from './ResIcon.svelte';
 	import StepAdvanceEditor from './StepAdvanceEditor.svelte';
 	import SubtaskEditor from './SubtaskEditor.svelte';
 	import { newStep } from '$lib/defaults';
-	import { RESOURCES, RES_LABEL, type Build, type Settings } from '$lib/types';
+	import { RESOURCES, type Build, type Settings } from '$lib/types';
 	import { formatTime, parseTime } from '$lib/util';
 
 	interface Props {
@@ -37,10 +38,10 @@
 
 	// Opciones del build aunque ya no estén en las listas de Ajustes.
 	const modeOptions = $derived(
-		build.mode && !settings.modes.includes(build.mode) ? [...settings.modes, build.mode] : settings.modes
+		uniqueLabels([...settings.modes, ...build.mode?[build.mode]:[]],build.mode)
 	);
 	const mapOptions = $derived(
-		build.map && !settings.maps.includes(build.map) ? [...settings.maps, build.map] : settings.maps
+		uniqueLabels([...settings.maps, ...build.map?[build.map]:[]],build.map)
 	);
 
 	const total = (i: number) => RESOURCES.reduce((sum, r) => sum + build.steps[i].villagers[r], 0);
@@ -64,37 +65,37 @@
 
 <div class="editor">
 	{#if build.provenance}
-		<div class="provenance"><strong>Autor: {build.provenance.author}</strong><span>Revisión de instrucciones: {build.provenance.reviewedAt} · No implica validación del parche actual.</span><span>Fuente: {build.provenance.source}</span></div>
+		<div class="provenance"><strong>{$t(`Autor: ${build.provenance.author}`, `Author: ${build.provenance.author}`)}</strong><span>{$t(`Revisión de instrucciones: ${build.provenance.reviewedAt} · No implica validación del parche actual.`, `Instructions reviewed ${build.provenance.reviewedAt}. Compatibility with the current patch may vary.`)}</span><span>{$t(`Fuente: ${build.provenance.source}`, `Source: ${build.provenance.source}`)}</span></div>
 	{/if}
 	<div class="meta">
 		<label class="field wide">
-			<span class="label">Nombre</span>
+			<span class="label">{$t("Nombre", "Name")}</span>
 			<input bind:value={build.name} />
 		</label>
 		<label class="field">
-			<span class="label">Civilización</span>
-			<input bind:value={build.civ} list="civ-options" placeholder="Escribí o elegí" />
+			<span class="label">{$t("Civilización", "Civilization")}</span>
+			<input bind:value={build.civ} list="civ-options" placeholder={$t("Escribí o elegí", "Type or choose")} />
 			<datalist id="civ-options">
 				{#each civOptions as civ (civ)}
-					<option value={civ}></option>
+					<option value={civ}>{label(civ, $locale)}</option>
 				{/each}
 			</datalist>
 		</label>
 		<label class="field">
-			<span class="label">Modo</span>
+			<span class="label">{$t("Modo", "Mode")}</span>
 			<select bind:value={build.mode}>
-				<option value="">Sin definir</option>
+				<option value="">{$t("Sin definir", "Unspecified")}</option>
 				{#each modeOptions as mode (mode)}
-					<option value={mode}>{mode}</option>
+					<option value={mode}>{label(mode, $locale)}</option>
 				{/each}
 			</select>
 		</label>
 		<label class="field">
-			<span class="label">Mapa</span>
+			<span class="label">{$t("Mapa", "Map")}</span>
 			<select bind:value={build.map}>
-				<option value="">Cualquiera</option>
+				<option value="">{$t("Cualquiera", "Any")}</option>
 				{#each mapOptions as map (map)}
-					<option value={map}>{map}</option>
+					<option value={map}>{label(map, $locale)}</option>
 				{/each}
 			</select>
 		</label>
@@ -102,34 +103,34 @@
 
 	<div class="actions">
 		<button type="button" class="primary" disabled={isActive} onclick={onUse}>
-			{isActive ? 'En uso en el overlay' : 'Usar en el overlay'}
+			{isActive ? $t("En uso en el overlay", "Active in overlay") : $t("Usar en el overlay", "Use in overlay")}
 		</button>
 		<button type="button" aria-pressed={isDefault} disabled={!build.civ || !build.mode} onclick={onToggleDefault}>
-			{isDefault ? 'Predeterminado' : 'Marcar predeterminado'}
-			{#if build.civ && build.mode}<span class="hint">{build.civ} · {build.mode}</span>{/if}
+			{isDefault ? $t("Predeterminado", "Default build") : $t("Marcar predeterminado", "Set as default")}
+			{#if build.civ && build.mode}<span class="hint">{label(build.civ, $locale)} · {label(build.mode, $locale)}</span>{/if}
 		</button>
 		<span class="spacer"></span>
-		<button type="button" onclick={onClone}>Clonar</button>
-		<button type="button" onclick={onCopy}>Copiar JSON</button>
+		<button type="button" onclick={onClone}>{$t("Clonar", "Clone")}</button>
+		<button type="button" onclick={onCopy}>{$t("Copiar JSON", "Copy JSON")}</button>
 		{#if confirmingDelete}
-			<button type="button" class="danger" onclick={onDelete}>Confirmar borrado</button>
-			<button type="button" onclick={() => (confirmingDelete = false)}>Cancelar</button>
+			<button type="button" class="danger" onclick={onDelete}>{$t("Confirmar borrado", "Confirm deletion")}</button>
+			<button type="button" onclick={() => (confirmingDelete = false)}>{$t("Cancelar", "Cancel")}</button>
 		{:else}
-			<button type="button" onclick={() => (confirmingDelete = true)}>Eliminar</button>
+			<button type="button" onclick={() => (confirmingDelete = true)}>{$t("Eliminar", "Delete")}</button>
 		{/if}
 	</div>
 
-	<div class="steps" role="table" aria-label="Pasos del build">
+	<div class="steps" role="table" aria-label={$t("Pasos del build", "Build steps")}>
 		<div class="row header" role="row">
 			<span role="columnheader">#</span>
-			<span role="columnheader">Pob</span>
-			<span role="columnheader">Tiempo</span>
-			<span role="columnheader">Acción</span>
-			<span role="columnheader">Nota</span>
+			<span role="columnheader">{$t("Pob", "Pop")}</span>
+			<span role="columnheader">{$t("Tiempo", "Time")}</span>
+			<span role="columnheader">{$t("Acción", "Action")}</span>
+			<span role="columnheader">{$t("Nota", "Note")}</span>
 			{#each RESOURCES as r (r)}
-				<span role="columnheader" class="res" title={RES_LABEL[r]}><ResIcon res={r} labelled /></span>
+				<span role="columnheader" class="res" title={resourceLabel(r, $locale)}><ResIcon res={r} labelled /></span>
 			{/each}
-			<span role="columnheader" title="Total de aldeanos">Total</span>
+			<span role="columnheader" title={$t("Total de aldeanos", "Total villagers")}>Total</span>
 			<span role="columnheader"></span>
 		</div>
 
@@ -138,7 +139,7 @@
 				<button
 					type="button"
 					class="num"
-					title={isActive ? 'Mostrar este paso en el overlay' : 'Usá el build en el overlay para previsualizar'}
+					title={isActive ? $t("Mostrar este paso en el overlay", "Show this step in the overlay") : $t("Usá el build en el overlay para previsualizar", "Activate this build to preview the step")}
 					disabled={!isActive}
 					onclick={() => onShowStep(i)}
 				>
@@ -147,12 +148,12 @@
 				<input
 					type="number"
 					min="0"
-					aria-label="Población del paso {i + 1}"
+					aria-label={$t(`Población del paso ${i + 1}`, `Population for step ${i + 1}`)}
 					value={step.pop ?? ''}
 					onchange={(e) => (step.pop = setInt(e.currentTarget.value))}
 				/>
 				<input
-					aria-label="Tiempo objetivo del paso {i + 1}"
+					aria-label={$t(`Tiempo objetivo del paso ${i + 1}`, `Target time for step ${i + 1}`)}
 					placeholder="m:ss"
 					value={formatTime(step.time)}
 					onchange={(e) => {
@@ -160,27 +161,27 @@
 						e.currentTarget.value = formatTime(step.time);
 					}}
 				/>
-				<input aria-label="Acción del paso {i + 1}" placeholder="Qué hacer" bind:value={step.action} />
-				<input aria-label="Nota del paso {i + 1}" placeholder="Detalle opcional" bind:value={step.note} />
+				<input aria-label={$t(`Acción del paso ${i + 1}`, `Action for step ${i + 1}`)} placeholder={$t("Qué hacer", "What to do")} bind:value={step.action} />
+				<input aria-label={$t(`Nota del paso ${i + 1}`, `Note for step ${i + 1}`)} placeholder={$t("Detalle opcional", "Optional detail")} bind:value={step.note} />
 				{#each RESOURCES as r (r)}
 					<input
 						type="number"
 						min="0"
 						class="vill"
-						aria-label="{RES_LABEL[r]} en el paso {i + 1}"
+						aria-label={$t(`${resourceLabel(r, $locale)} en el paso ${i + 1}`, `${resourceLabel(r, $locale)} for step ${i + 1}`)}
 						value={step.villagers[r]}
 						onchange={(e) => (step.villagers[r] = Math.max(0, setInt(e.currentTarget.value) ?? 0))}
 					/>
 				{/each}
 				<span class="total">{total(i)}</span>
 				<span class="tools">
-					<button type="button" aria-label="Subir paso {i + 1}" disabled={i === 0} onclick={() => move(i, -1)}>
+					<button type="button" aria-label={$t(`Subir paso ${i + 1}`, `Move step ${i + 1} up`)} disabled={i === 0} onclick={() => move(i, -1)}>
 						<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7.5 6 4l3.5 3.5" /></svg>
 					</button>
-					<button type="button" aria-label="Bajar paso {i + 1}" disabled={i === build.steps.length - 1} onclick={() => move(i, 1)}>
+					<button type="button" aria-label={$t(`Bajar paso ${i + 1}`, `Move step ${i + 1} down`)} disabled={i === build.steps.length - 1} onclick={() => move(i, 1)}>
 						<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
 					</button>
-					<button type="button" aria-label="Eliminar paso {i + 1}" onclick={() => build.steps.splice(i, 1)}>
+					<button type="button" aria-label={$t(`Eliminar paso ${i + 1}`, `Delete step ${i + 1}`)} onclick={() => build.steps.splice(i, 1)}>
 						<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6" /></svg>
 					</button>
 				</span>
@@ -191,10 +192,9 @@
 	</div>
 
 	<div class="below">
-		<button type="button" onclick={addStep}>Agregar paso</button>
+		<button type="button" onclick={addStep}>{$t("Agregar paso", "Add step")}</button>
 		<span class="help">
-			Los aldeanos son el reparto al que hay que llegar en ese paso; el overlay resalta solo lo que cambia.
-			El paso nuevo copia el reparto del anterior.
+			{$t('Los aldeanos son el reparto al que hay que llegar en ese paso. El overlay resalta solo lo que cambia. El paso nuevo copia el reparto del anterior.', 'Each row shows the target villager allocation. The overlay highlights changes, and new steps copy the previous allocation.')}
 		</span>
 	</div>
 </div>

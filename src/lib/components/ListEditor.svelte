@@ -1,10 +1,11 @@
 <script lang="ts">
+	import { t, locale, label as translateLabel } from '$lib/i18n';
 	interface Props {
 		items: string[];
 		label: string;
 		placeholder?: string;
 	}
-	let { items = $bindable(), label, placeholder = 'Agregar…' }: Props = $props();
+	let { items = $bindable(), label, placeholder }: Props = $props();
 
 	let draft = $state('');
 
@@ -19,8 +20,8 @@
 	<div class="chips">
 		{#each items as item, i (item)}
 			<span class="chip">
-				{item}
-				<button type="button" aria-label="Quitar {item}" onclick={() => items.splice(i, 1)}>
+				{translateLabel(item, $locale)}
+				<button type="button" aria-label={$t(`Quitar ${translateLabel(item, $locale)}`, `Remove ${translateLabel(item, $locale)}`)} onclick={() => items.splice(i, 1)}>
 					<svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
 						<path d="M2 2l6 6M8 2l-6 6" />
 					</svg>
@@ -34,8 +35,8 @@
 			add();
 		}}
 	>
-		<input aria-label={label} bind:value={draft} {placeholder} />
-		<button type="submit" class="add">Agregar</button>
+		<input aria-label={label} bind:value={draft} placeholder={placeholder ?? $t('Agregar…', 'Add…')} />
+		<button type="submit" class="add">{$t("Agregar", "Add")}</button>
 	</form>
 </div>
 

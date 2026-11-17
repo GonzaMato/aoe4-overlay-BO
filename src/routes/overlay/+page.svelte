@@ -1,4 +1,5 @@
 <script lang="ts">
+ import { t, locale, label } from '$lib/i18n';
  import { onMount } from 'svelte';
  import { takeOverlayActivation, onOverlayActivation } from '$lib/bridge';
  import Compact from '$lib/components/Compact.svelte';
@@ -41,7 +42,7 @@
  let error = $state('');
  let setup = new SetupController();
  let game = $state<GameGeometry | null>(null);
- let setupStatus = $state<SetupStatus>({message:'Esperando AoE4',profile:'Sin perfil',counters:'Pendientes',civilization:'Elegí tu build o indicá tu nombre de jugador',clock:'Esperando reloj visible',manualClock:false,geometry:null});
+ let setupStatus = $state<SetupStatus>({message:$t("Esperando AoE4", "Waiting for AoE4"),profile:$t("Sin perfil", "No profile"),counters:$t("Pendientes", "Pending"),civilization:$t("Elegí tu build o indicá tu nombre de jugador", "Choose a build or enter your player name"),clock:$t("Esperando reloj visible", "Waiting for a visible game timer"),manualClock:false,geometry:null});
  let setupBusy=false, calibrationKey='', calibrationSamples=0, pendingCiv:string|null=null;
  let sessionLocked=false;
  let forceDetection=false;
@@ -92,9 +93,10 @@
    const result={name:build.name,elapsed:practice?Math.floor(clock.elapsed()):null};
    setup.manualClock();finish();
    celebration=result;visible=true;preview=!active;editing=false;
-   setupStatus.message='Build completado';report();
+   setupStatus.message=$t("Build completado", "Build completed");report();
  }
  function applyData(incoming: AppData) {
+   const languageChanged=!data||data.settings.language!==incoming.settings.language;
    const oldBuild=data?.builds.find(b=>b.id===data?.settings.activeBuildId),newBuild=incoming.builds.find(b=>b.id===incoming.settings.activeBuildId);
    if(JSON.stringify(oldBuild?.steps)!==JSON.stringify(newBuild?.steps)){
      const nextCursor=reconcileCursor(oldBuild,newBuild,cursor);
@@ -109,7 +111,17 @@
    }
    const positionChanged = JSON.stringify(data?.settings.position) !== JSON.stringify(incoming.settings.position);
    const resetPosition=positionChanged && incoming.settings.position===null && incoming.settings.setup.enabled && game;
-   data = incoming;
+   data = incoming; locale.set(incoming.settings.language);
+   if(languageChanged){
+     ocrMessage='';
+     setupStatus={...setupStatus,
+       message:active?$t('Revisá los contadores','Check the counters'):$t('Esperando AoE4','Waiting for AoE4'),
+       profile:setupStatus.geometry?setupStatus.profile:$t('Sin perfil','No profile'),
+       counters:setupStatus.sample?$t(`${setupStatus.sample.total} aldeanos · incluye ${setupStatus.sample.idle} inactivos`,`${setupStatus.sample.total} villagers · including ${setupStatus.sample.idle} idle`):$t('Pendientes','Pending'),
+       civilization:newBuild?label(newBuild.civ):$t('Elegí tu build o indicá tu nombre de jugador','Choose a build or enter your player name'),
+       clock:setup.clock.manual?$t('Control manual','Manual control'):$t('Esperando reloj visible','Waiting for a visible game timer')};
+     void send('ocr-status','');report();
+   }
    if(resetPosition && game) {
      pendingPositions.delete(profileKey(game));
      const profile=data.settings.setup.profiles.find(p=>p.key===profileKey(game!));
@@ -167,7 +179,7 @@
    toggleCompact() { if (data) { data.settings.compact = !data.settings.compact; persist({ compact: data.settings.compact }); } },
    cycleBuild() {
      if (!data || !build) return;
-     const sameCiv = data.builds.filter(b => b.civ === build.civ);
+     const sameCiv = data.builds.filter(b => label(b.civ,'en') === label(build.civ,'en'));
      const pool = sameCiv.length > 1 ? sameCiv : data.builds;
      if (pool.length < 2) return;
      dismissCelebration(true);visible=true;
@@ -201,15 +213,15 @@
    prepareAdvance();
    setupStatus.condition=advance?.rule.kind??'none';
    const reading=parseVillagerReading(rows),result=advance?.read(canAdvance?reading:null);
-   const condition=advance?advanceLabel(advance.rule):'Elegí un build';
-   const status=settings?.onboarding==='detecting'?'Compará los cinco contadores y confirmá en Inicio (Alt+Tab)':advance?.rule.kind==='manual'?condition:!canAdvance?`${condition} · esperando reloj`:result?.message??condition;
-   const counters=reading ? `Aldeanos: ${reading.total} · C ${reading.workers.food} / M ${reading.workers.wood} / O ${reading.workers.gold} / P ${reading.workers.stone} + ${reading.idle} inactivos` : `Lectura incompleta · C ${rows[0]||'—'} / M ${rows[1]||'—'} / O ${rows[2]||'—'} / P ${rows[3]||'—'} + ${rows[4]||'—'} inactivos`;
+   const condition=advance?advanceLabel(advance.rule):$t("Elegí un build", "Choose a build");
+   const status=settings?.onboarding==='detecting'?$t("Compará los cinco contadores y confirmá en Inicio (Alt+Tab)", "Compare the five counters and confirm in Home (Alt+Tab)"):advance?.rule.kind==='manual'?condition:!canAdvance?$t(`${condition} · esperando reloj`, `${condition} · waiting for timer`):result?.message??condition;
+   const counters=reading ? $t(`Aldeanos: ${reading.total} · C ${reading.workers.food} / M ${reading.workers.wood} / O ${reading.workers.gold} / P ${reading.workers.stone} + ${reading.idle} inactivos`, `Villagers: ${reading.total} · F ${reading.workers.food} / W ${reading.workers.wood} / G ${reading.workers.gold} / S ${reading.workers.stone} + ${reading.idle} idle`) : $t(`Lectura incompleta · C ${rows[0]||'—'} / M ${rows[1]||'—'} / O ${rows[2]||'—'} / P ${rows[3]||'—'} + ${rows[4]||'—'} inactivos`, `Incomplete reading · F ${rows[0]||'—'} / W ${rows[1]||'—'} / G ${rows[2]||'—'} / S ${rows[3]||'—'} + ${rows[4]||'—'} idle`);
    ocrMessage=`${counters}\n${status}`;
    if(canAdvance && result?.complete && build) {
      if(!atEnd) {
        actions.next();
-       ocrMessage=`${counters}\n${advance?advanceLabel(advance.rule):''} · nueva instrucción`;
-     } else ocrMessage=`${counters}\nObjetivo cumplido · AvPág para terminar la práctica`;
+       ocrMessage=$t(`${counters}\n${advance?advanceLabel(advance.rule):''} · nueva instrucción`, `${counters}\n${advance?advanceLabel(advance.rule):''} · next instruction`);
+     } else ocrMessage=$t(`${counters}\nObjetivo cumplido · AvPág para terminar la práctica`, `${counters}\nTarget reached · PgDn to finish practice`);
    }
    void send('ocr-status',ocrMessage);
    return reading;
@@ -221,7 +233,7 @@
    try {
      const geometry=await gameGeometry();
      if(initial!==setup.token() || !settings?.setup.enabled || !active || editing || selecting)return;
-     if(!geometry) {suspendSetup();setupStatus.sample=null;setupStatus.message='No encuentro AoE4 en primer plano';return;}
+     if(!geometry) {suspendSetup();setupStatus.sample=null;setupStatus.message=$t("No encuentro AoE4 en primer plano", "AoE4 is not in the foreground");return;}
      if(setup.geometry(geometry)) {invalidateOcr();setupStatus.sample=null;calibrationKey='';calibrationSamples=0;game=geometry;}
      setupStatus.geometry=geometry;setupStatus.profile=`${geometry.width} × ${geometry.height} · ${geometry.dpi/96*100}% · ${geometry.monitor}`;
      const token=setup.token(), hint=data.settings.setup.profiles.find(p=>p.key===profileKey(geometry))??null;
@@ -235,10 +247,10 @@
        const civ=localCivilization(result.lines,settings.setup.playerName,[...new Set([...settings.civs,...data.builds.map(b=>b.civ)])]);
        const confirmed=setup.confirmCiv(civ);
        if(confirmed)pendingCiv=confirmed;
-       setupStatus.civilization=!settings.setup.playerName?'Indicá tu nombre de jugador para identificar tu civilización':civ?`${civ} · confirmando jugador`:'No pude identificar tu civilización; mantené o elegí un build';
+       setupStatus.civilization=!settings.setup.playerName?$t("Indicá tu nombre de jugador para identificar tu civilización", "Enter your player name to detect your civilization"):civ?$t(`${civ} · confirmando jugador`, `${label(civ)} · confirming player`):$t("No pude identificar tu civilización; mantené o elegí un build", "Could not identify your civilization; keep or choose a build");
        if(confirmed && !sessionLocked)selectAutoBuild(confirmed);
-       setupStatus.message='No pude ubicar los contadores. Entrá a una partida o corregí las regiones.';
-       setupStatus.counters='HUD no reconocido';setupStatus.clock='Esperando reloj de partida';return;
+       setupStatus.message=$t("No pude ubicar los contadores. Entrá a una partida o corregí las regiones.", "Could not find the counters. Enter a match or adjust the regions.");
+       setupStatus.counters=$t("HUD no reconocido", "HUD not recognized");setupStatus.clock=$t("Esperando reloj de partida", "Waiting for the game timer");return;
      }
      const candidate=clockCandidate(result.lines,geometry);
      const time=setup.clock.read(candidate?.seconds??null);
@@ -252,9 +264,9 @@
        if(!practice)practice=newPractice(build);
        clock.sync(time.seconds);arrive();sessionLocked=true;
      } else if(!setup.clock.manual)clock.pause();
-     setupStatus.clock=setup.clock.manual?'Control manual':time?'Sincronizado con el juego':candidate?'Confirmando reloj':'No pude leer el reloj; podés iniciarlo manualmente';
+     setupStatus.clock=setup.clock.manual?$t("Control manual", "Manual control"):time?$t("Sincronizado con el juego", "Synced with game"):candidate?$t("Confirmando reloj", "Confirming timer"):$t("No pude leer el reloj; podés iniciarlo manualmente", "Could not read the timer; you can start it manually");
      const reading=consumeRows(result.rows,clock.running && !!practice && (setup.clock.manual || time!==null));
-     setupStatus.counters=reading?`${reading.total} aldeanos · incluye ${reading.idle} inactivos`:'Lectura incompleta: corregí las regiones';
+     setupStatus.counters=reading?$t(`${reading.total} aldeanos · incluye ${reading.idle} inactivos`, `${reading.total} villagers · including ${reading.idle} idle`):$t("Lectura incompleta: corregí las regiones", "Incomplete reading: adjust the regions");
      const regionsKey=JSON.stringify([result.workers,result.idle]);
      calibrationSamples=reading?(calibrationKey===regionsKey?calibrationSamples+1:1):0;calibrationKey=regionsKey;
      setupStatus.sample=reading?{...reading,at:Date.now(),stable:calibrationSamples>=3}:null;
@@ -263,19 +275,19 @@
        saveProfile({key:profileKey(geometry),width:geometry.width,height:geometry.height,workers:result.workers,idle:result.idle,clock:hint?.clock??(time?candidate?.rect??null:null),position:pendingPositions.get(profileKey(geometry))??hint?.position??null,manual:!forceDetection&&manual});
        forceDetection=false;
      }
-     setupStatus.message=reading && clock.running?'Listo':reading?'Contadores encontrados · falta iniciar o leer el reloj':'Revisá los contadores';
+     setupStatus.message=reading && clock.running?$t("Listo", "Ready"):reading?$t("Contadores encontrados · falta iniciar o leer el reloj", "Counters found · start the timer or make it visible"):$t("Revisá los contadores", "Check the counters");
    } catch(e) {
      if(requestToken!==setup.token())return;
      setupStatus.sample=null;
      calibrationSamples=0;calibrationKey='';
-     if(settings?.setup.enabled && active && !editing && !selecting) {setupStatus.message=String(e);setupStatus.counters='Lectura pendiente';}
+     if(settings?.setup.enabled && active && !editing && !selecting) {setupStatus.message=String(e);setupStatus.counters=$t("Lectura pendiente", "Reading pending");}
      if(!setup.clock.manual)clock.pause();setup.clock.suspend();invalidateOcr();
    } finally {setupBusy=false;report();}
  }
  function selectAutoBuild(civ:string) {
    if(!data || setup.buildManual)return;
    const selected=chooseBuild(data,civ,data.settings.setup.mode);
-   setupStatus.civilization=selected?`${civ} · ${selected.name}`:`${civ} · elegí un build para ${data.settings.setup.mode}`;
+   setupStatus.civilization=selected?`${civ} · ${selected.name}`:$t(`${civ} · elegí un build para ${data.settings.setup.mode}`, `${label(civ)} · choose a build for ${label(data.settings.setup.mode)}`);
    if(selected && selected.id!==data.settings.activeBuildId) {
      // Manager owns persistence. No further readings are applied until the new build arrives.
      setup.suspend();void send('setup-build',{id:selected.id,previous:data.settings.activeBuildId});return true;
@@ -295,7 +307,7 @@
  }
  onMount(() => {
    let alive = true, polling = false;
-   const updateFocus = (value: boolean) => { if(value!==active) {suspendSetup();if(!value)setupStatus.message='Esperando AoE4';} active = value; if (value) preview = false; };
+   const updateFocus = (value: boolean) => { if(value!==active) {suspendSetup();if(!value)setupStatus.message=$t("Esperando AoE4", "Waiting for AoE4");} active = value; if (value) preview = false; };
    const activate = async () => {
      if (await takeOverlayActivation()) {
        const inGame = await gameActive();
@@ -314,8 +326,8 @@
      on('hotkey-status-request', () => void send('hotkey-status', failedHotkeys)),
      on('overlay-action', value => manualAction(value as HotkeyAction)),
      on('setup-manual-build',()=>setup.manualBuild()),
-     on('setup-retry',()=>{suspendSetup();setupStatus.sample=null;forceDetection=true;setupStatus.message='Volvé a AoE4 para detectar el HUD';report();}),
-     on('setup-clock-resume',()=>{dismissCelebration(true);visible=true;setup.resumeClock(clock);invalidateOcr();setupStatus.clock='Esperando reloj visible';report();}),
+     on('setup-retry',()=>{suspendSetup();setupStatus.sample=null;forceDetection=true;setupStatus.message=$t("Volvé a AoE4 para detectar el HUD", "Return to AoE4 to detect the HUD");report();}),
+     on('setup-clock-resume',()=>{dismissCelebration(true);visible=true;setup.resumeClock(clock);invalidateOcr();setupStatus.clock=$t("Esperando reloj visible", "Waiting for a visible game timer");report();}),
      on('setup-manual-profile',value=>{suspendSetup();setupStatus.sample=null;forceDetection=false;const p=value as SetupProfile;if(validProfile(p))saveProfile(p);}),
      on('setup-status-request',report),
      onNativeEdit(() => void edit(true)),
@@ -371,18 +383,18 @@
     <BuildCompleted name={celebration.name} elapsed={celebration.elapsed} accent={settings.accent} />
    {:else}
    {#if preview && !editing}
-    <div class="previewbar"><span>Vista previa · Volvé a AoE4 para jugar</span><button type="button" onclick={() => preview = false}>Ocultar</button></div>
+    <div class="previewbar"><span>{$t("Vista previa · Volvé a AoE4 para jugar", "Preview · Return to AoE4 to play")}</span><button type="button" onclick={() => preview = false}>{$t("Ocultar", "Hide")}</button></div>
    {/if}
    {#if editing}
     <div class="editbar">
-     <button type="button" onpointerdown={() => void dragOverlay().catch(e => error = String(e))}>⠿ Arrastrá a cualquier monitor</button>
-     <button type="button" onclick={() => void edit(false)}>Listo</button>
+     <button type="button" onpointerdown={() => void dragOverlay().catch(e => error = String(e))}>{$t("⠿ Arrastrá a cualquier monitor", "⠿ Drag to any monitor")}</button>
+     <button type="button" onclick={() => void edit(false)}>{$t("Listo", "Done")}</button>
     </div>
    {/if}
    {#if error}<div class="notice">{error}</div>{/if}
    {#if settings.setup.enabled}<div class="ocr-status">Setup · {setupStatus.message}</div>{/if}
-   {#if settings.ocr.enabled || settings.setup.enabled}<div class="ocr-status">OCR · {ocrMessage || 'Esperando partida y reloj'}</div>{/if}
-   {#if !build}<div class="notice">No hay builds cargados. Creá uno en la ventana de gestión.</div>
+   {#if settings.ocr.enabled || settings.setup.enabled}<div class="ocr-status">OCR · {ocrMessage || $t("Esperando partida y reloj", "Waiting for match and timer")}</div>{/if}
+   {#if !build}<div class="notice">{$t("No hay builds cargados. Creá uno en la ventana de gestión.", "No builds loaded. Create one in the main window.")}</div>
    {:else if settings.compact}<Compact {build} stepIndex={index} subtaskIndex={taskIndex} accent={settings.accent} {elapsed} showClock={settings.showClock} />
    {:else}<Panel {build} stepIndex={index} subtaskIndex={taskIndex} accent={settings.accent} {elapsed} showClock={settings.showClock} hotkeys={settings.hotkeys} />{/if}
    {/if}

@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { t, locale, label, resourceLabel } from '$lib/i18n';
 	import ResIcon from './ResIcon.svelte';
 	import { prettyHotkey } from '$lib/hotkeys';
 	import { deltas } from '$lib/steps';
-	import { RESOURCES, RES_LABEL, type Build, type HotkeyAction } from '$lib/types';
+	import { RESOURCES, type Build, type HotkeyAction } from '$lib/types';
 	import { formatTime } from '$lib/util';
 	import { activeTask, taskRule } from '$lib/subtasks';
 	import { advanceLabel } from '$lib/advance';
@@ -34,12 +35,12 @@
 <div class="panel" style="--accent: {accent}">
 	<header>
 		<div class="title">
-			<span class="label">{build.civ || 'Sin civilización'}{build.mode ? ` · ${build.mode}` : ''}</span>
+			<span class="label">{label(build.civ, $locale) || $t("Sin civilización", "No civilization")}{build.mode ? ` · ${label(build.mode, $locale)}` : ''}</span>
 			<span class="name">{build.name}</span>
 		</div>
 		{#if step}
 			<div class="counter">
-				<span class="label">Paso</span>
+				<span class="label">{$t("Paso", "Step")}</span>
 				<span class="now">{stepIndex + 1}</span>
 				<span class="total">/ {build.steps.length}</span>
 			</div>
@@ -47,7 +48,7 @@
 	</header>
 
 	{#if !step}
-		<p class="empty">Este build todavía no tiene pasos.</p>
+		<p class="empty">{$t("Este build todavía no tiene pasos.", "This build has no steps yet.")}</p>
 	{:else}
 		<div class="progress" aria-hidden="true">
 			{#each build.steps as s, i (s.id)}
@@ -60,7 +61,7 @@
 				<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<path d="M3 8.5 6.5 12 13 4.5" />
 				</svg>
-				<span>{previous.pop != null ? `Pob ${previous.pop} · ` : ''}{previous.action || 'Paso anterior'}</span>
+				<span>{previous.pop != null ? $t(`Pob ${previous.pop} · `, `Pop ${previous.pop} · `) : ''}{previous.action || $t("Paso anterior", "Previous step")}</span>
 			</div>
 		{/if}
 
@@ -70,34 +71,34 @@
 					<div class="pop">
 						{#if step.pop != null}
 							<span class="big">{step.pop}</span>
-							<span class="label">pob</span>
+							<span class="label">{$t("pob", "pop")}</span>
 						{:else}
 							<span class="big">{stepIndex + 1}</span>
-							<span class="label">paso</span>
+							<span class="label">{$t("paso", "step")}</span>
 						{/if}
 					</div>
 					<div class="times">
 						{#if step.time != null}
-							<span class="label">Objetivo</span>
+							<span class="label">{$t("Objetivo", "Target")}</span>
 							<span class="target">{formatTime(step.time)}</span>
 						{/if}
 						{#if clockOn}
 							<span class="clock" class:late={late !== null && late > 0}>
 								{formatTime(elapsed)}
 								{#if late !== null}
-									· {late > 0 ? `${formatTime(late)} atrasado` : `faltan ${formatTime(-late)}`}
+									· {late > 0 ? $t(`${formatTime(late)} atrasado`, `${formatTime(late)} late`) : $t(`faltan ${formatTime(-late)}`, `${formatTime(-late)} remaining`)}
 								{/if}
 							</span>
 						{/if}
 					</div>
 				</div>
 
-				{#if step.subtasks?.length}<div class="task-progress">Tarea {subtaskIndex+1} / {step.subtasks.length}</div>{/if}
-				<div class="action">{task?.action || 'Sin acción cargada'}</div>
+				{#if step.subtasks?.length}<div class="task-progress">{$t(`Tarea ${subtaskIndex+1} / ${step.subtasks.length}`, `Task ${subtaskIndex+1} / ${step.subtasks.length}`)}</div>{/if}
+				<div class="action">{task?.action || $t("Sin acción cargada", "No action entered")}</div>
 				{#if task?.note}
 					<div class="note">{task.note}</div>
 				{/if}
-				{#if step.subtasks?.length}<div class="task-condition">{advanceLabel(taskRule(step,subtaskIndex,previous??undefined))}</div>{/if}
+				{#if step.subtasks?.length}<div class="task-condition">{advanceLabel(taskRule(step,subtaskIndex,previous??undefined), $locale)}</div>{/if}
 
 				<div class="villagers">
 					{#each RESOURCES as r (r)}
@@ -109,7 +110,7 @@
 								{/if}
 							</div>
 							<span class="count" class:zero={step.villagers[r] === 0}>{step.villagers[r]}</span>
-							<span class="res">{RES_LABEL[r]}</span>
+							<span class="res">{resourceLabel(r, $locale)}</span>
 						</div>
 					{/each}
 				</div>
@@ -118,20 +119,20 @@
 
 		<div class="next">
 			{#if nextTask}
-				<span class="label">Después · tarea {subtaskIndex+2}</span><span class="text">{nextTask.action}</span>
+				<span class="label">{$t(`Después · tarea ${subtaskIndex+2}`, `Next · task ${subtaskIndex+2}`)}</span><span class="text">{nextTask.action}</span>
 			{:else if next}
-				<span class="label">Siguiente{next.pop != null ? ` · Pob ${next.pop}` : ''}</span>
-				<span class="text">{next.action || 'Sin acción cargada'}</span>
+				<span class="label">{$t('Siguiente', 'Next')}{next.pop != null ? $t(` · Pob ${next.pop}`, ` · Pop ${next.pop}`) : ''}</span>
+				<span class="text">{next.action || $t("Sin acción cargada", "No action entered")}</span>
 			{:else}
-				<span class="label">Siguiente</span>
-				<span class="text">Fin del build</span>
+				<span class="label">{$t("Siguiente", "Next")}</span>
+				<span class="text">{$t("Fin del build", "End of build")}</span>
 			{/if}
 		</div>
 
 		{#if hotkeys}
 			<footer>
-				<span><kbd>{prettyHotkey(hotkeys.prev)}</kbd>anterior</span>
-				<span><kbd>{prettyHotkey(hotkeys.next)}</kbd>siguiente</span>
+				<span><kbd>{prettyHotkey(hotkeys.prev, $locale)}</kbd>{$t("anterior", "previous")}</span>
+				<span><kbd>{prettyHotkey(hotkeys.next, $locale)}</kbd>{$t("siguiente", "next")}</span>
 			</footer>
 		{/if}
 	{/if}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { t, locale, hotkeyLabel, label } from '$lib/i18n';
 	import { onMount } from 'svelte';
 	import type { Snippet } from 'svelte';
 	import { isTauri, monitorOptions, on, openRegionSelector, send } from '$lib/bridge';
@@ -6,7 +7,7 @@
 	import ListEditor from './ListEditor.svelte';
 	import SetupView from './SetupView.svelte';
 	import type { SetupStatus } from '$lib/setup';
-	import { HOTKEY_ACTIONS, HOTKEY_LABEL, type Build, type Corner, type Settings } from '$lib/types';
+	import { HOTKEY_ACTIONS, type Build, type Corner, type Settings } from '$lib/types';
 
 	interface Props {
 		settings: Settings;
@@ -19,23 +20,23 @@
 		onUse: (id:string)=>void;
 	}
 	let { settings = $bindable(), failedHotkeys, backup, activeBuild, setupStatus, builds, onUse }: Props = $props();
-	const sections = [
-		{ id: 'setup', title: 'Setup automático', detail: 'Preparar la partida' },
-		{ id: 'overlay', title: 'Overlay', detail: 'Posición y apariencia' },
-		{ id: 'keys', title: 'Atajos', detail: 'Teclado y práctica' },
-		{ id: 'ocr', title: 'Avance automático', detail: 'Aldeanos por recurso' },
-		{ id: 'lists', title: 'Listas', detail: 'Opciones de tus builds' },
-		{ id: 'backup', title: 'Respaldo', detail: 'Exportar e importar' }
-	];
+	const sections = $derived([
+		{ id: 'setup', title: $t("Setup automático", "Automatic setup"), detail: $t("Preparar la partida", "Prepare your match") },
+		{ id: 'overlay', title: 'Overlay', detail: $t("Posición y apariencia", "Position and appearance") },
+		{ id: 'keys', title: $t("Atajos", "Shortcuts"), detail: $t("Teclado y práctica", "Keyboard and practice") },
+		{ id: 'ocr', title: $t("Avance automático", "Automatic advancement"), detail: $t("Aldeanos por recurso", "Villagers by resource") },
+		{ id: 'lists', title: $t("Listas", "Lists"), detail: $t("Opciones de tus builds", "Build options") },
+		{ id: 'backup', title: $t("Respaldo", "Backup"), detail: $t("Exportar e importar", "Export and import") }
+	]);
 	let section = $state('setup');
 	const currentSection = $derived(sections.find(s => s.id === section)!);
-	const shortcutGroups = [
-		{ title: 'Pasos y builds', actions: ['next', 'prev', 'cycleBuild'] },
-		{ title: 'Reloj y práctica', actions: ['start', 'pauseClock', 'clockPlus', 'clockMinus', 'resetClock', 'resetPractice', 'finishPractice'] },
+	const shortcutGroups = $derived([
+		{ title: $t("Pasos y builds", "Steps and builds"), actions: ['next', 'prev', 'cycleBuild'] },
+		{ title: $t("Reloj y práctica", "Clock and practice"), actions: ['start', 'pauseClock', 'clockPlus', 'clockMinus', 'resetClock', 'resetPractice', 'finishPractice'] },
 		{ title: 'Overlay', actions: ['toggleVisible', 'toggleCompact', 'editPosition'] }
-	] as const;
+	] as const);
 	let monitors = $state<Awaited<ReturnType<typeof monitorOptions>>>([]);
-	let ocrStatus = $state('Iniciá el reloj en AoE4 para ver la lectura.');
+	let ocrStatus = $state('');
 	let editing = $state(false);
 	let ocrMonitor = $state(0);
 	let selectionError = $state('');
@@ -50,12 +51,12 @@
 		void send('practice-status-request'); return () => stops.forEach(stop => stop());
 	});
 
-	const CORNERS: { value: Corner; label: string }[] = [
-		{ value: 'top-left', label: 'Arriba izquierda' },
-		{ value: 'top-right', label: 'Arriba derecha' },
-		{ value: 'bottom-left', label: 'Abajo izquierda' },
-		{ value: 'bottom-right', label: 'Abajo derecha' }
-	];
+	const CORNERS: { value: Corner; label: string }[] = $derived([
+		{ value: 'top-left', label: $t("Arriba izquierda", "Top left") },
+		{ value: 'top-right', label: $t("Arriba derecha", "Top right") },
+		{ value: 'bottom-left', label: $t("Abajo izquierda", "Bottom left") },
+		{ value: 'bottom-right', label: $t("Abajo derecha", "Bottom right") }
+	]);
 	const ACCENTS = ['#F2B33D', '#5CC8F0', '#7BD88F', '#F08A5C'];
 
 	const duplicated = $derived(
@@ -67,41 +68,48 @@
 
 <div class="settings">
 	<aside class="settings-nav">
-		<div class="nav-heading">Ajustes</div>
-		<nav aria-label="Categorías de ajustes">
+		<div class="nav-heading">{$t("Ajustes", "Settings")}</div>
+		<label class="field" style="margin: 0 12px 16px">
+			<span class="label">{$t('Idioma', 'Language')}</span>
+			<select bind:value={settings.language}>
+				<option value="en" lang="en">English</option>
+				<option value="es" lang="es">Español</option>
+			</select>
+		</label>
+		<nav aria-label={$t("Categorías de ajustes", "Settings categories")}>
 			{#each sections as item}
 				<button type="button" aria-current={section === item.id ? 'page' : undefined} onclick={() => section = item.id}>
 					<span>{item.title}</span><small>{item.detail}</small>
-					{#if item.id === 'keys' && (duplicated.length || failedHotkeys.length)}<span class="nav-warning">Revisar atajos</span>{/if}
+					{#if item.id === 'keys' && (duplicated.length || failedHotkeys.length)}<span class="nav-warning">{$t("Revisar atajos", "Review shortcuts")}</span>{/if}
 				</button>
 			{/each}
 		</nav>
-		<p class="nav-note">Los cambios se aplican automáticamente.</p>
+		<p class="nav-note">{$t("Los cambios se aplican automáticamente.", "Changes apply automatically.")}</p>
 	</aside>
 	<div class="settings-content">
-		<header class="page-heading"><div><span class="label">Configuración</span><h2>{currentSection.title}</h2><p>{currentSection.detail}</p></div><span class="state-badge">{section === 'ocr' ? (settings.ocr.enabled ? 'OCR activado' : 'OCR desactivado') : 'AoE4 Overlay'}</span></header>
+		<header class="page-heading"><div><span class="label">{$t("Configuración", "Settings")}</span><h2>{currentSection.title}</h2><p>{currentSection.detail}</p></div><span class="state-badge">{section === 'ocr' ? (settings.ocr.enabled ? $t("OCR activado", "OCR on") : $t("OCR desactivado", "OCR off")) : 'AoE4 Overlay'}</span></header>
 	{#if section === 'setup'}
 	<SetupView bind:settings status={setupStatus} {builds} {onUse}/>
 	{:else if section === 'keys'}
 	<section>
-		<h3>Atajos dentro del juego</h3>
+		<h3>{$t("Atajos dentro del juego", "In-game shortcuts")}</h3>
 		<p class="help">
-			Hacé clic en una combinación y presioná las teclas que quieras usar. Esc cancela. Solo están activos con AoE4 en primer plano.
+			{$t("Hacé clic en una combinación y presioná las teclas que quieras usar. Esc cancela. Solo están activos con AoE4 en primer plano.", "Click a shortcut and press the keys you want to use. Press Esc to cancel. Shortcuts work while AoE4 is in the foreground.")}
 		</p>
 		{#each shortcutGroups as group}
 		<h4>{group.title}</h4>
 		<div class="keys">
 			{#each group.actions as action (action)}
-				<label for="hk-{action}">{HOTKEY_LABEL[action]}</label>
+				<label for="hk-{action}">{hotkeyLabel(action, $locale)}</label>
 				<div class="key">
 					<HotkeyInput id="hk-{action}" bind:value={settings.hotkeys[action]} />
-					<button type="button" class="ghost" aria-label="Quitar atajo: {HOTKEY_LABEL[action]}" disabled={!settings.hotkeys[action]} onclick={() => (settings.hotkeys[action] = '')}>
-						Quitar
+					<button type="button" class="ghost" aria-label={$t(`Quitar atajo: ${hotkeyLabel(action, $locale)}`, `Remove shortcut for ${hotkeyLabel(action, $locale)}`)} disabled={!settings.hotkeys[action]} onclick={() => (settings.hotkeys[action] = '')}>
+						{$t('Quitar', 'Remove')}
 					</button>
 					{#if duplicated.includes(action)}
-						<span class="warn">Repetida en otra acción</span>
+						<span class="warn">{$t("Repetida en otra acción", "Assigned to another action")}</span>
 					{:else if failedHotkeys.includes(action)}
-						<span class="warn">No se pudo registrar: puede estar en uso por otro programa</span>
+						<span class="warn">{$t("No se pudo registrar: puede estar en uso por otro programa", "Couldn’t register shortcut. Another program may be using it.")}</span>
 					{/if}
 				</div>
 			{/each}
@@ -110,30 +118,30 @@
 	</section>
 	{:else if section === 'overlay'}
 	<div class="preview-strip">
-		<div class="preview-caption"><span class="label">Vista previa</span><strong>Así se ve tu build</strong><small>Primer paso · {Math.round(settings.scale * 100)}% de tamaño</small></div>
+		<div class="preview-caption"><span class="label">{$t("Vista previa", "Preview")}</span><strong>{$t("Así se ve tu build", "Your build preview")}</strong><small>{$t(`Primer paso · ${Math.round(settings.scale * 100)}% de tamaño`, `First step · ${Math.round(settings.scale * 100)}% scale`)}</small></div>
 		<div class="mini-overlay" class:compact={settings.compact} style="--preview-accent: {settings.accent}; opacity: {settings.opacity}">
-			<div class="mini-title"><strong>{activeBuild?.name || 'Tu próximo build'}</strong>{#if settings.showClock}<span>0:00</span>{/if}</div>
-			<div class="mini-step"><b>{activeBuild?.steps[0]?.pop ?? '—'} <small>POB</small></b><span>{activeBuild?.steps[0]?.action || 'Elegí un build para empezar a practicar'}</span></div>
-			{#if !settings.compact}<div class="mini-footer">{activeBuild?.civ || 'Age of Empires IV'}<span>Paso 1 / {activeBuild?.steps.length || '—'}</span></div>{/if}
+			<div class="mini-title"><strong>{activeBuild?.name || $t("Tu próximo build", "Your next build")}</strong>{#if settings.showClock}<span>0:00</span>{/if}</div>
+			<div class="mini-step"><b>{activeBuild?.steps[0]?.pop ?? '—'} <small>{$t("POB", "POP")}</small></b><span>{activeBuild?.steps[0]?.action || $t("Elegí un build para empezar a practicar", "Choose a build to start practicing")}</span></div>
+			{#if !settings.compact}<div class="mini-footer">{label(activeBuild?.civ ?? '', $locale) || 'Age of Empires IV'}<span>{$t('Paso', 'Step')} 1 / {activeBuild?.steps.length || '—'}</span></div>{/if}
 		</div>
 	</div>
 	<section>
-		<h3>Ubicación en pantalla</h3>
-		<p class="help">Mové el overlay con el mouse. Arrastrá su barra a cualquier monitor y tocá «Listo».</p>
-		<div class="actions"><button type="button" class="primary" onclick={() => void send('overlay-action', 'editPosition')}>{editing ? 'Guardar posición y terminar edición' : 'Mover overlay con el mouse'}</button><span class="help inline">{settings.position ? 'Posición personalizada' : 'Ubicación por esquina'}</span></div>
+		<h3>{$t("Ubicación en pantalla", "Screen position")}</h3>
+		<p class="help">{$t("Mové el overlay con el mouse. Arrastrá su barra a cualquier monitor y tocá «Listo».", "Drag the overlay bar to any monitor, then select Done.")}</p>
+		<div class="actions"><button type="button" class="primary" onclick={() => void send('overlay-action', 'editPosition')}>{editing ? $t("Guardar posición y terminar edición", "Save position and finish editing") : $t("Mover overlay con el mouse", "Drag overlay to move it")}</button><span class="help inline">{settings.position ? $t("Posición personalizada", "Custom position") : $t("Ubicación por esquina", "Corner position")}</span></div>
 		{#if monitors.length}
-			<label class="field"><span class="label">Mover a monitor</span>
-				<select aria-label="Mover a monitor" onchange={e => { const m = monitors[Number(e.currentTarget.value)]; if (m) settings.position = { x: m.position.x + 40, y: m.position.y + 80 }; }}>
-					<option value="">Elegir monitor…</option>
+			<label class="field"><span class="label">{$t("Mover a monitor", "Move to monitor")}</span>
+				<select aria-label={$t("Mover a monitor", "Move to monitor")} onchange={e => { const m = monitors[Number(e.currentTarget.value)]; if (m) settings.position = { x: m.position.x + 40, y: m.position.y + 80 }; }}>
+					<option value="">{$t("Elegir monitor…", "Choose a monitor…")}</option>
 					{#each monitors as monitor, i}<option value={i}>{monitor.name || `Monitor ${i + 1}`} · {monitor.size.width} × {monitor.size.height}</option>{/each}
 				</select>
 			</label>
 		{/if}
-		<details><summary>Ubicación precisa por esquina y márgenes</summary>
-		{#if settings.position}<p class="help">Estás usando una posición personalizada. Restablecé la ubicación para aplicar estos valores.</p><button type="button" class="ghost" onclick={() => settings.position = null}>Usar esquina y márgenes</button>{/if}
+		<details><summary>{$t("Ubicación precisa por esquina y márgenes", "Position by corner and margins")}</summary>
+		{#if settings.position}<p class="help">{$t("Estás usando una posición personalizada. Restablecé la ubicación para aplicar estos valores.", "Switch from your custom position to apply these values.")}</p><button type="button" class="ghost" onclick={() => settings.position = null}>{$t("Usar esquina y márgenes", "Use corner and margins")}</button>{/if}
 		<div class="grid">
 			<fieldset disabled={!!settings.position}>
-				<legend class="label">Esquina</legend>
+				<legend class="label">{$t("Esquina", "Corner")}</legend>
 				<div class="corners">
 					{#each CORNERS as corner (corner.value)}
 						<label class="radio">
@@ -145,11 +153,11 @@
 			</fieldset>
 			<fieldset class="pair" disabled={!!settings.position}>
 				<label class="field">
-					<span class="label">Margen horizontal (px)</span>
+					<span class="label">{$t("Margen horizontal (px)", "Horizontal margin (px)")}</span>
 					<input type="number" min="0" bind:value={settings.offsetX} />
 				</label>
 				<label class="field">
-					<span class="label">Margen vertical (px)</span>
+					<span class="label">{$t("Margen vertical (px)", "Vertical margin (px)")}</span>
 					<input type="number" min="0" bind:value={settings.offsetY} />
 				</label>
 			</fieldset>
@@ -157,77 +165,77 @@
 		</details>
 	</section>
 	<section>
-		<h3>Tamaño y apariencia</h3>
+		<h3>{$t("Tamaño y apariencia", "Size and appearance")}</h3>
 		<div class="grid">
 			<label class="field">
-				<span class="label">Tamaño · {Math.round(settings.scale * 100)}%</span>
+				<span class="label">{$t(`Tamaño · ${Math.round(settings.scale * 100)}%`, `Size · ${Math.round(settings.scale * 100)}%`)}</span>
 				<input type="range" min="0.7" max="1.8" step="0.05" bind:value={settings.scale} />
 			</label>
 			<label class="field">
-				<span class="label">Opacidad · {Math.round(settings.opacity * 100)}%</span>
+				<span class="label">{$t(`Opacidad · ${Math.round(settings.opacity * 100)}%`, `Opacity · ${Math.round(settings.opacity * 100)}%`)}</span>
 				<input type="range" min="0.4" max="1" step="0.02" bind:value={settings.opacity} />
 			</label>
 		</div>
 		<hr />
 		<div class="grid">
 			<fieldset>
-				<legend class="label">Color de acento</legend>
+				<legend class="label">{$t("Color de acento", "Accent color")}</legend>
 				<div class="accents">
 					{#each ACCENTS as color (color)}
 						<button
 							type="button"
 							class="swatch"
 							style="background: {color}"
-							aria-label="Acento {color}"
+							aria-label={$t(`Acento ${color}`, `Accent ${color}`)}
 							aria-pressed={settings.accent.toLowerCase() === color.toLowerCase()}
 							onclick={() => (settings.accent = color)}
 						></button>
 					{/each}
-					<input type="color" aria-label="Otro color de acento" bind:value={settings.accent} />
+					<input type="color" aria-label={$t("Otro color de acento", "Custom accent color")} bind:value={settings.accent} />
 				</div>
 			</fieldset>
 			<div class="checks">
-				<label class="radio"><input type="checkbox" bind:checked={settings.compact} /> Modo compacto (una sola línea)</label>
-				<label class="radio"><input type="checkbox" bind:checked={settings.showClock} /> Mostrar reloj contra el objetivo</label>
+				<label class="radio"><input type="checkbox" bind:checked={settings.compact} />{$t(" Modo compacto (una sola línea)", " Compact mode (single line)")}</label>
+				<label class="radio"><input type="checkbox" bind:checked={settings.showClock} />{$t(" Mostrar reloj contra el objetivo", " Show clock against target time")}</label>
 			</div>
 		</div>
 	</section>
 	{:else if section === 'ocr'}
 	<section>
-		<div class="section-title"><h3>Avanzar por total de aldeanos</h3><span class="state-badge experimental">Experimental</span></div>
-		<label class="toggle-row"><span><strong>Leer aldeanos e inactivos</strong><small>Comprueba la condición del paso actual: total, mínimos por recurso o traslado. Revisá «Avance del paso» en el editor.</small></span><input type="checkbox" role="switch" disabled={!isTauri || settings.ocr.source !== 'workers' || !settings.ocr.idleRegion} bind:checked={settings.ocr.enabled} /></label>
-		{#if settings.ocr.source !== 'workers' || !settings.ocr.idleRegion}<p class="help footnote">Primero seleccioná las dos regiones: los cuatro recursos y el número de inactivos. La región del contador de población ya no se utiliza.</p>{/if}
+		<div class="section-title"><h3>{$t("Avanzar por total de aldeanos", "Advance on villager counts")}</h3><span class="state-badge experimental">Experimental</span></div>
+		<label class="toggle-row"><span><strong>{$t("Leer aldeanos e inactivos", "Read villager and idle counters")}</strong><small>{$t("Comprueba la condición del paso actual: total, mínimos por recurso o traslado. Revisá «Avance del paso» en el editor.", "Checks the current step’s rule for villager totals, resource minimums, or transfers. Review the rule in the build editor.")}</small></span><input type="checkbox" role="switch" disabled={!isTauri || settings.ocr.source !== 'workers' || !settings.ocr.idleRegion} bind:checked={settings.ocr.enabled} /></label>
+		{#if settings.ocr.source !== 'workers' || !settings.ocr.idleRegion}<p class="help footnote">{$t("Primero seleccioná las dos regiones: los cuatro recursos y el número de inactivos. La región del contador de población ya no se utiliza.", "Select both regions first. Use the four resource counters and idle counter.")}</p>{/if}
 	</section>
 	<section>
-		<h3>Área de lectura</h3>
-		<p class="help">Marcá solo la columna de <strong>cuatro números junto a los íconos de aldeanos</strong>, en orden: comida, madera, oro y piedra. Incluí los ceros grises. Dejá afuera los íconos, los recursos acumulados, los inactivos y el contador de población.</p>
+		<h3>{$t("Área de lectura", "Reading area")}</h3>
+		<p class="help">{$t('Marcá solo la columna de', 'Select only the column of')} <strong>{$t('cuatro números junto a los íconos de aldeanos', 'four numbers next to the villager icons')}</strong>{$t(', en orden: comida, madera, oro y piedra. Incluí los ceros grises. Dejá afuera los íconos, los recursos acumulados, los inactivos y el contador de población.', ', in order: food, wood, gold, and stone. Include gray zeros. Exclude icons, resource totals, idle villagers, and the population counter.')}</p>
 		{#if monitors.length > 1}
-			<label class="field"><span class="label">Monitor del juego</span><select bind:value={ocrMonitor}>{#each monitors as monitor, i}<option value={i}>{monitor.name || `Monitor ${i+1}`} · {monitor.size.width} × {monitor.size.height}</option>{/each}</select></label>
+			<label class="field"><span class="label">{$t("Monitor del juego", "Game monitor")}</span><select bind:value={ocrMonitor}>{#each monitors as monitor, i}<option value={i}>{monitor.name || `Monitor ${i+1}`} · {monitor.size.width} × {monitor.size.height}</option>{/each}</select></label>
 		{/if}
-		<div class="actions"><button type="button" class="primary" disabled={!isTauri || !monitors.length} onclick={() => void selectRegion()}>Seleccionar los cuatro contadores</button><span class="region-size">{settings.ocr.source === 'workers' ? `${settings.ocr.width} × ${settings.ocr.height} px` : 'Pendiente de calibrar'}</span></div>
-		<p class="help">Con AoE4 en ventana sin bordes, dibujá la columna dejando un número centrado en cada franja. Guardá el rectángulo o cancelá con Esc.</p>
-		<div class="actions"><button type="button" disabled={!isTauri || !monitors.length} onclick={() => void selectRegion('idle')}>Seleccionar aldeanos inactivos</button><span class="region-size">{settings.ocr.idleRegion ? `${settings.ocr.idleRegion.width} × ${settings.ocr.idleRegion.height} px` : 'Pendiente de calibrar'}</span></div>
-		<p class="help">Marcá aparte el número junto al aldeano con “Z”, arriba de los recursos. Dejá espacio para tres cifras y excluí el ícono y la población.</p>
+		<div class="actions"><button type="button" class="primary" disabled={!isTauri || !monitors.length} onclick={() => void selectRegion()}>{$t("Seleccionar los cuatro contadores", "Select the four resource counters")}</button><span class="region-size">{settings.ocr.source === 'workers' ? `${settings.ocr.width} × ${settings.ocr.height} px` : $t("Pendiente de calibrar", "Calibration needed")}</span></div>
+		<p class="help">{$t("Con AoE4 en ventana sin bordes, dibujá la columna dejando un número centrado en cada franja. Guardá el rectángulo o cancelá con Esc.", "With AoE4 in borderless windowed mode, draw a region with one number centered in each row. Save the region or press Esc to cancel.")}</p>
+		<div class="actions"><button type="button" disabled={!isTauri || !monitors.length} onclick={() => void selectRegion('idle')}>{$t("Seleccionar aldeanos inactivos", "Select idle villager counter")}</button><span class="region-size">{settings.ocr.idleRegion ? `${settings.ocr.idleRegion.width} × ${settings.ocr.idleRegion.height} px` : $t("Pendiente de calibrar", "Calibration needed")}</span></div>
+		<p class="help">{$t("Marcá aparte el número junto al aldeano con “Z”, arriba de los recursos. Dejá espacio para tres cifras y excluí el ícono y la población.", "Select the number next to the villager with a “Z” above the resources. Leave room for three digits and exclude the icon and population counter.")}</p>
 		{#if selectionError}<p class="warn" role="alert">{selectionError}</p>{/if}
-		<div class="reading" role="status"><span class="label">Estado de lectura</span><p>{isTauri ? ocrStatus : 'OCR disponible en la app de Windows.'}</p></div>
-		<p class="help footnote">Necesita el reloj en marcha, AoE4 en primer plano y tres lecturas que confirmen la condición (hasta 200 aldeanos). Los inactivos cuentan para el total, pero no para cumplir un recurso. Un traslado exige ver bajar el origen y subir el destino. Construir o subir de edad se confirma con AvPág. Si falta una lectura, espera.</p>
+		<div class="reading" role="status"><span class="label">{$t("Estado de lectura", "Reading status")}</span><p>{isTauri ? ocrStatus || $t("Iniciá el reloj en AoE4 para ver la lectura.", "Start the AoE4 clock to see readings.") : $t("OCR disponible en la app de Windows.", "OCR is available in the Windows app.")}</p></div>
+		<p class="help footnote">{$t("Necesita el reloj en marcha, AoE4 en primer plano y tres lecturas que confirmen la condición (hasta 200 aldeanos). Los inactivos cuentan para el total, pero no para cumplir un recurso. Un traslado exige ver bajar el origen y subir el destino. Construir o subir de edad se confirma con AvPág. Si falta una lectura, espera.", "Advance after three readings confirm the rule with the clock running and AoE4 in the foreground. Idle villagers count only toward the total, up to 200 villagers. Transfers require the source to decrease and the destination to increase. Press Page Down to confirm buildings or age-ups. Missing readings pause advancement.")}</p>
 	</section>
 	{:else if section === 'lists'}
 	<section>
-		<h3>Organizá tus builds</h3>
-		<p class="help">Opciones que aparecen al cargar y filtrar builds. Sacar una opción no modifica los builds que ya la usan.</p>
+		<h3>{$t("Organizá tus builds", "Organize your builds")}</h3>
+		<p class="help">{$t("Opciones que aparecen al cargar y filtrar builds. Sacar una opción no modifica los builds que ya la usan.", "These options appear when you edit and filter builds. Removing an option preserves existing builds that use it.")}</p>
 		<div class="lists">
 			<div>
-				<span class="label">Modos</span>
-				<ListEditor bind:items={settings.modes} label="Modo nuevo" placeholder="Por ejemplo: FFA" />
+				<span class="label">{$t("Modos", "Modes")}</span>
+				<ListEditor bind:items={settings.modes} label={$t("Modo nuevo", "New mode")} placeholder={$t("Por ejemplo: FFA", "For example, FFA")} />
 			</div>
 			<div>
-				<span class="label">Tipos de mapa</span>
-				<ListEditor bind:items={settings.maps} label="Tipo de mapa nuevo" />
+				<span class="label">{$t("Tipos de mapa", "Map types")}</span>
+				<ListEditor bind:items={settings.maps} label={$t("Tipo de mapa nuevo", "New map type")} />
 			</div>
 			<div>
-				<span class="label">Civilizaciones sugeridas</span>
-				<ListEditor bind:items={settings.civs} label="Civilización nueva" />
+				<span class="label">{$t("Civilizaciones sugeridas", "Suggested civilizations")}</span>
+				<ListEditor bind:items={settings.civs} label={$t("Civilización nueva", "New civilization")} />
 			</div>
 		</div>
 	</section>

@@ -1,7 +1,7 @@
 use tauri::{
-    Emitter, Manager, WindowEvent,
     menu::{Menu, MenuItem},
-    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
+    tray::{MouseButton, MouseButtonState, TrayIcon, TrayIconBuilder, TrayIconEvent},
+    Emitter, Manager, WindowEvent,
 };
 mod desktop;
 mod region_selector;
@@ -12,6 +12,56 @@ use tauri_plugin_global_shortcut::GlobalShortcutExt;
 
 #[derive(Default)]
 struct ActivationRequest(AtomicBool);
+
+#[derive(serde::Deserialize)]
+#[serde(rename_all = "lowercase")]
+enum Language {
+    En,
+    Es,
+}
+
+const ENGLISH_TRAY: [&str; 4] = [
+    "Open AoE4 Overlay",
+    "Move overlay",
+    "Exit",
+    "AoE4 Overlay — double-click to open",
+];
+const SPANISH_TRAY: [&str; 4] = [
+    "Abrir AoE4 Overlay",
+    "Mover overlay",
+    "Salir",
+    "AoE4 Overlay — doble clic para abrir",
+];
+
+struct NativeUi {
+    tray: TrayIcon,
+    open: MenuItem<tauri::Wry>,
+    edit: MenuItem<tauri::Wry>,
+    quit: MenuItem<tauri::Wry>,
+    spanish: AtomicBool,
+}
+
+#[tauri::command]
+fn set_language(
+    window: tauri::Window,
+    state: tauri::State<NativeUi>,
+    language: Language,
+) -> Result<(), String> {
+    if window.label() != "main" {
+        return Err("Change the language from Settings.".into());
+    }
+    let spanish = matches!(language, Language::Es);
+    let [open, edit, quit, tooltip] = if spanish { SPANISH_TRAY } else { ENGLISH_TRAY };
+    state.open.set_text(open).map_err(|e| e.to_string())?;
+    state.edit.set_text(edit).map_err(|e| e.to_string())?;
+    state.quit.set_text(quit).map_err(|e| e.to_string())?;
+    state
+        .tray
+        .set_tooltip(Some(tooltip))
+        .map_err(|e| e.to_string())?;
+    state.spanish.store(spanish, Ordering::Relaxed);
+    Ok(())
+}
 
 #[tauri::command]
 fn take_overlay_activation(window: tauri::Window, state: tauri::State<ActivationRequest>) -> bool {
@@ -73,17 +123,19 @@ pub fn run() {
             region_selector::open_region_selector,
             region_selector::region_selector_geometry,
             region_selector::finish_region_selection,
+            set_language,
             take_overlay_activation,
             quit_app
         ])
         .setup(|app| {
-            let open = MenuItem::with_id(app, "open", "Abrir AoE4 Overlay", true, None::<&str>)?;
-            let edit = MenuItem::with_id(app, "edit", "Mover overlay", true, None::<&str>)?;
-            let quit = MenuItem::with_id(app, "quit", "Salir", true, None::<&str>)?;
+            let [open_text, edit_text, quit_text, tooltip] = ENGLISH_TRAY;
+            let open = MenuItem::with_id(app, "open", open_text, true, None::<&str>)?;
+            let edit = MenuItem::with_id(app, "edit", edit_text, true, None::<&str>)?;
+            let quit = MenuItem::with_id(app, "quit", quit_text, true, None::<&str>)?;
             let menu = Menu::with_items(app, &[&open, &edit, &quit])?;
-            TrayIconBuilder::new()
+            let tray = TrayIconBuilder::new()
                 .icon(app.default_window_icon().expect("app icon").clone())
-                .tooltip("AoE4 Overlay — doble clic para abrir")
+                .tooltip(tooltip)
                 .menu(&menu)
                 .show_menu_on_left_click(false)
                 .on_menu_event(|app, event| match event.id.as_ref() {
@@ -112,6 +164,13 @@ pub fn run() {
                     }
                 })
                 .build(app)?;
+            app.manage(NativeUi {
+                tray,
+                open,
+                edit,
+                quit,
+                spanish: AtomicBool::default(),
+            });
             // Native monitoring keeps shortcuts from remaining reserved if a hidden
             // WebView throttles its JavaScript timers while the player alt-tabs.
             let handle = app.handle().clone();

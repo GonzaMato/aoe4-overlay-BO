@@ -1,10 +1,12 @@
 import starterPack from '../../static/builds/starter-pack.json' with { type: 'json' };
+import englishPack from '../../static/builds/starter-pack.en.json' with { type: 'json' };
 import type { AppData, Build, Settings, Step, Villagers } from './types';
 import { HOTKEY_ACTIONS } from './types';
 import { uid } from './util';
 import { setupDefaults, normalizeSetup } from './setup';
 import { validAdvance, copyAdvance } from './advance';
 import { validSubtasks, copySubtasks } from './subtasks';
+import { normalizeLanguage, tr, type Language } from './i18n';
 
 const v = (food: number, wood: number, gold: number, stone: number): Villagers => ({
 	food,
@@ -23,6 +25,7 @@ const step = (
 
 export function defaultSettings(): Settings {
 	return {
+		language: 'en',
 		setup: setupDefaults(),
 		onboarding: 'pending',
 		hotkeys: {
@@ -75,9 +78,10 @@ export function defaultSettings(): Settings {
 	};
 }
 
-export function defaultData(): AppData {
-	const builds = starterPack.builds.map(b => normalizeBuild(b as unknown as Build));
+export function defaultData(language: Language = 'en'): AppData {
+	const builds = (language==='es'?starterPack:englishPack).builds.map(b => normalizeBuild(b as unknown as Build));
 	const settings = defaultSettings();
+	settings.language = language;
 	settings.activeBuildId = builds[0].id;
 	return { version: 1, builds, settings, practices: [] };
 }
@@ -88,6 +92,7 @@ export function normalize(raw: unknown): AppData {
 	const input = raw as Partial<AppData>;
 	const base = defaultSettings();
 	const settings: Settings = { ...base, ...(input.settings ?? {}) };
+	settings.language = normalizeLanguage(input.settings?.language);
 	settings.hotkeys = { ...base.hotkeys, ...(input.settings?.hotkeys ?? {}) };
 	for (const action of HOTKEY_ACTIONS) {
 		if (typeof settings.hotkeys[action] !== 'string') settings.hotkeys[action] = '';
@@ -113,7 +118,7 @@ export function normalizeBuild(raw: Partial<Build>): Build {
 	return {
 		...(raw.provenance && ['packId','author','source','reviewedAt'].every(k=>typeof raw.provenance?.[k as keyof NonNullable<Build['provenance']>]==='string') ? {provenance:{packId:raw.provenance.packId,author:raw.provenance.author,source:raw.provenance.source,reviewedAt:raw.provenance.reviewedAt}} : {}),
 		id: typeof raw.id === 'string' && raw.id ? raw.id : uid(),
-		name: String(raw.name ?? 'Sin nombre'),
+		name: String(raw.name ?? tr('Sin nombre','Untitled')),
 		civ: String(raw.civ ?? ''),
 		mode: String(raw.mode ?? ''),
 		map: String(raw.map ?? ''),
@@ -142,7 +147,7 @@ function normalizeStep(raw: Partial<Step>): Step {
 export function newBuild(civ = '', mode = '', map = ''): Build {
 	return {
 		id: uid(),
-		name: 'Build nuevo',
+		name: tr('Build nuevo','New build'),
 		civ,
 		mode,
 		map,
@@ -165,7 +170,7 @@ export function cloneBuild(source: Build): Build {
 	return {
 		...source,
 		id: uid(),
-		name: `${source.name} (copia)`,
+		name: `${source.name} (${tr('copia','copy')})`,
 		steps: source.steps.map((s) => ({ ...s, id: uid(), villagers: { ...s.villagers }, ...(s.advance?{advance:copyAdvance(s.advance)}:{}), ...(s.subtasks?{subtasks:copySubtasks(s.subtasks,true)}:{}) }))
 	};
 }

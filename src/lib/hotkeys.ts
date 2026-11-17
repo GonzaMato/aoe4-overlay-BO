@@ -1,6 +1,7 @@
 // Las teclas se guardan como "Ctrl+Alt+KeyS": modificadores + el `code` de la tecla.
 // El plugin de teclas globales de Tauri acepta esos mismos nombres.
 
+import { currentLanguage, type Language } from './i18n';
 const MODIFIER_CODES = new Set([
 	'ControlLeft',
 	'ControlRight',
@@ -37,7 +38,8 @@ const PRETTY: Record<string, string> = {
 	End: 'Fin'
 };
 
-export function prettyKey(token: string): string {
+export function prettyKey(token: string, language: Language = currentLanguage()): string {
+	if(language==='en') { const names:Record<string,string>={PageDown:'PgDn',PageUp:'PgUp',Space:'Space',Delete:'Del',Home:'Home',End:'End'};if(names[token])return names[token]; }
 	if (PRETTY[token]) return PRETTY[token];
 	if (/^Key[A-Z]$/.test(token)) return token.slice(3);
 	if (/^Digit\d$/.test(token)) return token.slice(5);
@@ -45,7 +47,7 @@ export function prettyKey(token: string): string {
 	return token;
 }
 
-export function prettyHotkey(combo: string): string {
-	if (!combo) return 'Sin asignar';
-	return combo.split('+').map(prettyKey).join(' + ');
+export function prettyHotkey(combo: string, language: Language = currentLanguage()): string {
+	if (!combo) return language==='es'?'Sin asignar':'Unassigned';
+	return combo.split('+').map(token=>prettyKey(token,language)).join(' + ');
 }

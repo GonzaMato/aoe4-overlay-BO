@@ -65,6 +65,6 @@ test('advance rules survive load, clone, import and backup without shared mutabl
 test('malformed rules reject backups and normalize to manual, never to automatic inference',()=>{
  for(const rule of [{kind:'total',count:0},{kind:'resources',minimum:{}},{kind:'resources',minimum:{food:NaN}},{kind:'transfer',from:'gold',to:'gold',count:2},{kind:'transfer',from:'gold',to:'wood',count:-1},{kind:'resources',minimum:{military:3}}])assert.equal(validAdvance(rule),false);
  const data=defaultData(); data.builds[0].steps[0].advance={kind:'transfer',from:'gold',to:'gold',count:2};
- assert.throws(()=>importBackup(exportBackup(data)),/avance/i);
+ assert.throws(()=>importBackup(exportBackup(data)),/advance|avance/i);
  assert.deepEqual(normalize(data).builds[0].steps[0].advance,{kind:'manual'});
 });

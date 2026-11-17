@@ -14,7 +14,7 @@ test('bundled pack covers 25 civilizations without personal settings or history'
   assert.equal(new Set(p.builds.map(b=>b.civ)).size,25);
   assert.equal(defaultData().builds.length,25);
   assert.doesNotMatch(raw,/"(?:settings|practices|playerName|profiles|idleRegion)"/);
-  assert.equal(mergePack(defaultData().builds,p).length,25);
+  assert.equal(mergePack(defaultData('es').builds,p).length,25);
   const legacy=defaultData();legacy.builds=[build];legacy.settings.activeBuildId=build.id;
   assert.equal(normalize(legacy).builds.length,1);
 });

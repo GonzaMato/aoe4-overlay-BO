@@ -1,4 +1,5 @@
 <script lang="ts">
+ import { t } from '$lib/i18n';
  import { formatTime } from '$lib/util';
  let {name,elapsed,accent}:{name:string;elapsed:number|null;accent:string}=$props();
  const pieces=Array.from({length:16},(_,i)=>({x:8+(i*37)%84,delay:(i%5)*55,rotation:90+i*41,color:i%3===0?'#e8ebef':i%3===1?accent:'#80b9a2'}));
@@ -7,7 +8,7 @@
 <section class="completion" role="status" aria-live="polite" style="--celebration-accent:{accent}">
  <div class="confetti" aria-hidden="true">{#each pieces as p,i}<i style="left:{p.x}%;--delay:{p.delay}ms;--turn:{p.rotation}deg;--drift:{i%2?22:-22}px;background:{p.color}"></i>{/each}</div>
  <div class="check" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6" /></svg></div>
- <div class="copy"><strong>¡Build completado!</strong><p>{name}</p><small>{elapsed===null?'A seguir la partida':`${formatTime(elapsed)} · A seguir la partida`}</small></div>
+ <div class="copy"><strong>{$t("¡Build completado!", "Build complete!")}</strong><p>{name}</p><small>{elapsed===null?$t("A seguir la partida", "Keep playing"):$t(`${formatTime(elapsed)} · A seguir la partida`, `${formatTime(elapsed)} · Keep playing`)}</small></div>
 </section>
 
 <style>

@@ -45,8 +45,8 @@ test('legacy steps remain unchanged; subtasks persist through backup and clone w
 test('invalid or duplicate subtasks fail closed and backups reject them',()=>{
  for(const invalid of [null,{},[],[{id:'x',action:'Casa',note:'',advance:{kind:'total',count:0}}],Array.from({length:2},()=>({id:'same',action:'Casa',note:'',advance:{kind:'manual'}}))]) {
   const d=defaultData();d.builds[0].steps[0].subtasks=invalid;
-  assert.throws(()=>importBackup(exportBackup(d)),/subtarea/i);
-  assert.throws(()=>importBuilds(JSON.stringify(d.builds[0])),/subtarea/i);
+  assert.throws(()=>importBackup(exportBackup(d)),/subtask|subtarea/i);
+  assert.throws(()=>importBuilds(JSON.stringify(d.builds[0])),/subtask|subtarea/i);
   const step=normalize(d).builds[0].steps[0];assert.equal(step.subtasks,undefined);assert.deepEqual(step.advance,{kind:'manual'});
  }
 });

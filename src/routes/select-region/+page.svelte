@@ -1,6 +1,7 @@
 <script lang="ts">
+ import { t, locale, label } from '$lib/i18n';
   import { onMount } from 'svelte';
-  import { finishRegionSelection, isTauri, regionSelectorGeometry } from '$lib/bridge';
+  import { loadData, onDataChanged, finishRegionSelection, isTauri, regionSelectorGeometry } from '$lib/bridge';
   import { physicalRegion, selectionRect, type Point, type Rectangle } from '$lib/region';
 
   let start = $state<Point | null>(null);
@@ -20,7 +21,7 @@
     try { bounds = isTauri ? await regionSelectorGeometry() : { x:0,y:0,width,height }; }
     catch(e) { error = String(e); }
   }
-  onMount(() => { target = new URLSearchParams(window.location.search).get('target') === 'idle' ? 'idle' : 'workers'; void resize(); });
+  onMount(() => { void loadData().then(data=>locale.set(data.settings.language)); const stop=onDataChanged(data=>locale.set(data.settings.language)); target = new URLSearchParams(window.location.search).get('target') === 'idle' ? 'idle' : 'workers'; void resize(); return stop; });
   function down(event: PointerEvent) {
     if (busy || event.button !== 0 || (event.target as Element).closest('aside')) return;
     (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
@@ -45,30 +46,30 @@
   }
 </script>
 
-<svelte:head><title>Seleccionar región OCR</title></svelte:head>
+<svelte:head><title>{$t("Seleccionar región OCR", "Select OCR region")}</title></svelte:head>
 <svelte:window onresize={() => void resize()} onkeydown={e => { if (e.key === 'Escape') { e.preventDefault(); void finish(false); } }} />
-<div class="canvas" role="application" aria-label={target === 'idle' ? 'Seleccionar aldeanos inactivos con el mouse' : 'Seleccionar cuatro contadores de aldeanos con el mouse'} tabindex="-1"
+<div class="canvas" role="application" aria-label={target === 'idle' ? $t("Seleccionar aldeanos inactivos con el mouse", "Select the idle villager count with the mouse") : $t("Seleccionar cuatro contadores de aldeanos con el mouse", "Select four villager counters with the mouse")} tabindex="-1"
   onpointerdown={down} onpointermove={move} onpointerup={up} onpointercancel={() => start = null}>
   {#if rect}
     <div class="selection" style:left="{rect.x}px" style:top="{rect.y}px" style:width="{rect.width}px" style:height="{rect.height}px">
-      {#if target === 'workers'}{#each ['Comida', 'Madera', 'Oro', 'Piedra'] as label, i}<div class="row-guide" style:top="{i * 25}%"><span>{label}</span></div>{/each}{/if}
+      {#if target === 'workers'}{#each [$t('Comida','Food'), $t('Madera','Wood'), $t('Oro','Gold'), $t('Piedra','Stone')] as label, i}<div class="row-guide" style:top="{i * 25}%"><span>{label}</span></div>{/each}{/if}
     </div>
   {/if}
   <aside>
     {#if target === 'idle'}
-    <strong>Seleccioná el número de aldeanos inactivos</strong>
-    <p>Está arriba de los recursos, junto al aldeano con “Z”. Encerrá solo el número: dejá afuera el ícono y el contador de población. Dejá espacio para hasta tres cifras.</p>
-    <p class="example">Este contador se suma a comida + madera + oro + piedra.</p>
+    <strong>{$t("Seleccioná el número de aldeanos inactivos", "Select the idle villager number")}</strong>
+    <p>{$t("Está arriba de los recursos, junto al aldeano con “Z”. Encerrá solo el número: dejá afuera el ícono y el contador de población. Dejá espacio para hasta tres cifras.", "It is above the resources, next to the villager with a “Z”. Select only the number, excluding the icon and population counter. Leave room for three digits.")}</p>
+    <p class="example">{$t("Este contador se suma a comida + madera + oro + piedra.", "This counter is added to food + wood + gold + stone.")}</p>
     {:else}
-    <strong>Seleccioná los cuatro números de aldeanos</strong>
-    <p>Solo los números de comida, madera, oro y piedra, incluidos los ceros. Dejá afuera los íconos y los recursos acumulados. Centrá un número en cada franja.</p>
-    <p class="example">Ejemplo: 10 + 9 + 0 + 0 = 19 aldeanos asignados.</p>
+    <strong>{$t("Seleccioná los cuatro números de aldeanos", "Select the four villager numbers")}</strong>
+    <p>{$t("Solo los números de comida, madera, oro y piedra, incluidos los ceros. Dejá afuera los íconos y los recursos acumulados. Centrá un número en cada franja.", "Select only food, wood, gold and stone villager numbers, including zeros. Exclude icons and stockpiled resources. Center one number in each band.")}</p>
+    <p class="example">{$t("Ejemplo: 10 + 9 + 0 + 0 = 19 aldeanos asignados.", "Example: 10 + 9 + 0 + 0 = 19 assigned villagers.")}</p>
     {/if}
-    {#if candidate}<span class="dimensions">Región: {candidate.width} × {candidate.height} px</span>{/if}
+    {#if candidate}<span class="dimensions">{$t("Región", "Region")}: {candidate.width} × {candidate.height} px</span>{/if}
     {#if error}<p class="error" role="alert">{error}</p>{/if}
     <div class="buttons">
-      <button class="save" disabled={!candidate || !!start || busy || !isTauri} onclick={() => void finish(true)}>{busy ? 'Guardando…' : 'Guardar región'}</button>
-      <button disabled={busy} onclick={() => void finish(false)}>Cancelar · Esc</button>
+      <button class="save" disabled={!candidate || !!start || busy || !isTauri} onclick={() => void finish(true)}>{busy ? $t("Guardando…", "Saving…") : $t("Guardar región", "Save region")}</button>
+      <button disabled={busy} onclick={() => void finish(false)}>{$t("Cancelar · Esc", "Cancel · Esc")}</button>
     </div>
   </aside>
 </div>

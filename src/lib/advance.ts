@@ -1,5 +1,6 @@
 import { RESOURCES, RES_LABEL, type AdvanceRule, type Resource, type Step, type Villagers } from './types';
 import { villagerTotal, type parseVillagerReading } from './ocr';
+import { currentLanguage, resourceLabel, tr, type Language } from './i18n';
 
 export type Reading = NonNullable<ReturnType<typeof parseVillagerReading>>;
 export type ResolvedRule = Exclude<AdvanceRule, {kind:'auto'}>;
@@ -48,12 +49,13 @@ export function resolveAdvance(step:Step, previous?:Step):ResolvedRule {
   }
   return {kind:'manual'};
 }
-export function advanceLabel(rule:ResolvedRule):string {
+export function advanceLabel(rule:ResolvedRule, language:Language = currentLanguage()):string {
+  const pick=(es:string,en:string)=>language==='es'?es:en;
   switch(rule.kind) {
-    case 'manual':return 'Manual · AvPág cuando completes la instrucción';
-    case 'total':return `Total ≥ ${rule.count} aldeanos (incluye inactivos)`;
-    case 'resources':return Object.entries(rule.minimum).map(([r,n])=>`${RES_LABEL[r as Resource]} ≥ ${n}`).join(' · ');
-    case 'transfer':return `Mover ${rule.count}: ${RES_LABEL[rule.from]} → ${RES_LABEL[rule.to]}`;
+    case 'manual':return pick('Manual · AvPág cuando completes la instrucción','Manual · PgDn when you complete the instruction');
+    case 'total':return pick(`Total ≥ ${rule.count} aldeanos (incluye inactivos)`,`Total ≥ ${rule.count} villagers (including idle)`);
+    case 'resources':return Object.entries(rule.minimum).map(([r,n])=>`${resourceLabel(r as Resource,language)} ≥ ${n}`).join(' · ');
+    case 'transfer':return `${pick('Mover','Move')} ${rule.count}: ${resourceLabel(rule.from,language)} → ${resourceLabel(rule.to,language)}`;
   }
 }
 
@@ -69,7 +71,7 @@ export class AdvanceGate {
   suspend(){this.last=null;this.same=0;this.confirmations=0;this.stableReading=null;}
   read(reading:Reading|null):{complete:boolean;message:string} {
     const label=advanceLabel(this.rule);
-    if(!reading){this.suspend();return {complete:false,message:`${label} · esperando lectura válida`};}
+    if(!reading){this.suspend();return {complete:false,message:`${label} · ${tr('esperando lectura válida','waiting for a valid reading')}`};}
     const key=JSON.stringify(RESOURCES.map(r=>reading.workers[r]));
     this.same=key===this.last?this.same+1:1;this.last=key;
     this.stableReading=this.same>=3?{...reading,workers:{...reading.workers}}:null;
@@ -81,15 +83,15 @@ export class AdvanceGate {
       case 'transfer': {
         if(!this.baseline) {
           if(this.stableReading)this.baseline={...reading.workers};
-          return {complete:false,message:`${label} · ${this.baseline?'esperando el traslado':'leyendo reparto inicial'}`};
+          return {complete:false,message:`${label} · ${this.baseline?tr('esperando el traslado','waiting for the transfer'):tr('leyendo reparto inicial','reading initial assignments')}`};
         }
         const {from,to,count}=this.rule;
-        if(this.baseline[from]<count)return {complete:false,message:`${label} · sin origen suficiente; usá AvPág si ya lo hiciste`};
+        if(this.baseline[from]<count)return {complete:false,message:`${label} · ${tr('sin origen suficiente; usá AvPág si ya lo hiciste','not enough at source; press PgDn if already done')}`};
         matched=reading.workers[from]<=this.baseline[from]-count && reading.workers[to]>=this.baseline[to]+count;
         break;
       }
     }
     this.confirmations=matched?this.confirmations+1:0;
-    return {complete:this.confirmations>=3,message:`${label} · ${matched?`confirmando ${Math.min(3,this.confirmations)}/3`:'pendiente'}`};
+    return {complete:this.confirmations>=3,message:`${label} · ${matched?`${tr('confirmando','confirming')} ${Math.min(3,this.confirmations)}/3`:tr('pendiente','pending')}`};
   }
 }

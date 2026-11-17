@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { t, locale } from '$lib/i18n';
 	import { send } from '$lib/bridge';
 	import { eventToHotkey, prettyHotkey } from '$lib/hotkeys';
 
@@ -47,7 +48,7 @@
 </script>
 
 <button {id} type="button" class:capturing onclick={onClick} onkeydown={onKeydown} onblur={stop}>
-	{capturing ? 'Presioná la combinación… (Esc cancela)' : prettyHotkey(value)}
+	{capturing ? $t("Presioná la combinación… (Esc cancela)", "Press the shortcut… (Esc to cancel)") : prettyHotkey(value, $locale)}
 </button>
 
 <style>

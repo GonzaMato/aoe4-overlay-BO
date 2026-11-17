@@ -1,3 +1,4 @@
+import { errorText } from './errors';
 export interface Point { x: number; y: number; }
 export interface Rectangle extends Point { width: number; height: number; }
 
@@ -9,7 +10,7 @@ export function selectionRect(start: Point, end: Point, width: number, height: n
 }
 
 export function physicalRegion(rect: Rectangle, screen: Rectangle, viewportWidth: number, viewportHeight: number, target: 'workers' | 'idle' = 'workers'): Rectangle {
-  if (viewportWidth <= 0 || viewportHeight <= 0) throw new Error('La pantalla todavía no está lista.');
+  if (viewportWidth <= 0 || viewportHeight <= 0) throw new Error(errorText('La pantalla todavía no está lista.'));
   const sx = screen.width / viewportWidth, sy = screen.height / viewportHeight;
   const region = {
     x: screen.x + Math.round(rect.x * sx), y: screen.y + Math.round(rect.y * sy),
@@ -17,8 +18,8 @@ export function physicalRegion(rect: Rectangle, screen: Rectangle, viewportWidth
     height: Math.round((rect.y + rect.height) * sy) - Math.round(rect.y * sy)
   };
   if (Object.values(region).some(n => !Number.isFinite(n)) || region.width < 10 || region.height < (target === 'idle' ? 10 : 40))
-    throw new Error(target === 'idle' ? 'Encerrá el número de aldeanos inactivos.' : 'Arrastrá para encerrar los cuatro contadores de aldeanos.');
+    throw new Error(errorText(target === 'idle' ? 'Encerrá el número de aldeanos inactivos.' : 'Arrastrá para encerrar los cuatro contadores de aldeanos.'));
   if (region.width > 1000 || region.height > 500)
-    throw new Error('La región es demasiado grande. Seleccioná solo los cuatro números de aldeanos.');
+    throw new Error(errorText('La región es demasiado grande. Seleccioná solo los cuatro números de aldeanos.'));
   return region;
 }

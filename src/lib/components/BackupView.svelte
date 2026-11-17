@@ -1,4 +1,5 @@
 <script lang="ts">
+ import { t } from '$lib/i18n';
  import type { AppData } from '$lib/types';
  import { exportBackup, importBackup } from '$lib/imports';
  let { data, onRestore }: { data: AppData; onRestore: (data: AppData) => void } = $props();
@@ -6,7 +7,7 @@
  let error = $state('');
  function download() {
    const url = URL.createObjectURL(new Blob([exportBackup(data)], { type: 'application/json' }));
-   const a = document.createElement('a'); a.href = url; a.download = `aoe4-respaldo-${new Date().toISOString().slice(0,10)}.json`; a.click();
+   const a = document.createElement('a'); a.href = url; a.download = `${$t("aoe4-respaldo", "aoe4-backup")}-${new Date().toISOString().slice(0,10)}.json`; a.click();
    setTimeout(() => URL.revokeObjectURL(url), 10000);
  }
  async function read(event: Event) {
@@ -18,20 +19,20 @@
  }
 </script>
 <section>
- <h2>Respaldo completo</h2>
- <p>Guardá una copia de tus builds, ajustes y registros de práctica. Podés recuperarla en esta PC o llevarla a otra.</p>
- <div class="counts"><span><strong>{data.builds.length}</strong> builds</span><span><strong>{data.practices.length}</strong> prácticas</span><span>Todos tus ajustes</span></div>
- <h3>Guardar una copia</h3>
- <button type="button" onclick={download}>Exportar respaldo</button>
- <h3>Recuperar un respaldo</h3>
- <p>Elegí un archivo JSON. Podés revisarlo antes de reemplazar tus datos.</p>
- <label>Archivo de respaldo <input type="file" accept=".json,application/json" onchange={read} /></label>
+ <h2>{$t("Respaldo completo", "Full backup")}</h2>
+ <p>{$t("Guardá una copia de tus builds, ajustes y registros de práctica. Podés recuperarla en esta PC o llevarla a otra.", "Save a copy of your builds, settings, and practice history to restore on this PC or another one.")}</p>
+ <div class="counts"><span><strong>{data.builds.length}</strong> builds</span><span><strong>{data.practices.length}</strong> {$t('prácticas', 'practice sessions')}</span><span>{$t("Todos tus ajustes", "All your settings")}</span></div>
+ <h3>{$t("Guardar una copia", "Save a copy")}</h3>
+ <button type="button" onclick={download}>{$t("Exportar respaldo", "Export backup")}</button>
+ <h3>{$t("Recuperar un respaldo", "Restore a backup")}</h3>
+ <p>{$t("Elegí un archivo JSON. Podés revisarlo antes de reemplazar tus datos.", "Choose a JSON file to review before replacing your data.")}</p>
+ <label>{$t("Archivo de respaldo ", "Backup file ")}<input type="file" accept=".json,application/json" onchange={read} /></label>
  {#if error}<p role="alert">{error}</p>{/if}
  {#if pending}
   <div class="confirm">
-   <p>Archivo validado: {pending.builds.length} builds y {pending.practices.length} prácticas. Restaurar reemplaza los datos actuales y termina la práctica en curso. Exportá antes si querés conservarlos.</p>
-   <button type="button" onclick={() => { if (pending) onRestore($state.snapshot(pending) as AppData); pending = null; }}>Reemplazar con este respaldo</button>
-   <button type="button" onclick={() => pending = null}>Cancelar</button>
+   <p>{$t(`Archivo validado: ${pending.builds.length} builds y ${pending.practices.length} prácticas. Restaurar reemplaza los datos actuales y termina la práctica en curso. Exportá antes si querés conservarlos.`, `Backup verified with ${pending.builds.length} builds and ${pending.practices.length} practice sessions. Restoring replaces your current data and ends the current practice. Export first to keep a copy.`)}</p>
+   <button type="button" onclick={() => { if (pending) onRestore($state.snapshot(pending) as AppData); pending = null; }}>{$t("Reemplazar con este respaldo", "Replace with this backup")}</button>
+   <button type="button" onclick={() => pending = null}>{$t("Cancelar", "Cancel")}</button>
   </div>
  {/if}
 </section>

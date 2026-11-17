@@ -1,38 +1,27 @@
-# Empezar en un minuto
+# Quick start
 
-1. Descargá el instalador de [GitHub Releases](https://github.com/GonzaMato/aoe4-overlay-BO/releases).
-   Elegí el archivo `AoE4 Overlay_<versión>_x64-setup.exe`. No necesitás Node ni Rust.
-2. Instalá y abrí **AoE4 Overlay**. En **Inicio**, elegí el build de tu civilización.
-3. Tocá **Continuar con detección** y abrí una partida de práctica en ventana sin bordes.
-4. Dejá visible el HUD unos segundos. El overlay muestra comida, madera, oro, piedra e inactivos.
-   Volvé con **Alt + Tab**, compará los cinco números y confirmá **Los cinco números coinciden**.
-5. Volvé al juego. El reloj se sincroniza cuando puede leerlo; si no, usá **Ctrl + Alt + S**.
-   **AvPág** confirma tareas manuales; **RePág** vuelve atrás. Los objetivos de aldeanos usan OCR.
+1. Download `AoE4 Overlay_<version>_x64-setup.exe` from [GitHub Releases](https://github.com/GonzaMato/aoe4-overlay-BO/releases).
+2. Install and open **AoE4 Overlay**. In **Home**, choose a build for your civilization. The app defaults to English. You can switch to Spanish in **Settings**.
+3. Continue with detection and open a practice match in borderless windowed mode.
+4. Keep the HUD visible for a few seconds. The overlay shows food, wood, gold, stone, and idle villagers. Press **Alt + Tab**, compare all five counts, and confirm that they match.
+5. Return to the game. If the clock cannot sync with the game clock, press **Ctrl + Alt + S**. Press **Page Down** to confirm a manual task and **Page Up** to go back. Villager goals use OCR.
 
-Construcciones, edad, ejército y acciones que los contadores no prueban siguen siendo manuales.
-Al confirmar la última tarea, una celebración breve oculta el overlay.
-**Ctrl + Alt + H** muestra u oculta el overlay. Cerrá todo desde **Salir de la app**; la X solo
-oculta la gestión. Volver a abrir el acceso directo recupera la instancia existente.
+Buildings, age-ups, military units, and other actions outside the villager counts require manual confirmation. Confirming the last task briefly celebrates completion and hides the overlay.
 
-## Si algo falla
+**Ctrl + Alt + H** toggles the overlay. Choose **Exit app** to close it completely. The window's X hides the management window. Opening the shortcut again brings back the existing instance.
 
-- **No encuentro el juego:** volvé a AoE4, con una partida y HUD visibles, en ventana sin bordes.
-- **Falta un idioma OCR:** revisá los paquetes de idioma de Windows y reiniciá la app.
-- **Números incorrectos:** elegí **No coinciden** y corregí las regiones con el mouse.
-- **Paso sin avance:** puede requerir confirmación manual, una lectura válida o iniciar el reloj.
-- **Ayuda → Preparar diagnóstico → Copiar diagnóstico:** revisá el texto y compartilo en un
-  [issue](https://github.com/GonzaMato/aoe4-overlay-BO/issues). Las capturas son voluntarias.
+## Troubleshooting
 
-## Builds y actualizaciones
+- **Game detection fails.** Return to AoE4 with a match running, the HUD visible, and borderless windowed mode enabled.
+- **OCR language missing.** Check your Windows language packs and restart the app.
+- **Counts differ.** Indicate that the numbers do not match and adjust the regions with your mouse.
+- **The step stays open.** It may need manual confirmation, a valid reading, or a running clock.
+- **Sharing diagnostics.** Prepare and copy diagnostics from **Help**, review the text, and share it in a [GitHub issue](https://github.com/GonzaMato/aoe4-overlay-BO/issues). Screenshots are optional.
 
-El paquete inicial contiene una apertura por civilización, con autor, fuente y revisión de
-instrucciones; no garantiza que sea la estrategia óptima del parche. Podés modificar tu copia.
-En instalaciones anteriores, **Inicio → Añadir paquete de civilizaciones** agrega los que faltan
-sin reemplazar tus builds. También podés importar `starter-pack.json`; no contiene datos personales.
+## Builds and updates
 
-**Ayuda → Buscar actualizaciones** consulta GitHub solo al pulsarlo. Descargá el instalador nuevo,
-exportá un respaldo desde **Ajustes → Respaldo** y cerrá la app antes de actualizar.
-No se descarga ni instala nada automáticamente.
+The editable starter pack includes one opening per civilization, with source attribution and reviewed instructions. Strategy can vary by patch. In existing installations, add missing starter builds in the selected language from **Home** without replacing your builds. For manual import, use `starter-pack.en.json` for English or `starter-pack.json` for Spanish. Both files contain build data only.
 
-Esta app no está afiliada a World's Edge. No hay confirmación oficial de su uso en competitivo;
-la beta está orientada a práctica. Windows puede mostrar advertencias porque el instalador no está firmado.
+Check for updates in **Help** to query GitHub. Download the new installer, export a backup from **Settings → Backup**, and exit the app before updating. Downloads and installation are manual.
+
+AoE4 Overlay is unaffiliated with World's Edge. The beta is intended for practice, and competitive use lacks official confirmation. Windows may show a warning because the installer is unsigned.
