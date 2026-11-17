@@ -43,6 +43,7 @@
     "active": true,
     "license": "GPL-3.0-only",
     "licenseFile": "../LICENSE",
+    "resources": { "../LICENSE": "LICENSE", "../THIRD-PARTY-NOTICES.txt": "THIRD-PARTY-NOTICES.txt" },
     "targets": ["nsis"],
     "shortDescription": "Build orders y práctica para Age of Empires IV",
     "windows": {

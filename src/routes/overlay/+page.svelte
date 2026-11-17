@@ -232,7 +232,7 @@
      if(!result.hud) {
        setupStatus.sample=null;
        if(!setup.clock.manual)clock.pause();invalidateOcr();setup.clock.suspend();calibrationSamples=0;
-       const civ=localCivilization(result.lines,settings.setup.playerName,settings.civs);
+       const civ=localCivilization(result.lines,settings.setup.playerName,[...new Set([...settings.civs,...data.builds.map(b=>b.civ)])]);
        const confirmed=setup.confirmCiv(civ);
        if(confirmed)pendingCiv=confirmed;
        setupStatus.civilization=!settings.setup.playerName?'Indicá tu nombre de jugador para identificar tu civilización':civ?`${civ} · confirmando jugador`:'No pude identificar tu civilización; mantené o elegí un build';

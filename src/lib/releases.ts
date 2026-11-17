@@ -11,7 +11,7 @@ export function releaseResult(current:string,raw:unknown):{kind:'new'|'current';
 }
 export async function checkRelease(current:string):Promise<string>{
   const response=await fetch('https://api.github.com/repos/GonzaMato/aoe4-overlay-BO/releases/latest',{headers:{Accept:'application/vnd.github+json'},signal:AbortSignal.timeout(12000)});
-  if(response.status===404)return 'Todavía no hay una versión pública disponible.';
+  if(response.status===404)return 'Todavía no hay una versión estable publicada. Podés ver las betas en Descargas.';
   if(response.status===403||response.status===429)throw new Error('GitHub limitó las consultas. Probá más tarde o abrí Descargas.');
   if(!response.ok)throw new Error('No se pudo consultar GitHub. Probá más tarde.');
   const result=releaseResult(current,await response.json());

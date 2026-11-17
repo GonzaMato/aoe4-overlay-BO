@@ -10,13 +10,14 @@ if (-not (Test-Path -LiteralPath $installerPath)) { throw 'Generá primero el in
 $releaseDir = Join-Path $projectRoot "release/$releaseVersion"
 New-Item -ItemType Directory -Path $releaseDir -Force | Out-Null
 Copy-Item -LiteralPath $installerPath -Destination $releaseDir
-foreach ($releaseFile in @('LICENSE','static/builds/starter-pack.json','docs/quick-start.md','docs/compatibility.md','docs/build-pack-sources.md',"docs/releases/$releaseVersion.md")) {
+foreach ($releaseFile in @('LICENSE','THIRD-PARTY-NOTICES.txt','static/builds/starter-pack.json','docs/quick-start.md','docs/compatibility.md','docs/build-pack-sources.md',"docs/releases/$releaseVersion.md")) {
     Copy-Item -LiteralPath (Join-Path $projectRoot $releaseFile) -Destination $releaseDir
 }
 
 # An explicit source allowlist includes current work, not caches, user stores or secrets.
 $sourceRoots = @('src','static','tests','scripts','.github','src-tauri/src','src-tauri/assets','src-tauri/icons','src-tauri/capabilities')
 $sourceFiles = @('package.json','package-lock.json','svelte.config.js','vite.config.js','tsconfig.json','README.md','LICENSE','.gitignore','src-tauri/Cargo.toml','src-tauri/Cargo.lock','src-tauri/tauri.conf.json','src-tauri/build.rs','src-tauri/.gitignore','docs/quick-start.md','docs/compatibility.md','docs/build-pack-sources.md',"docs/releases/$releaseVersion.md")
+$sourceFiles += 'THIRD-PARTY-NOTICES.txt'
 $filesToArchive = @()
 foreach ($folder in $sourceRoots) { if (Test-Path -LiteralPath $folder) { $filesToArchive += Get-ChildItem -LiteralPath $folder -File -Recurse } }
 foreach ($file in $sourceFiles) { if (Test-Path -LiteralPath $file) { $filesToArchive += Get-Item -LiteralPath $file } }

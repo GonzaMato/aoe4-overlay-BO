@@ -38,8 +38,16 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           $tag = "v$env:RELEASE_VERSION"
-          gh release create $tag --verify-tag --draft --title "AoE4 Overlay $env:RELEASE_VERSION" --notes-file "docs/releases/$env:RELEASE_VERSION.md"
-          if ($LASTEXITCODE -ne 0) { throw 'Could not create draft release.' }
+          $existing = gh release view $tag --json isDraft 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            if (-not ($existing | ConvertFrom-Json).isDraft) {
+              Write-Output 'Release already published; preserving its assets.'
+              exit 0
+            }
+          } else {
+            gh release create $tag --verify-tag --draft --title "AoE4 Overlay $env:RELEASE_VERSION" --notes-file "docs/releases/$env:RELEASE_VERSION.md"
+            if ($LASTEXITCODE -ne 0) { throw 'Could not create draft release.' }
+          }
           $assets = Get-ChildItem -LiteralPath "release/$env:RELEASE_VERSION" -File | ForEach-Object FullName
-          gh release upload $tag @assets
+          gh release upload $tag @assets --clobber
           if ($LASTEXITCODE -ne 0) { throw 'Could not upload release assets.' }
