@@ -58,6 +58,7 @@ export const HOTKEY_ACTIONS = [
 	'toggleVisible',
 	'toggleCompact',
 	'cycleBuild',
+	'chooseBuild',
 	'editPosition',
 	'resetPractice',
 	'resetClock',
@@ -81,7 +82,8 @@ export const HOTKEY_LABEL: Record<HotkeyAction, string> = {
 	finishPractice: 'Terminar práctica',
 	toggleVisible: 'Mostrar / ocultar overlay',
 	toggleCompact: 'Modo compacto',
-	cycleBuild: 'Cambiar de build (misma civilización)'
+	cycleBuild: 'Cambiar de build (misma civilización)',
+	chooseBuild: 'Abrir selector de builds'
 };
 
 export type Corner = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
@@ -97,6 +99,7 @@ export interface Settings {
 	scale: number;
 	opacity: number;
 	accent: string;
+	civilizationColors: boolean;
 	compact: boolean;
 	showClock: boolean;
 	modes: string[];

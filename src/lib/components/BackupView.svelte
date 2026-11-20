@@ -1,15 +1,10 @@
 <script lang="ts">
  import { t } from '$lib/i18n';
  import type { AppData } from '$lib/types';
- import { exportBackup, importBackup } from '$lib/imports';
+ import { downloadBackup, importBackup } from '$lib/imports';
  let { data, onRestore }: { data: AppData; onRestore: (data: AppData) => void } = $props();
  let pending = $state<AppData | null>(null);
  let error = $state('');
- function download() {
-   const url = URL.createObjectURL(new Blob([exportBackup(data)], { type: 'application/json' }));
-   const a = document.createElement('a'); a.href = url; a.download = `${$t("aoe4-respaldo", "aoe4-backup")}-${new Date().toISOString().slice(0,10)}.json`; a.click();
-   setTimeout(() => URL.revokeObjectURL(url), 10000);
- }
  async function read(event: Event) {
    pending = null; error = '';
    const input = event.currentTarget as HTMLInputElement;
@@ -23,7 +18,7 @@
  <p>{$t("Guardá una copia de tus builds, ajustes y registros de práctica. Podés recuperarla en esta PC o llevarla a otra.", "Save a copy of your builds, settings, and practice history to restore on this PC or another one.")}</p>
  <div class="counts"><span><strong>{data.builds.length}</strong> builds</span><span><strong>{data.practices.length}</strong> {$t('prácticas', 'practice sessions')}</span><span>{$t("Todos tus ajustes", "All your settings")}</span></div>
  <h3>{$t("Guardar una copia", "Save a copy")}</h3>
- <button type="button" onclick={download}>{$t("Exportar respaldo", "Export backup")}</button>
+ <button type="button" onclick={() => downloadBackup(data)}>{$t("Exportar respaldo", "Export backup")}</button>
  <h3>{$t("Recuperar un respaldo", "Restore a backup")}</h3>
  <p>{$t("Elegí un archivo JSON. Podés revisarlo antes de reemplazar tus datos.", "Choose a JSON file to review before replacing your data.")}</p>
  <label>{$t("Archivo de respaldo ", "Backup file ")}<input type="file" accept=".json,application/json" onchange={read} /></label>

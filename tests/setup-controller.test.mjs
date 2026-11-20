@@ -3,7 +3,30 @@ import assert from 'node:assert/strict';
 import { SetupController } from '../src/lib/setup-controller.ts';
 import { PracticeClock, newPractice, recordArrival } from '../src/lib/practice.ts';
 import { defaultData } from '../src/lib/defaults.ts';
+import { CounterCalibration, canConfirm } from '../src/lib/onboarding.ts';
 const g={x:0,y:0,width:1920,height:1080,monitor:'DISPLAY1',dpi:96};
+test('a brief OCR loss while switching windows preserves the last confirmable sample',()=>{
+ const calibration=new CounterCalibration();
+ const reading={workers:{food:5,wood:0,gold:0,stone:0},idle:0,total:5};
+ calibration.observe(reading,'regions',1000);
+ calibration.observe(reading,'regions',2500);
+ assert.equal(canConfirm(calibration.sample,2500),false);
+ calibration.observe(reading,'regions',4000);
+ calibration.interrupt();
+ assert.deepEqual(calibration.sample,{...reading,at:4000,stable:true});
+ assert.equal(canConfirm(calibration.sample,5000),true);
+ assert.equal(canConfirm(calibration.sample,65000),false);
+
+ calibration.observe(reading,'changed regions',5500);
+ assert.equal(canConfirm(calibration.sample,5500),false);
+ calibration.interrupt();
+ assert.equal(calibration.sample,null);
+ calibration.observe(reading,'regions',7000);
+ calibration.observe(reading,'regions',8500);
+ calibration.observe(reading,'regions',10000);
+ calibration.reset();
+ assert.equal(calibration.sample,null);
+});
 test('manual changes, focus loss and geometry changes invalidate outstanding automatic reads',()=>{
  const s=new SetupController();s.geometry(g);const token=s.token();assert.equal(s.current(token,g),true);
  s.manualBuild();assert.equal(s.current(token,g),false);assert.equal(s.buildManual,true);
@@ -18,6 +41,31 @@ test('only repeated explicit lobby evidence permits a new match; losing the HUD 
  s.observeLobby([line]);s.observeLobby([line]);
  s.clock.read(0,5000);s.clock.read(1,6000);const accepted=s.clock.read(2,7000);
  assert.equal(accepted.newMatch,true);s.newMatch();assert.equal(s.buildManual,false);
+});
+
+test('confirmed loading unlocks the previous build before the HUD, once per match', () => {
+ const setup = new SetupController();
+ const loading = [{text:'Loading...',x:20,y:20,width:100,height:20}];
+ setup.manualBuild();
+ setup.observeLobby(loading);
+ assert.equal(setup.openLoadingBuildSelection(),false);
+ assert.equal(setup.buildManual,true);
+ setup.observeLobby(loading);
+ assert.equal(setup.openLoadingBuildSelection(),true);
+ assert.equal(setup.buildManual,false);
+
+ setup.manualBuild();
+ setup.observeLobby(loading);
+ setup.observeLobby(loading);
+ assert.equal(setup.openLoadingBuildSelection(),false);
+ setup.observeHud();
+ assert.equal(setup.newMatch(),false);
+ assert.equal(setup.buildManual,true);
+
+ setup.observeLobby(loading);
+ setup.observeLobby(loading);
+ assert.equal(setup.openLoadingBuildSelection(),true);
+ assert.equal(setup.buildManual,false);
 });
 test('game synchronization freezes elapsed time and preserves recorded arrivals',()=>{
  const c=new PracticeClock(),build=defaultData().builds[0],p=newPractice(build);

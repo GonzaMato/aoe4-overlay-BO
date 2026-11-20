@@ -1,0 +1,180 @@
+{
+  "format": "aoe4-overlay-build-pack",
+  "version": 1,
+  "id": "ootd-fast-castle-relics",
+  "name": "Orden del Dragón · Castillos rápido y reliquias",
+  "reviewedAt": "2026-11-19",
+  "builds": [
+    {
+      "id": "ootd-fast-castle-relics-es",
+      "name": "Castillos rápido con Regnitz · Avance automático",
+      "civ": "Orden del Dragón",
+      "mode": "1v1",
+      "map": "Tierra",
+      "provenance": {
+        "packId": "ootd-fast-castle-relics",
+        "author": "JampiX",
+        "source": "https://aoe4guides.com/builds/fMmMTVlh2xW63REwPjhG",
+        "reviewedAt": "2026-11-19"
+      },
+      "steps": [
+        {
+          "id": "sheep",
+          "time": 0,
+          "pop": null,
+          "action": "Mandá los 5 aldeanos iniciales a ovejas.",
+          "note": "Mantené la cola de aldeanos activa. Buscá ovejas y ciervos cercanos con el explorador.",
+          "villagers": { "food": 5, "wood": 0, "gold": 0, "stone": 0 },
+          "advance": { "kind": "resources", "minimum": { "food": 5 } }
+        },
+        {
+          "id": "deer",
+          "time": null,
+          "pop": null,
+          "action": "Si los ciervos están seguros, trasladá a los 5 de ovejas y levantá un molino.",
+          "note": "Iniciá Técnicas de supervivencia en el molino. Si hay presión temprana, quedate en ovejas. Mandá a oro los primeros 3 aldeanos nuevos mientras hacés esto.",
+          "villagers": { "food": 5, "wood": 0, "gold": 0, "stone": 0 },
+          "advance": { "kind": "manual" }
+        },
+        {
+          "id": "three-gold",
+          "time": null,
+          "pop": null,
+          "action": "Llegá a 3 aldeanos en oro.",
+          "note": "Usá el primero para levantar el campamento minero. Después de los 3, mandá los nuevos a ovejas.",
+          "villagers": { "food": 5, "wood": 0, "gold": 3, "stone": 0 },
+          "advance": { "kind": "resources", "minimum": { "gold": 3 } }
+        },
+        {
+          "id": "feudal-prep",
+          "time": 170,
+          "pop": null,
+          "action": "Prepará el paso a Feudal con 4 aldeanos en oro.",
+          "note": "El tiempo orientativo marca el inicio del monumento.",
+          "villagers": { "food": 7, "wood": 0, "gold": 4, "stone": 0 },
+          "advance": { "kind": "manual" },
+          "subtasks": [
+            {
+              "id": "feudal-prep-food",
+              "action": "Sumá 3 aldeanos a ovejas hasta tener 8 recolectando comida.",
+              "note": "",
+              "advance": { "kind": "resources", "minimum": { "food": 8 } }
+            },
+            {
+              "id": "feudal-prep-gold",
+              "action": "Pasá un aldeano de comida a oro para quedar con 4 mineros.",
+              "note": "",
+              "advance": { "kind": "resources", "minimum": { "gold": 4 } }
+            },
+            {
+              "id": "feudal-prep-landmark",
+              "action": "Con 400 de comida y 200 de oro, empezá el monumento con 1 aldeano.",
+              "note": "Elegí el Palacio de Meinwerk, o la Capilla de Aquisgrán si cubre ovejas, oro y madera. Confirmá al empezar la construcción.",
+              "advance": { "kind": "manual" }
+            }
+          ]
+        },
+        {
+          "id": "transition-wood",
+          "time": 180,
+          "pop": null,
+          "action": "Mandá los próximos 2 aldeanos a madera mientras se construye el monumento.",
+          "note": "Después devolvé el punto de reunión a ovejas. Levantá una casa antes de llegar al límite de población.",
+          "villagers": { "food": 8, "wood": 2, "gold": 4, "stone": 0 },
+          "advance": { "kind": "resources", "minimum": { "wood": 2 } }
+        },
+        {
+          "id": "five-gold",
+          "time": null,
+          "pop": null,
+          "action": "Destiná un recolector de comida a oro para quedar con 5 mineros.",
+          "note": "Si necesitás defender el oro, usá ese aldeano para levantar un puesto avanzado antes de que se ponga a minar.",
+          "villagers": { "food": 8, "wood": 2, "gold": 5, "stone": 0 },
+          "advance": { "kind": "resources", "minimum": { "gold": 5 } }
+        },
+        {
+          "id": "feudal-wood",
+          "time": null,
+          "pop": null,
+          "action": "Al llegar a Feudal, mandá a madera al constructor del monumento.",
+          "note": "Mantené en ovejas el punto de reunión del centro urbano.",
+          "villagers": { "food": 9, "wood": 3, "gold": 5, "stone": 0 },
+          "advance": { "kind": "resources", "minimum": { "wood": 3 } }
+        },
+        {
+          "id": "castle-prep",
+          "time": 330,
+          "pop": null,
+          "action": "Priorizá comida y oro para empezar la Catedral de Regnitz.",
+          "note": "5:30 es una referencia para empezar a construir, si tu economía y la presión rival lo permiten.",
+          "villagers": { "food": 12, "wood": 3, "gold": 5, "stone": 0 },
+          "advance": { "kind": "manual" },
+          "subtasks": [
+            {
+              "id": "castle-prep-food",
+              "action": "Mandá los nuevos a ovejas hasta llegar a 12 en comida.",
+              "note": "Sostené 5 mineros de oro.",
+              "advance": { "kind": "resources", "minimum": { "food": 12, "gold": 5 } }
+            },
+            {
+              "id": "castle-prep-landmark",
+              "action": "Empezá Regnitz al reunir 1200 de comida y 600 de oro.",
+              "note": "Si el rival te presiona con ejército, la fuente propone el Palacio del Burgrave como alternativa. Confirmá al empezar la construcción.",
+              "advance": { "kind": "manual" }
+            }
+          ]
+        },
+        {
+          "id": "castle-wood",
+          "time": null,
+          "pop": null,
+          "action": "Mandá los nuevos aldeanos a madera hasta tener 5.",
+          "note": "Reservá madera para el establo y las casas que necesites.",
+          "villagers": { "food": 12, "wood": 5, "gold": 5, "stone": 0 },
+          "advance": { "kind": "resources", "minimum": { "wood": 5 } }
+        },
+        {
+          "id": "relics",
+          "time": null,
+          "pop": null,
+          "action": "En Castillos, levantá un establo y sacá un prelado de Regnitz para las reliquias.",
+          "note": "Entrená 2–3 caballeros dorados para escoltar a tus prelados. Si elegiste Burgrave, necesitás un monasterio.",
+          "villagers": { "food": 12, "wood": 5, "gold": 5, "stone": 0 },
+          "advance": { "kind": "manual" }
+        },
+        {
+          "id": "eight-wood",
+          "time": null,
+          "pop": null,
+          "action": "Reforzá la madera hasta tener 8 aldeanos talando.",
+          "note": "Escoltá a los prelados hasta asegurar las reliquias. Después podés hostigar con los caballeros.",
+          "villagers": { "food": 12, "wood": 8, "gold": 5, "stone": 0 },
+          "advance": { "kind": "resources", "minimum": { "wood": 8 } }
+        },
+        {
+          "id": "archery",
+          "time": null,
+          "pop": null,
+          "action": "Aumentá a 13 en madera y sumá una galería de tiro con arco.",
+          "note": "Adaptá el ejército con arqueros o ballesteros dorados y pasá a granjas cuando se agoten las fuentes de comida.",
+          "villagers": { "food": 12, "wood": 13, "gold": 5, "stone": 0 },
+          "advance": { "kind": "manual" },
+          "subtasks": [
+            {
+              "id": "archery-wood",
+              "action": "Mandá nuevos aldeanos a madera hasta llegar a 13.",
+              "note": "",
+              "advance": { "kind": "resources", "minimum": { "wood": 13 } }
+            },
+            {
+              "id": "archery-building",
+              "action": "Levantá la galería de tiro con arco y empezá a producir refuerzos.",
+              "note": "",
+              "advance": { "kind": "manual" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

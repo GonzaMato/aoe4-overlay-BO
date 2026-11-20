@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "AoE4 Overlay",
-  "version": "0.3.1",
+  "version": "0.3.6",
   "identifier": "com.gonzalo.aoe4-overlay",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -14,6 +14,7 @@
       {
         "label": "main",
         "title": "AoE4 Overlay — Builds",
+        "visible": false,
         "width": 1240,
         "height": 800,
         "minWidth": 980,
@@ -54,6 +55,7 @@
     "windows": {
       "nsis": {
         "installMode": "currentUser",
+        "installerHooks": "./windows/startup.nsh",
         "languages": [
           "English",
           "Spanish"

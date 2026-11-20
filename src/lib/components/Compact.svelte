@@ -1,20 +1,30 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
+	import { overlayTheme, overlayThemeStyle } from '$lib/overlay-theme';
+	import CivFlag from './CivFlag.svelte';
+	import { t, locale } from '$lib/i18n';
 	import ResIcon from './ResIcon.svelte';
 	import { deltas } from '$lib/steps';
 	import { RESOURCES, type Build } from '$lib/types';
 	import { formatTime } from '$lib/util';
-	import { activeTask } from '$lib/subtasks';
+	import { activeTask, taskRule, isLastTask } from '$lib/subtasks';
+	import type { Reading } from '$lib/advance';
+	import type { AutomationContext } from '$lib/overlay-status';
+	import AdvanceStatus from './AdvanceStatus.svelte';
 
 	interface Props {
 		build: Build;
 		stepIndex: number;
 		subtaskIndex?: number;
 		accent: string;
+		civilizationColors?: boolean;
+		reading?: Reading | null;
+		trackingEnabled?: boolean;
+		automation?: AutomationContext;
+		nextKey?: string;
 		elapsed?: number | null;
 		showClock?: boolean;
 	}
-	let { build, stepIndex, subtaskIndex=0, accent, elapsed = null, showClock = true }: Props = $props();
+	let { build, stepIndex, subtaskIndex=0, accent, civilizationColors=false, reading=null, trackingEnabled=false, automation, nextKey='PageDown', elapsed = null, showClock = true }: Props = $props();
 
 	const step = $derived(build.steps[stepIndex]);
 	const task = $derived(step?activeTask(step,subtaskIndex):null);
@@ -24,9 +34,11 @@
 	const late = $derived(clockOn && step?.time != null ? (elapsed as number) - step.time : null);
 
 	const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
+	const context=$derived(automation??{enabled:trackingEnabled,confirmed:true,live:true,hasReading:!!reading,finalTask:isLastTask(build,{step:stepIndex,task:subtaskIndex})});
 </script>
 
-<div class="bar" style="--accent: {accent}">
+<div class="bar" class:civilization-theme={!!overlayTheme(build.civ, civilizationColors, accent).palette} style={overlayThemeStyle(build.civ, civilizationColors, accent)}>
+	<CivFlag civ={build.civ} size={24} decorative={false}/>
 	{#if !step}
 		<span class="text">{$t("Este build todavía no tiene pasos.", "This build has no steps yet.")}</span>
 	{:else}
@@ -44,6 +56,8 @@
 					? $t(` · objetivo ${formatTime(step.time)}`, ` · target ${formatTime(step.time)}`)
 					: ''}
 			</span>
+			<div class="reading-line"><AdvanceStatus rule={taskRule(step,subtaskIndex,build.steps[stepIndex-1])} context={context} {nextKey} compact/>
+			{#if trackingEnabled}<span>{$t('Leídos','Read')}: {$locale==='es'?'C':'F'} {reading?.workers.food??'—'} · {$locale==='es'?'M':'W'} {reading?.workers.wood??'—'} · {$locale==='es'?'O':'G'} {reading?.workers.gold??'—'} · {$locale==='es'?'P':'S'} {reading?.workers.stone??'—'} · {$t('Inact.','Idle')} {reading?.idle??'—'}</span>{/if}</div>
 		</div>
 		{#if changed.length}
 			<span class="sep" aria-hidden="true"></span>
@@ -66,13 +80,15 @@
 </div>
 
 <style>
+	.reading-line{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:10px;color:var(--dim);margin-top:4px;white-space:normal}.reading-line>span{white-space:nowrap}
+	.bar.civilization-theme { background: var(--civ-surface); border-color: var(--civ-border); }
 	.bar {
 		display: inline-flex;
 		align-items: center;
 		gap: 16px;
 		max-width: 680px;
-		height: 64px;
-		padding: 0 18px;
+		min-height: 64px;
+		padding: 10px 18px;
 		background: var(--bg);
 		border: 1px solid var(--line);
 		border-radius: 10px;

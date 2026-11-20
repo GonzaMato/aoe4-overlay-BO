@@ -41,8 +41,10 @@ test('civilization belongs to the named player row, never a rival or ambiguous o
 });
 test('auto build selection respects civilization and explicit mode/default', () => {
   const d=defaultData('es');
-  assert.equal(chooseBuild(d,'Ingleses','1v1')?.id,'starter-2026-11-eng');
+  assert.equal(d.builds.filter(build=>build.civ==='Ingleses').length,2);
+  assert.equal(chooseBuild(d,'Ingleses','1v1')?.id,d.builds[0].id);
   d.builds.push({...d.builds[0],id:'other'});
+  d.settings.defaults={};
   assert.equal(chooseBuild(d,'Ingleses','1v1'),null);
   d.settings.defaults['Ingleses|1v1']='other';
   assert.equal(chooseBuild(d,'Ingleses','1v1')?.id,'other');

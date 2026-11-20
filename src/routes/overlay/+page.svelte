@@ -1,7 +1,9 @@
 <script lang="ts">
+ import { overlayTheme } from '$lib/overlay-theme';
+ import { emptyOverlaySample, observeOverlaySample, overlayReadingView, type OverlaySample } from '$lib/overlay-status';
  import { t, locale, label } from '$lib/i18n';
  import { onMount } from 'svelte';
- import { takeOverlayActivation, onOverlayActivation } from '$lib/bridge';
+ import { takeOverlayActivation, onOverlayActivation, openBuildPicker } from '$lib/bridge';
  import Compact from '$lib/components/Compact.svelte';
  import Panel from '$lib/components/Panel.svelte';
  import BuildCompleted from '$lib/components/BuildCompleted.svelte';
@@ -9,14 +11,14 @@
  import { bindHotkeys, isTauri, keepAlive, loadData, makeClickThrough, on, onDataChanged, placeOverlay, send, unbindHotkeys, gameActive, onGameFocus, onRegionSelecting, setEditing, dragOverlay, overlayPosition, onNativeEdit, readWorkers } from '$lib/bridge';
  import { clampIndex, indexForPop } from '$lib/steps';
  import { PracticeClock, newPractice, recordArrival } from '$lib/practice';
- import { parseVillagerReading, VillagerTotalGate } from '$lib/ocr';
+ import { VillagerTotalGate } from '$lib/ocr';
  import { AdvanceGate, advanceLabel, type Reading } from '$lib/advance';
  import { taskRule, taskCount, moveTask, isLastTask, reconcileCursor } from '$lib/subtasks';
  import type { AppData, HotkeyAction, Practice } from '$lib/types';
  import { gameGeometry, inspectGame, overlayBounds } from '$lib/bridge';
  import { SetupController } from '$lib/setup-controller';
- import { automaticAllowed } from '$lib/onboarding';
- import { profileKey, clockCandidate, localCivilization, chooseBuild, validProfile, type GameGeometry, type SetupStatus, type SetupProfile } from '$lib/setup';
+ import { automaticAllowed, CounterCalibration } from '$lib/onboarding';
+ import { profileKey, clockCandidate, readMatchLoading, chooseBuild, validProfile, type GameGeometry, type SetupStatus, type SetupProfile } from '$lib/setup';
 
  let data = $state<AppData | null>(null);
  let stepIndex = $state(0);
@@ -26,11 +28,15 @@
  let editing = $state(false);
  let suspended = $state(false);
  let selecting = $state(false);
+ let pickerOpen = $state(false);
  let preview = $state(false);
  const completion=new CompletionFeedback();
  let celebration=$state<{name:string;elapsed:number|null}|null>(null);
  let root = $state<HTMLDivElement>();
  let elapsed = $state<number | null>(null);
+ let liveSample = $state<OverlaySample>(emptyOverlaySample());
+ let displayNow = $state(Date.now());
+ let clockRunning = $state(false);
  let practice: Practice | null = null;
  let clock = new PracticeClock();
  let failedHotkeys: string[] = [];
@@ -43,9 +49,11 @@
  let setup = new SetupController();
  let game = $state<GameGeometry | null>(null);
  let setupStatus = $state<SetupStatus>({message:$t("Esperando AoE4", "Waiting for AoE4"),profile:$t("Sin perfil", "No profile"),counters:$t("Pendientes", "Pending"),civilization:$t("Elegí tu build o indicá tu nombre de jugador", "Choose a build or enter your player name"),clock:$t("Esperando reloj visible", "Waiting for a visible game timer"),manualClock:false,geometry:null});
- let setupBusy=false, calibrationKey='', calibrationSamples=0, pendingCiv:string|null=null;
+ const calibration = new CounterCalibration();
+ let setupBusy=false, pendingCiv:string|null=null;
  let sessionLocked=false;
  let forceDetection=false;
+ let lastRoster='';
  const pendingPositions=new Map<string,{x:number;y:number}>();
  const settings = $derived(data?.settings ?? null);
  const currentProfile=$derived(game ? settings?.setup.profiles.find(p=>p.key===profileKey(game!))??null : null);
@@ -54,13 +62,19 @@
  const taskIndex = $derived(Math.min(subtaskIndex,taskCount(build?.steps[index])-1));
  const cursor = $derived({step:index,task:taskIndex});
  const atEnd = $derived(isLastTask(build,cursor));
+ // Screen reading alone (civilization, clock) shows no counters; only villager advancement does.
+ const trackingEnabled=$derived(!!((settings?.setup.enabled&&settings.setup.autoAdvance)||settings?.ocr.enabled));
+ const readingView=$derived(overlayReadingView(liveSample,trackingEnabled,displayNow));
+ const automation=$derived({enabled:trackingEnabled,confirmed:!!settings&&automaticAllowed(settings.onboarding),live:active&&!editing&&!pickerOpen,hasReading:!!readingView.reading,finalTask:atEnd});
  const hotkeyKey = $derived(settings ? JSON.stringify(settings.hotkeys) : '');
 
  function report() {
+   displayNow=Date.now();clockRunning=clock.running;
    if(completion.tick()){celebration=null;visible=false;preview=false;}
    elapsed = practice ? Math.floor(clock.elapsed()) : null;
    void send('practice-status', { elapsed, running: clock.running, step: index + 1, buildName: build?.name ?? '', recording: !!practice, editing, automatic:settings?.setup.enabled, manualClock:setup.clock.manual });
    setupStatus.manualClock=setup.clock.manual;
+   setupStatus.sample=calibration.sample;
    void send('setup-status', $state.snapshot(setupStatus));
  }
  function savePractice() { if (practice) void send('practice-update', practice); }
@@ -102,7 +116,7 @@
      const nextCursor=reconcileCursor(oldBuild,newBuild,cursor);
      suspendSetup();clearAdvance();stepIndex=nextCursor.step;subtaskIndex=nextCursor.task;
    }
-   if (data && JSON.stringify([data.settings.onboarding,data.settings.setup.enabled,data.settings.setup.playerName,data.settings.setup.mode,data.settings.ocr])!==JSON.stringify([incoming.settings.onboarding,incoming.settings.setup.enabled,incoming.settings.setup.playerName,incoming.settings.setup.mode,incoming.settings.ocr])) {suspendSetup();setupStatus.sample=null;}
+   if (data && JSON.stringify([data.settings.onboarding,data.settings.setup.enabled,data.settings.setup.autoAdvance,data.settings.setup.playerName,data.settings.setup.mode,data.settings.ocr])!==JSON.stringify([incoming.settings.onboarding,incoming.settings.setup.enabled,incoming.settings.setup.autoAdvance,incoming.settings.setup.playerName,incoming.settings.setup.mode,incoming.settings.ocr])) {suspendSetup();calibration.reset();}
    if (incoming.settings.activeBuildId !== lastActiveId) {
      dismissCelebration(true);visible=true;
      setup.suspend();sessionLocked=false;
@@ -165,7 +179,27 @@
    practice.arrivals.forEach(a => a.elapsed = Math.max(0, Math.round(a.elapsed + applied)));
    savePractice(); report();
  }
+ function pickBuild(id:string) {
+   const target=data?.builds.find(b=>b.id===id);
+   if(!data || !target)return;
+   setup.manualBuild();pendingCiv=null;
+   // Mark a manual choice in the manager even when confirming the current build.
+   void send('picker-build-confirmed',id);
+   if(target.id===build?.id)return;
+   const seconds=clock.elapsed(),wasRunning=clock.running,hadPractice=!!practice;
+   finish();dismissCelebration(true);visible=true;
+   lastActiveId=target.id;data.settings.activeBuildId=target.id;
+   stepIndex=0;subtaskIndex=0;clearAdvance();
+   clock=new PracticeClock();clock.adjust(seconds);
+   if(hadPractice && target.steps.length){
+     practice=newPractice(target);
+     if(wasRunning)clock.start();
+     recordArrival(practice,target,0,seconds);savePractice();
+   }
+   persist({activeBuildId:target.id});report();
+ }
  const actions: Record<HotkeyAction, () => void> = {
+   chooseBuild() { void openBuildPicker().catch(e=>error=String(e)); },
    next() { const seed=advance?.stableReading??null; invalidateOcr(); if (!build) return; if (atEnd) { completeBuild(); return; } const next=moveTask(build,cursor,1);stepIndex=next.step;subtaskIndex=next.task; prepareAdvance(seed); arrive(); },
    prev() { dismissCelebration(true);visible=true;invalidateOcr();clearAdvance(); if (build) {const previous=moveTask(build,cursor,-1);stepIndex=previous.step;subtaskIndex=previous.task;} report(); },
    start,
@@ -198,8 +232,26 @@
    actions[name]?.();
  }
  function suspendSetup() {
-   setup.suspend();invalidateOcr();calibrationSamples=0;calibrationKey='';
+   liveSample=emptyOverlaySample();
+   setup.suspend();invalidateOcr();calibration.interrupt();
    if(settings?.setup.enabled && !setup.clock.manual)clock.pause();
+ }
+ function resetSession() {
+   dismissCelebration(true);
+   suspendSetup();
+   setup.reset();
+   calibration.reset();
+   clearAdvance();
+   game = null;
+   pendingCiv = null;
+   pendingPositions.clear();
+   forceDetection = false;
+   sessionLocked = false;
+   practice = null;
+   clock = new PracticeClock();
+   stepIndex = 0;
+   subtaskIndex = 0;
+   report();
  }
  function saveProfile(profile:SetupProfile) {
    if(!data || !validProfile(profile))return;
@@ -209,12 +261,15 @@
    void send('setup-profile',profile);
  }
  function consumeRows(rows:string[], canAdvance:boolean) {
-   canAdvance = canAdvance && !!settings && automaticAllowed(settings.onboarding);
+   const confirmed=!!settings && automaticAllowed(settings.onboarding);
+   const switchedOff=!canAdvance;
+   canAdvance = canAdvance && confirmed;
    prepareAdvance();
    setupStatus.condition=advance?.rule.kind??'none';
-   const reading=parseVillagerReading(rows),result=advance?.read(canAdvance?reading:null);
+   displayNow=Date.now();liveSample=observeOverlaySample(liveSample,rows,displayNow);
+   const reading=liveSample.reading,result=advance?.read(canAdvance?reading:null);
    const condition=advance?advanceLabel(advance.rule):$t("Elegí un build", "Choose a build");
-   const status=settings?.onboarding==='detecting'?$t("Compará los cinco contadores y confirmá en Inicio (Alt+Tab)", "Compare the five counters and confirm in Home (Alt+Tab)"):advance?.rule.kind==='manual'?condition:!canAdvance?$t(`${condition} · esperando reloj`, `${condition} · waiting for timer`):result?.message??condition;
+   const status=settings?.onboarding==='detecting'?$t("Compará los cinco contadores y confirmá en Inicio (Alt+Tab)", "Compare the five counters and confirm in Home (Alt+Tab)"):advance?.rule.kind==='manual'?condition:switchedOff?$t("Avance con teclas", "Advance with hotkeys"):!canAdvance?$t("Confirmá los contadores en Inicio", "Confirm the counters in Home"):result?.message??condition;
    const counters=reading ? $t(`Aldeanos: ${reading.total} · C ${reading.workers.food} / M ${reading.workers.wood} / O ${reading.workers.gold} / P ${reading.workers.stone} + ${reading.idle} inactivos`, `Villagers: ${reading.total} · F ${reading.workers.food} / W ${reading.workers.wood} / G ${reading.workers.gold} / S ${reading.workers.stone} + ${reading.idle} idle`) : $t(`Lectura incompleta · C ${rows[0]||'—'} / M ${rows[1]||'—'} / O ${rows[2]||'—'} / P ${rows[3]||'—'} + ${rows[4]||'—'} inactivos`, `Incomplete reading · F ${rows[0]||'—'} / W ${rows[1]||'—'} / G ${rows[2]||'—'} / S ${rows[3]||'—'} + ${rows[4]||'—'} idle`);
    ocrMessage=`${counters}\n${status}`;
    if(canAdvance && result?.complete && build) {
@@ -227,37 +282,57 @@
    return reading;
  }
  async function autoSetup() {
-   if(!settings?.setup.enabled || !active || editing || selecting || setupBusy || !data)return;
+   if(!settings?.setup.enabled || !active || editing || selecting || pickerOpen || setupBusy || !data)return;
    setupBusy=true;
    const initial=setup.token();let requestToken=initial;
    try {
      const geometry=await gameGeometry();
      if(initial!==setup.token() || !settings?.setup.enabled || !active || editing || selecting)return;
-     if(!geometry) {suspendSetup();setupStatus.sample=null;setupStatus.message=$t("No encuentro AoE4 en primer plano", "AoE4 is not in the foreground");return;}
-     if(setup.geometry(geometry)) {invalidateOcr();setupStatus.sample=null;calibrationKey='';calibrationSamples=0;game=geometry;}
+     if(!geometry) {suspendSetup();setupStatus.message=$t("No encuentro AoE4 en primer plano", "AoE4 is not in the foreground");return;}
+     if(setup.geometry(geometry)) {invalidateOcr();calibration.reset();game=geometry;}
      setupStatus.geometry=geometry;setupStatus.profile=`${geometry.width} × ${geometry.height} · ${geometry.dpi/96*100}% · ${geometry.monitor}`;
      const token=setup.token(), hint=data.settings.setup.profiles.find(p=>p.key===profileKey(geometry))??null;
      requestToken=token;
      const result=await inspectGame(geometry,forceDetection?null:hint,await overlayBounds());
      if(!setup.current(token,result.geometry) || !active || editing || selecting || !settings?.setup.enabled)return;
-     if(setup.observeLobby(result.lines))pendingCiv=null;
+     if(setup.observeLobby(result.lines)){pendingCiv=null;calibration.reset();}
      if(!result.hud) {
-       setupStatus.sample=null;
-       if(!setup.clock.manual)clock.pause();invalidateOcr();setup.clock.suspend();calibrationSamples=0;
-       const civ=localCivilization(result.lines,settings.setup.playerName,[...new Set([...settings.civs,...data.builds.map(b=>b.civ)])]);
+       liveSample=observeOverlaySample(liveSample,[],Date.now());
+       calibration.interrupt();
+       if(!setup.clock.manual)clock.pause();invalidateOcr();setup.clock.suspend();
+       const civList=[...new Set([...settings.civs,...data.builds.map(b=>b.civ)])];
+       const loading=readMatchLoading(result.lines,settings.setup.playerName,civList);
+       const newLoading=!!loading && setup.openLoadingBuildSelection();
+       if(newLoading) {
+         sessionLocked=false;
+         await send('setup-new-match');
+         if(!setup.current(token,result.geometry))return;
+       }
+       if(loading && (newLoading || loading.roster.length)) {
+         const rosterKey=JSON.stringify(loading.roster);
+         if(rosterKey!==lastRoster) {
+           lastRoster=rosterKey;
+           void send('setup-roster',{entries:loading.roster,at:Date.now()});
+         }
+       }
+       const civ=loading?.civ??null;
        const confirmed=setup.confirmCiv(civ);
        if(confirmed)pendingCiv=confirmed;
-       setupStatus.civilization=!settings.setup.playerName?$t("Indicá tu nombre de jugador para identificar tu civilización", "Enter your player name to detect your civilization"):civ?$t(`${civ} · confirmando jugador`, `${label(civ)} · confirming player`):$t("No pude identificar tu civilización; mantené o elegí un build", "Could not identify your civilization; keep or choose a build");
+       setupStatus.civilization=!settings.setup.playerName?$t("Elegí tu build con el selector y aprendo tu nombre para la próxima partida", "Choose your build in the picker and I'll learn your name for the next match"):civ?$t(`${civ} · confirmando jugador`, `${label(civ)} · confirming player`):$t("No pude identificar tu civilización; mantené o elegí un build", "Could not identify your civilization; keep or choose a build");
        if(confirmed && !sessionLocked)selectAutoBuild(confirmed);
        setupStatus.message=$t("No pude ubicar los contadores. Entrá a una partida o corregí las regiones.", "Could not find the counters. Enter a match or adjust the regions.");
        setupStatus.counters=$t("HUD no reconocido", "HUD not recognized");setupStatus.clock=$t("Esperando reloj de partida", "Waiting for the game timer");return;
      }
+     setup.observeHud();
      const candidate=clockCandidate(result.lines,geometry);
      const time=setup.clock.read(candidate?.seconds??null);
      if(time?.newMatch) {
        dismissCelebration(true);visible=true;
-       finish();stepIndex=0;subtaskIndex=0;clock=new PracticeClock();setup.newMatch();sessionLocked=false;
-       void send('setup-new-match');
+       finish();stepIndex=0;subtaskIndex=0;clock=new PracticeClock();sessionLocked=false;
+       if(setup.newMatch()) {
+         await send('setup-new-match');
+         if(!setup.current(token,result.geometry))return;
+       }
        if(pendingCiv && selectAutoBuild(pendingCiv))return;
      }
      if(time && build?.steps.length && automaticAllowed(settings.onboarding)) {
@@ -265,12 +340,12 @@
        clock.sync(time.seconds);arrive();sessionLocked=true;
      } else if(!setup.clock.manual)clock.pause();
      setupStatus.clock=setup.clock.manual?$t("Control manual", "Manual control"):time?$t("Sincronizado con el juego", "Synced with game"):candidate?$t("Confirmando reloj", "Confirming timer"):$t("No pude leer el reloj; podés iniciarlo manualmente", "Could not read the timer; you can start it manually");
-     const reading=consumeRows(result.rows,clock.running && !!practice && (setup.clock.manual || time!==null));
+     // A recognized HUD is enough: villager goals advance with or without a running timer.
+     const reading=consumeRows(result.rows,settings.setup.autoAdvance);
      setupStatus.counters=reading?$t(`${reading.total} aldeanos · incluye ${reading.idle} inactivos`, `${reading.total} villagers · including ${reading.idle} idle`):$t("Lectura incompleta: corregí las regiones", "Incomplete reading: adjust the regions");
-     const regionsKey=JSON.stringify([result.workers,result.idle]);
-     calibrationSamples=reading?(calibrationKey===regionsKey?calibrationSamples+1:1):0;calibrationKey=regionsKey;
-     setupStatus.sample=reading?{...reading,at:Date.now(),stable:calibrationSamples>=3}:null;
-     if(calibrationSamples>=3 && result.workers && result.idle) {
+     const sample=reading?calibration.observe(reading,JSON.stringify([result.workers,result.idle])):null;
+     if(!sample)calibration.interrupt();
+     if(sample?.stable && result.workers && result.idle) {
        const manual=!!hint?.manual && JSON.stringify(hint.workers)===JSON.stringify(result.workers) && JSON.stringify(hint.idle)===JSON.stringify(result.idle);
        saveProfile({key:profileKey(geometry),width:geometry.width,height:geometry.height,workers:result.workers,idle:result.idle,clock:hint?.clock??(time?candidate?.rect??null:null),position:pendingPositions.get(profileKey(geometry))??hint?.position??null,manual:!forceDetection&&manual});
        forceDetection=false;
@@ -278,8 +353,8 @@
      setupStatus.message=reading && clock.running?$t("Listo", "Ready"):reading?$t("Contadores encontrados · falta iniciar o leer el reloj", "Counters found · start the timer or make it visible"):$t("Revisá los contadores", "Check the counters");
    } catch(e) {
      if(requestToken!==setup.token())return;
-     setupStatus.sample=null;
-     calibrationSamples=0;calibrationKey='';
+     liveSample=observeOverlaySample(liveSample,[],Date.now());
+     calibration.interrupt();
      if(settings?.setup.enabled && active && !editing && !selecting) {setupStatus.message=String(e);setupStatus.counters=$t("Lectura pendiente", "Reading pending");}
      if(!setup.clock.manual)clock.pause();setup.clock.suspend();invalidateOcr();
    } finally {setupBusy=false;report();}
@@ -295,14 +370,14 @@
  }
  async function scan() {
    if(settings?.setup.enabled)return;
-   if (!settings?.ocr.enabled || settings.ocr.source !== 'workers' || !settings.ocr.idleRegion || !active || editing || selecting || !clock.running || !build || ocrBusy) return;
+   if (!settings?.ocr.enabled || settings.ocr.source !== 'workers' || !settings.ocr.idleRegion || !active || editing || selecting || pickerOpen || !build || ocrBusy) return;
    ocrBusy = true;
    const generation = gate.generation, buildId = build.id, previousIndex = index;
    try {
      const rows = await readWorkers(settings.ocr);
-     if (!gate.isCurrent(generation) || !active || editing || selecting || !clock.running || build?.id !== buildId || index !== previousIndex) return;
+     if (!gate.isCurrent(generation) || !active || editing || selecting || build?.id !== buildId || index !== previousIndex) return;
      consumeRows(rows,true);
-   } catch (e) { invalidateOcr(); ocrMessage = String(e); }
+   } catch (e) { liveSample=observeOverlaySample(liveSample,[],Date.now());invalidateOcr(); ocrMessage = String(e); }
    finally { ocrBusy = false; void send('ocr-status', ocrMessage); }
  }
  onMount(() => {
@@ -320,19 +395,28 @@
      keepAlive(),
      onDataChanged(applyData),
      onGameFocus(updateFocus),
+     on('game-reopened', () => {
+       finish();
+       resetSession();
+       visible = true;
+       preview = false;
+       void send('setup-new-match');
+     }),
+     on('build-picker-open',value=>{pickerOpen=Boolean(value);suspendSetup();}),
+     on('picker-select-build',value=>{if(typeof value==='string')pickBuild(value);}),
      onOverlayActivation(() => void activate().catch(e => error = String(e))),
-     onRegionSelecting(value => { selecting = value; suspendSetup();setupStatus.sample=null; }),
+     onRegionSelecting(value => { selecting = value; suspendSetup();calibration.reset(); }),
      on('hotkeys-suspend', value => suspended = Boolean(value)),
      on('hotkey-status-request', () => void send('hotkey-status', failedHotkeys)),
      on('overlay-action', value => manualAction(value as HotkeyAction)),
      on('setup-manual-build',()=>setup.manualBuild()),
-     on('setup-retry',()=>{suspendSetup();setupStatus.sample=null;forceDetection=true;setupStatus.message=$t("Volvé a AoE4 para detectar el HUD", "Return to AoE4 to detect the HUD");report();}),
+     on('setup-retry',()=>{suspendSetup();calibration.reset();forceDetection=true;setupStatus.message=$t("Volvé a AoE4 para detectar el HUD", "Return to AoE4 to detect the HUD");report();}),
      on('setup-clock-resume',()=>{dismissCelebration(true);visible=true;setup.resumeClock(clock);invalidateOcr();setupStatus.clock=$t("Esperando reloj visible", "Waiting for a visible game timer");report();}),
-     on('setup-manual-profile',value=>{suspendSetup();setupStatus.sample=null;forceDetection=false;const p=value as SetupProfile;if(validProfile(p))saveProfile(p);}),
+     on('setup-manual-profile',value=>{suspendSetup();calibration.reset();forceDetection=false;const p=value as SetupProfile;if(validProfile(p))saveProfile(p);}),
      on('setup-status-request',report),
      onNativeEdit(() => void edit(true)),
      on('practice-status-request', report),
-     on('restore-session', () => { dismissCelebration(true);suspendSetup();setup.reset();clearAdvance();game=null;pendingCiv=null;pendingPositions.clear();forceDetection=false;sessionLocked=false;practice = null; clock = new PracticeClock(); stepIndex = 0; subtaskIndex=0; elapsed = null; invalidateOcr(); report(); }),
+     on('restore-session', resetSession),
      on('goto-step', value => { dismissCelebration(true);setup.suspend();invalidateOcr();clearAdvance(); stepIndex = clampIndex(build, Number(value) || 0); subtaskIndex=0; visible = true; report(); })
    ];
    const focus = async () => {
@@ -350,7 +434,7 @@
  $effect(() => { void setEditing(editing || (preview && !celebration)).catch(e => error = String(e)); });
  $effect(() => {
    if (!hotkeyKey) return;
-   if (suspended || selecting || !active) { void unbindHotkeys(); return; }
+   if (suspended || selecting || pickerOpen || !active) { void unbindHotkeys(); return; }
    void bindHotkeys(JSON.parse(hotkeyKey), action => manualAction(action as HotkeyAction)).then(failed => { failedHotkeys = failed; void send('hotkey-status', failed); });
  });
  $effect(() => {
@@ -376,11 +460,11 @@
 </script>
 
 <svelte:head><title>AoE4 Overlay</title></svelte:head>
-{#if data && settings && !selecting && ((visible && active) || editing || preview)}
+{#if data && settings && !selecting && !pickerOpen && ((visible && active) || editing || preview)}
  <div class="stage" class:browser={!isTauri}>
   <div bind:this={root} class="root" style="zoom: {settings.scale}; opacity: {settings.opacity}">
    {#if celebration}
-    <BuildCompleted name={celebration.name} elapsed={celebration.elapsed} accent={settings.accent} />
+    <BuildCompleted name={celebration.name} elapsed={celebration.elapsed} accent={overlayTheme(build?.civ ?? '', settings.civilizationColors, settings.accent).accent} />
    {:else}
    {#if preview && !editing}
     <div class="previewbar"><span>{$t("Vista previa · Volvé a AoE4 para jugar", "Preview · Return to AoE4 to play")}</span><button type="button" onclick={() => preview = false}>{$t("Ocultar", "Hide")}</button></div>
@@ -392,11 +476,10 @@
     </div>
    {/if}
    {#if error}<div class="notice">{error}</div>{/if}
-   {#if settings.setup.enabled}<div class="ocr-status">Setup · {setupStatus.message}</div>{/if}
-   {#if settings.ocr.enabled || settings.setup.enabled}<div class="ocr-status">OCR · {ocrMessage || $t("Esperando partida y reloj", "Waiting for match and timer")}</div>{/if}
+   {#if readingView.showDetection}<div class="ocr-status">{!active?$t('Volvé a AoE4 para leer los contadores','Return to AoE4 to read counters'):liveSample.lastGoodAt!==null?$t('No puedo leer los contadores · revisá la región OCR','Counters unreadable · check the OCR region'):$t('Buscando contadores…','Finding counters…')}</div>{/if}
    {#if !build}<div class="notice">{$t("No hay builds cargados. Creá uno en la ventana de gestión.", "No builds loaded. Create one in the main window.")}</div>
-   {:else if settings.compact}<Compact {build} stepIndex={index} subtaskIndex={taskIndex} accent={settings.accent} {elapsed} showClock={settings.showClock} />
-   {:else}<Panel {build} stepIndex={index} subtaskIndex={taskIndex} accent={settings.accent} {elapsed} showClock={settings.showClock} hotkeys={settings.hotkeys} />{/if}
+   {:else if settings.compact}<Compact {build} stepIndex={index} subtaskIndex={taskIndex} accent={settings.accent} civilizationColors={settings.civilizationColors} reading={readingView.reading} {trackingEnabled} {automation} nextKey={settings.hotkeys.next} {elapsed} showClock={settings.showClock} />
+   {:else}<Panel {build} stepIndex={index} subtaskIndex={taskIndex} accent={settings.accent} civilizationColors={settings.civilizationColors} reading={readingView.reading} {trackingEnabled} {automation} {elapsed} showClock={settings.showClock} hotkeys={settings.hotkeys} />{/if}
    {/if}
   </div>
  </div>

@@ -1,79 +1,69 @@
 # Starter pack sources
 
-The starter pack was reviewed on **November 17, 2026**. It includes 25 public openings, one per civilization, with 287 steps and 148 prepared subtasks. The English edition is `starter-pack.en.json` and the Spanish edition is `starter-pack.json`. Both adapt the same sources for **1v1 land maps** and cover early transitions. Later decisions depend on the match.
+The starter pack contains **50 openings for 25 civilizations**, with two builds per civilization for 1v1 land maps. The [official Age of Empires IV civilization catalog](https://www.ageofempires.com/civilizations/) lists the included civilizations. The English and Spanish editions share the same sources, reference timings, and automatic advancement rules. The guide adaptations were reviewed on November 20, 2026.
 
-## Coverage
+## Openings and attribution
 
-The [official civilization catalog](https://www.ageofempires.com/civilizations/) lists all 25 included civilizations. The Scots and Vikings expansion released on October 29, 2026, according to the [official launch announcement](https://www.ageofempires.com/news/raiders-of-the-north-for-age-of-empires-iv-available-now/). The pack covers released civilizations and public builds.
+The publisher column credits the account that published each guide. Several guides credit a player or creator in their title or description. Follow each link for those credits and any accompanying video.
 
-## Selection and attribution
+| Civilization | Opening and source | AoE4 Guides publisher | Listed season | OCR goals |
+| --- | --- | --- | --- | ---: |
+| English | [Abbey and one-TC defense](https://aoe4guides.com/builds/reinDv5vkVX6KUny571E) | TatoTheBeast | Season 13 | 4 |
+| English | [Two TCs into White Tower](https://aoe4guides.com/builds/ZucKx4RGJveHStNgNuxG) | Valdemar1902 | Season 12 | 6 |
+| French | [Royal Knight harassment](https://aoe4guides.com/builds/vxATWKUMaqURCTW5ERJW) | MicroMindGG | Season 13 | 6 |
+| French | [School of Cavalry into two TCs](https://aoe4guides.com/builds/CPwvVGI3cmJaLs1PPtTR) | Moeshken | Season 13 | 6 |
+| Holy Roman Empire | [Fast Castle into Burgrave Palace](https://aoe4guides.com/builds/Ko24yEoxn6IPj1hKfudX) | Blondeyboy | Season 13 | 4 |
+| Holy Roman Empire | [Aachen farms and Feudal army](https://aoe4guides.com/builds/6ohXFbozeCKAPrdAluK2) | azdipoj | Season 11 | 3 |
+| Mongols | [Deer Stones Keshik pressure](https://aoe4guides.com/builds/Ku7MObO7OKAJnxRs2EiX) | Richarddurodo | Season 13 | 4 |
+| Mongols | [Deer Stones into a second TC](https://aoe4guides.com/builds/ChMPx60zZhZ97YvLHSvN) | Skimsh | Season 13 | 3 |
+| Chinese | [Song Dynasty into a second TC](https://aoe4guides.com/builds/04lsbXXkIwYtGuyiAtPV) | siberian_wolf | Season 13 | 4 |
+| Chinese | [Imperial Academy Pro Scouts](https://aoe4guides.com/builds/yvmeKhb6Fy8CprVxwx3D) | Valdemar1902 | Season 12 | 4 |
+| Delhi Sultanate | [Tower of Victory Feudal pressure](https://aoe4guides.com/builds/PfkaGj9MlMiRmBPefOSx) | Jockxtar | Season 13 | 4 |
+| Delhi Sultanate | [Two TCs with Ghazi Raiders](https://aoe4guides.com/builds/IR1Nr6MQxKbfMpv3VFiG) | Neirnik | Season 12 | 5 |
+| Abbasid Dynasty | [Administrative Wing one-TC Horsemen](https://aoe4guides.com/builds/c4cXnDbTexZMjCBqhIcc) | Kaylx3 | Season 13 | 5 |
+| Abbasid Dynasty | [Military Wing into a second TC](https://aoe4guides.com/builds/7NhTCEH8cuzlYchz9g7O) | Valdemar1902 | Season 12 | 5 |
+| Rus | [Kremlin one-TC Fast Castle](https://aoe4guides.com/builds/gDccAtaDw2l9hOfTD7Xd) | Ehounds | Season 13 | 4 |
+| Rus | [Golden Gate Pro Scouts](https://aoe4guides.com/builds/NluiYTiK1typi45K1Jzh) | Valdemar1902 | Season 12 | 4 |
+| Ottomans | [Military Schools into a Sipahi timing](https://aoe4guides.com/builds/5D8Zmz5tp2ltoMfb9rOj) | Boldice | Season 13 | 4 |
+| Ottomans | [Medrese into two TCs](https://aoe4guides.com/builds/noqFRskWt2M7pDK4hJKg) | Bastos | Season 13 | 5 |
+| Malians | [Double-Stable Sofas and Archers](https://aoe4guides.com/builds/bWdY2Fqnuv2m13F27zB6) | Valdemar1902 | Season 13 | 4 |
+| Malians | [Pit Mine into two TCs](https://aoe4guides.com/builds/kHe7bKHEL6TYvLhQfpnu) | Jockxtar | Season 13 | 3 |
+| Byzantines | [Hippodrome pressure into Castle Age](https://aoe4guides.com/builds/D7Jsk12Fl2FCyiJf7q9L) | Valdemar1902 | Season 13 | 4 |
+| Byzantines | [Five Cisterns into two TCs](https://aoe4guides.com/builds/3ASabBStmv4fa2qV3rqS) | Mrblingblong | Season 13 | 4 |
+| Japanese | [Uma Bannerman with Horsemen and Yumi](https://aoe4guides.com/builds/T6V0f26upw94riMLkajV) | Ehounds | Season 8 | 4 |
+| Japanese | [Dark Age Spearmen into Fast Castle](https://aoe4guides.com/builds/U5G4mEQHLzUfXBQp7dB9) | taktaktab | Season 13 | 5 |
+| Order of the Dragon | [Deer opener into Burgrave Palace](https://aoe4guides.com/builds/PjXOpx0TZPfmxV9zY546) | murtuk | Season 13 | 4 |
+| Order of the Dragon | [Aachen into two TCs](https://aoe4guides.com/builds/61TWGO1PYlqrceMopatQ) | Valdemar1902 | Season 12 | 5 |
+| Zhu Xi's Legacy | [Feudal Zhuge Nu timing](https://aoe4guides.com/builds/r6hqDCES2nryqKqyml5z) | Yufka1954 | Season 13 | 4 |
+| Zhu Xi's Legacy | [Jiangnan Pro Scouts](https://aoe4guides.com/builds/6yCA8v0NggxsFptJLqTH) | Ohmzy | Season 13 | 4 |
+| Jeanne d'Arc | [Wheelbarrow into Feudal Knights](https://aoe4guides.com/builds/ToCSprhm5w0YD5GF4VO9) | Jockxtar | Season 12 | 5 |
+| Jeanne d'Arc | [Knights with Professional Scouts](https://aoe4guides.com/builds/cT1JCWvoq9IEhi88yYlv) | m0_0p | Season 13 | 4 |
+| Ayyubids | [Culture Wing into a fast second TC](https://aoe4guides.com/builds/6yNmNcHfYw6sInUCF320) | SideboardP | Season 13 | 3 |
+| Ayyubids | [Reinforcements and double Stable into Castle](https://aoe4guides.com/builds/6Lv3e49FunSOHdEC3r9f) | MattBigg | Season 13 | 3 |
+| Knights Templar | [One-TC Hospitaller pressure](https://aoe4guides.com/builds/hxkP89iAWXrbpJJgkIxp) | Spoonman | Season 13 | 4 |
+| Knights Templar | [Antioch two-TC Serjeants into Genitours](https://aoe4guides.com/builds/41yOCHHtg3snki8AopmV) | murtuk | Season 13 | 5 |
+| House of Lancaster | [One Manor into Feudal production](https://aoe4guides.com/builds/NmPzlDan1yiWJmGz1Dys) | LMB | Season 13 | 4 |
+| House of Lancaster | [One Manor into White Tower](https://aoe4guides.com/builds/foGVfcFxPwolz7ELPcA3) | LMB | Season 13 | 5 |
+| Golden Horde | [Dark Age Kharash harassment](https://aoe4guides.com/builds/v37ntAjatM83SJ1aiHoW) | bubby | Season 13 | 4 |
+| Golden Horde | [Khan and Torguuds into two TCs](https://aoe4guides.com/builds/HVKBR95daLKot8GKK5Hz) | Skimsh | Season 13 | 3 |
+| Macedonian Dynasty | [Hippodrome into Varangian Guard pressure](https://aoe4guides.com/builds/AhBLWhlwd3NBoRd8oWOc) | Birteet | Season 13 | 5 |
+| Macedonian Dynasty | [Hippodrome and Golden Horn toward Imperial](https://aoe4guides.com/builds/akZRRw39WjrObbca5U88) | Skorpio | Season 13 | 4 |
+| Sengoku Daimyo | [Ryokan and four Yatai](https://aoe4guides.com/builds/n8HOBGpvHrpbDQZ0c0FL) | betelgeuse | Season 13 | 4 |
+| Sengoku Daimyo | [Three Yatai into two TCs](https://aoe4guides.com/builds/rCxrUYiErl6Jqt5dbRmP) | Skimsh | Season 13 | 3 |
+| Tughlaq Dynasty | [Raider and Healer Elephant pressure](https://aoe4guides.com/builds/M34oie9cbJkdYxZgdhGa) | Eldritch | Season 12 | 3 |
+| Tughlaq Dynasty | [Tughlaqabad Fort into Castle Age](https://aoe4guides.com/builds/P70yZNzqAsgixWAmZTRi) | murtuk | Season 13 | 6 |
+| Jin Dynasty | [Great Pasture Iron Pagoda opening](https://aoe4guides.com/builds/CfxPrNtfLVa97Jb3Ifwq) | Niki45nk | Season 13 | 4 |
+| Jin Dynasty | [Flower Pagoda into two TCs](https://aoe4guides.com/builds/cVmyoYJZ7MFxVg1MGiu8) | Jockxtar | Season 13 | 4 |
+| Vikings | [One-TC Baugr Fort pressure](https://aoe4guides.com/builds/9UNixlhUDJXE1Dzm6ZJt) | Krayt | Season 14 | 4 |
+| Vikings | [Adaptive two-TC Vikings](https://aoe4guides.com/builds/mOEZof0dWcz6sO8PpzoM) | Krayt | Season 14 | 3 |
+| Scots | [Stone of Destiny Feudal pressure](https://aoe4guides.com/builds/wSxw5DnqUmpt4xH0MZta) | daltor | Season 14 | 3 |
+| Scots | [Early cattle into two TCs](https://aoe4guides.com/builds/UKoPjtsbOrfRwydUySsG) | Mango | Season 14 | 3 |
 
-The review used the public AoE4 Guides listings by civilization, sorted by score, and the Overlay Tool sequences. It favored land openings with concrete instructions from Seasons 12–14 and excluded variants aimed at teams or water maps. The selection does not rank strategies for the current patch.
+## Advancement in the overlay
 
-The `provenance.author` field records the AoE4 Guides publisher. The Lancaster guide published by JampiX credits Swaggy Professor, and the Jin guide published by Jupiter01 credits Valdy. Each link opens the specific guide with its attribution and its video when available. The pack derives from the guide data and excludes video and transcript material.
+- The pack has 376 steps and 207 automatic villager goals. After OCR calibration, the overlay advances on three consecutive readings at or above each specified minimum. A goal may check several resources at once.
+- Construction, age-ups, stockpiled resources, military production, research, and changes between two food sources use manual confirmation. Press **PgDn** after completing a manual task. Sequences that share a timing may use separate subtasks.
+- The four numbers on a step show the guide's reference allocation where available, adjusted to reflect explicit targets. A zero can mean that the guide left that resource unspecified. The active automatic rule shows the counters it actually checks.
+- Published times are practice references. Some are left blank where the guide gives a range or omits the timing. Play and adapt to the resources and opponent on your map.
 
-| Civilization | Opening and source | AoE4 Guides publisher | Listed season | Source last edited (UTC) | Steps |
-| --- | --- | --- | --- | --- | ---: |
-| English | [Longbows into Castle Age](https://aoe4guides.com/builds/3j9fiuhUJIXVPvYmjHnP) | Valdemar1902 | Season 12 | 2025-12-19 | 12 |
-| French | [Feudal knights and archers](https://aoe4guides.com/builds/WTb8ufQnXZH0jJTjGJ04) | JampiX | Season 13 | 2026-08-25 | 11 |
-| Holy Roman Empire | [Feudal pressure with Meinwerk](https://aoe4guides.com/builds/PZycr2KliA5cvZCB5gWI) | Valdemar1902 | Season 12 | 2026-03-03 | 10 |
-| Mongols | [Early tower, Keshiks, and archers](https://aoe4guides.com/builds/YOcdrRav7QTIlwa6QGrJ) | Shaada | Season 12 | 2026-02-20 | 10 |
-| Chinese | [Imperial Academy and tax pressure](https://aoe4guides.com/builds/gzZ29Jf9aytL113LZOEm) | Valdemar1902 | Season 12 | 2026-01-12 | 11 |
-| Delhi Sultanate | [Early Ghazi Raiders into Castle Age](https://aoe4guides.com/builds/S3FUuhz7WEB8VYUL5qPb) | Valdemar1902 | Season 12 | 2026-02-19 | 11 |
-| Abbasid Dynasty | [Economic Wing and second Town Center](https://aoe4guides.com/builds/q7ShhrWaVgMCyDjPQX9F) | Valdemar1902 | Season 12 | 2025-12-30 | 10 |
-| Rus | [Two Town Centers with the Kremlin](https://aoe4guides.com/builds/1tfWsW7TmU88pmBMndSo) | Munchy | Season 13 | 2026-08-07 | 13 |
-| Ottomans | [Military School and Sipahi](https://aoe4guides.com/builds/V125Ljbch5hAHFBNTg7F) | Valdemar1902 | Season 12 | 2026-03-24 | 18 |
-| Malians | [Early Pit Mine and cattle economy](https://aoe4guides.com/builds/0DSW4iLRlv22BXBjlirM) | Valdemar1902 | Season 12 | 2025-12-23 | 12 |
-| Byzantines | [Grand Winery and Feudal pressure](https://aoe4guides.com/builds/fnCZRz1f0MP7YeECIdro) | Valdemar1902 | Season 12 | 2026-01-06 | 13 |
-| Japanese | [Fast Castle with Floating Gate](https://aoe4guides.com/builds/yeDbJIwrrgHzUdJJb7gi) | Valdemar1902 | Season 12 | 2025-12-28 | 11 |
-| Order of the Dragon | [Castle Age with Regnitz](https://aoe4guides.com/builds/Osr0kBDqupiejJsGQcFy) | Valdemar1902 | Season 12 | 2025-12-21 | 12 |
-| Zhu Xi's Legacy | [Fast Castle with Shaolin](https://aoe4guides.com/builds/axY2p0OCUpKZgZelOlux) | Valdemar1902 | Season 12 | 2026-01-07 | 10 |
-| Jeanne d'Arc | [Knights from deer](https://aoe4guides.com/builds/ss0UMX3M9DRmkcPLRvk5) | Valdemar1902 | Season 12 | 2026-04-04 | 12 |
-| Ayyubids | [Fast Castle with Industry](https://aoe4guides.com/builds/8MtH2BAnxcC4isz3GqK3) | Valdemar1902 | Season 12 | 2025-12-26 | 15 |
-| Knights Templar | [Two pilgrimages and Feudal pressure](https://aoe4guides.com/builds/lZ5EiqDVzQmIQDLkrfSr) | Valdemar1902 | Season 12 | — | 10 |
-| House of Lancaster | [Two Town Centers into White Tower](https://aoe4guides.com/builds/rXGNCeikXFWoOQtpWThQ) | JampiX | Season 13 | 2026-08-25 | 10 |
-| Golden Horde | [Feudal Keshiks and Torguuds](https://aoe4guides.com/builds/InVCf1SztRCvgzi1gEFf) | Valdemar1902 | Season 12 | 2026-03-04 | 12 |
-| Macedonian Dynasty | [Hippodrome pressure into Castle Age](https://aoe4guides.com/builds/HuzXbYxxy3LMgjhXA9n0) | Valdemar1902 | Season 12 | 2026-02-13 | 12 |
-| Sengoku Daimyo | [Three Yatai and early Daimyo](https://aoe4guides.com/builds/1RhBij4kaJESj1anpCIC) | Valdemar1902 | Season 12 | 2026-02-02 | 14 |
-| Tughlaq Dynasty | [Fort and second Town Center](https://aoe4guides.com/builds/xpvxxr73hj7CwnbqB5AK) | Valdemar1902 | Season 12 | 2026-03-29 | 10 |
-| Jin Dynasty | [Fast Castle with Dragon Pavilion](https://aoe4guides.com/builds/4QvVeQaYlhiJks8oGPUF) | Jupiter01 | Season 13 | 2026-09-12 | 10 |
-| Vikings | [Feudal pressure with Hirdmen](https://aoe4guides.com/builds/WiWD5PRXgC5LVHet9Hth) | Valdemar1902 | Season 14 | 2026-11-04 | 12 |
-| Scots | [Livestock and Feudal pressure](https://aoe4guides.com/builds/votoiVwKyd52EJHcCAdv) | Shaada | Season 14 | 2026-11-12 | 6 |
-
-## Adapting the guides for the overlay
-
-- Each edition summarizes and paraphrases instructions in its own language. Both exclude guide images and full guide text.
-- The Templar guide's Overlay Tool response omits the last edit date. The Season 12 label was verified.
-- Exact published times are converted to seconds. Approximate or missing times are left blank. Use these times as practice reference points.
-- Population stays blank because the source data lacks reliable total population. Gatherer counts can omit builders, military units, and idle villagers.
-- Resource allocations come from the sources. When a row specifies an explicit goal beyond its listed distribution, the OCR criterion uses the stated goal. Missing workers and distributions are left unspecified.
-- Zeros with a missing-distribution note indicate an unspecified source allocation. Rows without instructions are omitted unless they give a clear numeric goal.
-- Buildings, age-ups, military, upgrades, trade, stockpiled-resource thresholds, and ambiguous sequences require manual confirmation. Villager counters cannot verify those actions.
-- All 25 civilizations have subtasks for clear sequences. The English build has house → 6 on food and mining camp → 2 on gold. Lancaster uses camp → house → 3 on gold. Jeanne d’Arc uses mill → hunting upgrade → Wheelbarrow. There are 61 effective automatic goals across single steps and subtasks. Intermediate buildings and upgrades require manual confirmation.
-- Goals that overlap other tasks remain manual where needed. Delhi's ongoing plan (5 on wood → 12 on food → 12 on wood) lets you build military production during that growth. Ambiguous distributions and distributions without a target total also stay manual.
-- When the final subtask sets an explicit numeric minimum, the overlay shows the goal for that resource and keeps the source values for the other counters. Transfers within food, such as sheep to deer or berries, remain manual because the food counter cannot distinguish them.
-- The pack uses stable public IDs and keeps its source attributions. It is bundled locally, and adding it preserves existing user builds.
-
-## Source limitations
-
-The review date records the source reading and adaptation. In-game playthroughs and current-patch validation remain pending. The season labels and edit dates above come from AoE4 Guides. Adapt the openings to your map and opponent.
-
-Some source allocations are incomplete or conflict with the described movement. Those steps stay manual.
-
-- **Abbasid Dynasty** repeats a House of Wisdom icon in the opening. The pack keeps the clear actions.
-- **Ayyubids** has a row that says to build three units with an archer icon. The pack keeps the explicit Stable and Mosque construction and flags the ambiguous expansion for source review.
-- **Byzantines** still shows two stone miners after instructing you to leave stone. The instruction stays manual and flags the difference.
-- **Order of the Dragon** refers readers to the video for intermediate decisions. The pack retains that reference.
-- **Japanese** omits the ambiguous 5:41 age milestone and keeps the explicit start of Castle Age at 6:34.
-- **Scots** omits deer gatherers from the last row's allocation. The note identifies the incomplete distribution.
-- **Tughlaq Dynasty** retains the published threshold of 470 remaining in the 1,200-capacity vein as a manual reference.
-
-## Reproducing the source queries
-
-The [public API documentation](https://aoe4guides.com/api/api-docs/) and [API repository](https://github.com/jensbuehl/aoe4-guides-api) describe the overlay format. During the review, the main domain served individual guides and API documentation. Its listing response directed requests to the public API host. Responses were cached during review.
-
-- Listing per official civilization code uses `GET https://aoe4-guides-api-7h2vti5ckq-ey.a.run.app/builds?civ=ENG&orderBy=score`.
-- Individual guide data uses `GET https://aoe4guides.com/api/builds/ID?overlay=true`.
-- An additional author query located Shaada's introductory Mongol guide.
-
-The table links and each build's provenance contain the exact IDs. The review used public read-only requests. The static pack contains no credentials.
+The openings summarize the original guidance and were adapted from the public [AoE4 Guides Overlay Tool data](https://aoe4guides.com/api/api-docs/). The listed seasons refer to the guides. The review checked the guide data and the overlay's rules. Match playthroughs and patch-specific timings remain unverified.

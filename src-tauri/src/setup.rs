@@ -13,6 +13,8 @@ pub struct GameGeometry {
 #[derive(Serialize)]
 pub struct OcrLine {
     pub text: String,
+    #[serde(rename = "playerText", skip_serializing_if = "Option::is_none")]
+    player_text: Option<String>,
     pub x: i32,
     pub y: i32,
     pub width: i32,
@@ -446,6 +448,58 @@ fn recognize_clock(
 }
 
 #[cfg(windows)]
+fn ocr_ink_colors(pixels: &[u8], stride: usize, bounds: &Rect) -> (usize, usize) {
+    let mut colored = 0;
+    let mut neutral = 0;
+    for y in bounds.y.max(0) as usize
+        ..((bounds.y + bounds.height).max(0) as usize).min(pixels.len() / (stride * 4))
+    {
+        for x in bounds.x.max(0) as usize..((bounds.x + bounds.width).max(0) as usize).min(stride) {
+            let offset = (y * stride + x) * 4;
+            let [blue, green, red] = [pixels[offset], pixels[offset + 1], pixels[offset + 2]];
+            let brightest = blue.max(green).max(red);
+            let darkest = blue.min(green).min(red);
+            if brightest < 135 {
+                continue;
+            }
+            if brightest - darkest > 50 {
+                colored += 1;
+            } else if brightest - darkest < 32 {
+                neutral += 1;
+            }
+        }
+    }
+    (colored, neutral)
+}
+
+#[cfg(windows)]
+fn without_player_badge(words: &[(String, Rect)], pixels: &[u8], stride: usize) -> Option<String> {
+    let ((badge, icon), prefix) = words.split_last()?;
+    let (_, name) = prefix.last()?;
+    if badge.chars().count() > 2 || icon.x - (name.x + name.width) < name.height / 3 {
+        return None;
+    }
+    // The game draws the name in the player's color and the platform icon in white.
+    // Windows OCR can read the icon as a separate letter or digit on the same line.
+    let (name_color, name_neutral) = ocr_ink_colors(pixels, stride, name);
+    let (icon_color, icon_neutral) = ocr_ink_colors(pixels, stride, icon);
+    if name_color < 4
+        || name_color <= name_neutral
+        || icon_neutral < 4
+        || icon_neutral <= icon_color
+    {
+        return None;
+    }
+    Some(
+        prefix
+            .iter()
+            .map(|(text, _)| text.as_str())
+            .collect::<Vec<_>>()
+            .join(" "),
+    )
+}
+
+#[cfg(windows)]
 fn recognize_text(pixels: &[u8], w: i32, h: i32, ox: i32, oy: i32) -> Result<Vec<OcrLine>, String> {
     use windows::{
         Graphics::Imaging::{BitmapPixelFormat, SoftwareBitmap},
@@ -492,8 +546,26 @@ fn recognize_text(pixels: &[u8], w: i32, h: i32, ox: i32, oy: i32) -> Result<Vec
     let mut lines = Vec::new();
     for line in result.Lines().map_err(|e| e.to_string())? {
         let (mut x, mut y, mut right, mut bottom) = (f32::MAX, f32::MAX, 0_f32, 0_f32);
+        let text = line.Text().map_err(|e| e.to_string())?.to_string();
+        let mut tokens = text.split_whitespace();
+        let maybe_badge = tokens
+            .next_back()
+            .is_some_and(|word| word.chars().count() <= 2)
+            && tokens.next().is_some();
+        let mut words = Vec::new();
         for word in line.Words().map_err(|e| e.to_string())? {
             let b = word.BoundingRect().map_err(|e| e.to_string())?;
+            if maybe_badge {
+                words.push((
+                    word.Text().map_err(|e| e.to_string())?.to_string(),
+                    Rect {
+                        x: b.X as i32,
+                        y: b.Y as i32,
+                        width: b.Width.ceil() as i32,
+                        height: b.Height.ceil() as i32,
+                    },
+                ));
+            }
             x = x.min(b.X);
             y = y.min(b.Y);
             right = right.max(b.X + b.Width);
@@ -501,7 +573,8 @@ fn recognize_text(pixels: &[u8], w: i32, h: i32, ox: i32, oy: i32) -> Result<Vec
         }
         if x.is_finite() && right > x {
             lines.push(OcrLine {
-                text: line.Text().map_err(|e| e.to_string())?.to_string(),
+                text,
+                player_text: without_player_badge(&words, &scaled, nw as usize),
                 x: ox + (x / ratio).floor() as i32,
                 y: oy + (y / ratio).floor() as i32,
                 width: ((right - x) / ratio).ceil() as i32,
@@ -515,6 +588,46 @@ fn recognize_text(pixels: &[u8], w: i32, h: i32, ox: i32, oy: i32) -> Result<Vec
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[cfg(windows)]
+    #[test]
+    fn ignores_a_white_platform_badge_but_keeps_digits_in_the_player_color() {
+        let name_bounds = Rect {
+            x: 1,
+            y: 0,
+            width: 20,
+            height: 10,
+        };
+        let badge_bounds = Rect {
+            x: 26,
+            y: 2,
+            width: 8,
+            height: 8,
+        };
+        let words = [
+            ("TestPlayer".to_string(), name_bounds),
+            ("6".to_string(), badge_bounds),
+        ];
+        let mut pixels = Vec::new();
+        for _ in 0..10 {
+            for x in 0..36 {
+                pixels.extend(if x < 26 {
+                    [200, 80, 150, 255]
+                } else {
+                    [240, 240, 240, 255]
+                });
+            }
+        }
+        assert_eq!(
+            without_player_badge(&words, &pixels, 36).as_deref(),
+            Some("TestPlayer")
+        );
+        for pixel in pixels.chunks_exact_mut(4) {
+            pixel.copy_from_slice(&[200, 80, 150, 255]);
+        }
+        assert_eq!(without_player_badge(&words, &pixels, 36), None);
+    }
+
     #[test]
     #[ignore = "Requires installed Windows OCR"]
     fn recognizes_late_game_clock() {

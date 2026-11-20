@@ -11,6 +11,7 @@ export const currentLanguage = (): Language => get(locale);
 const resources: Record<Resource, [string,string]> = { food:['Comida','Food'],wood:['Madera','Wood'],gold:['Oro','Gold'],stone:['Piedra','Stone'] };
 export const resourceLabel = (r: Resource, language: Language = currentLanguage()): string => resources[r][language === 'es' ? 0 : 1];
 const hotkeys: Record<HotkeyAction, [string,string]> = {
+ chooseBuild:['Abrir selector de builds','Open build picker'],
  next:['Paso siguiente','Next step'],prev:['Paso anterior','Previous step'],
  start:['Iniciar / reanudar reloj (conserva el paso)','Start / resume timer (keep current step)'],
  editPosition:['Editar posición del overlay','Move overlay'],resetPractice:['Nueva práctica (paso 1 y reloj en 0:00)','New practice (step 1 and timer at 0:00)'],

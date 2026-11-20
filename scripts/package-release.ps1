@@ -15,7 +15,7 @@ foreach ($releaseFile in @('LICENSE','THIRD-PARTY-NOTICES.txt','static/builds/st
 }
 
 # An explicit source allowlist includes current work, not caches, user stores or secrets.
-$sourceRoots = @('src','static','tests','scripts','.github','src-tauri/src','src-tauri/assets','src-tauri/icons','src-tauri/capabilities')
+$sourceRoots = @('src','static','tests','scripts','.github','src-tauri/src','src-tauri/assets','src-tauri/icons','src-tauri/capabilities','src-tauri/windows')
 $sourceFiles = @('package.json','package-lock.json','svelte.config.js','vite.config.js','tsconfig.json','README.md','LICENSE','.gitignore','src-tauri/Cargo.toml','src-tauri/Cargo.lock','src-tauri/tauri.conf.json','src-tauri/build.rs','src-tauri/.gitignore','docs/quick-start.md','docs/compatibility.md','docs/build-pack-sources.md',"docs/releases/$releaseVersion.md")
 $sourceFiles += 'THIRD-PARTY-NOTICES.txt'
 $filesToArchive = @()
