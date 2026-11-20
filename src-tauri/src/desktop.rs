@@ -1,5 +1,5 @@
 #[cfg(windows)]
-pub fn game_active() -> bool {
+pub fn foreground_game_pid() -> Option<u32> {
     use windows::{
         Win32::{
             Foundation::CloseHandle,
@@ -14,12 +14,12 @@ pub fn game_active() -> bool {
     unsafe {
         let hwnd = GetForegroundWindow();
         if hwnd.is_invalid() {
-            return false;
+            return None;
         }
         let mut pid = 0;
         GetWindowThreadProcessId(hwnd, Some(&mut pid));
         let Ok(handle) = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, false, pid) else {
-            return false;
+            return None;
         };
         let mut path = [0u16; 32768];
         let mut len = path.len() as u32;
@@ -30,12 +30,17 @@ pub fn game_active() -> bool {
             &mut len,
         );
         let _ = CloseHandle(handle);
-        result.is_ok() && is_game_executable(&String::from_utf16_lossy(&path[..len as usize]))
+        (result.is_ok() && is_game_executable(&String::from_utf16_lossy(&path[..len as usize])))
+            .then_some(pid)
     }
 }
 #[cfg(not(windows))]
+pub fn foreground_game_pid() -> Option<u32> {
+    None
+}
+
 pub fn game_active() -> bool {
-    false
+    foreground_game_pid().is_some()
 }
 
 fn is_game_executable(path: &str) -> bool {

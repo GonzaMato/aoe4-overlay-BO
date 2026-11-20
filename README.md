@@ -8,9 +8,9 @@ Built with Tauri 2 (Rust) and SvelteKit (Svelte 5 and TypeScript).
 
 Download `AoE4 Overlay_0.3.1_x64-setup.exe` from [GitHub Releases](https://github.com/GonzaMato/aoe4-overlay-BO/releases) and follow the [quick-start guide](docs/quick-start.md).
 
-The installer runs for your Windows user account. Open **AoE4 Overlay** from Start or the desktop. Node, Rust, and Visual Studio are only needed for development. If the app is already running, the shortcut brings back the existing instance. The interface defaults to English. Select Spanish in **Settings** to switch languages.
+The installer runs for your Windows user account. Open **AoE4 Overlay** from Start or the desktop. Node, Rust, and Visual Studio are only needed for development. If the app is already running, the shortcut brings back the existing instance. On first launch the interface follows the Windows language (Spanish or English). Change it in **Settings**.
 
-Updates install over the existing app and preserve builds, settings, and practice history in `%APPDATA%\com.gonzalo.aoe4-overlay\aoe4-overlay.json`. Choose **Exit app** before updating. Updates and launch are manual. `iniciar.bat` opens the installed app first. `iniciar.bat rebuild` and `dev` still use the project.
+Updates install over the existing app and preserve builds, settings, and practice history in `%APPDATA%\com.gonzalo.aoe4-overlay\aoe4-overlay.json`. Choose **Exit app** before updating. `iniciar.bat` opens the installed app first. `iniciar.bat rebuild` and `dev` still use the project.
 
 ## Development prerequisites for Windows
 
@@ -42,10 +42,11 @@ Run `npm run dev` and open `http://localhost:1420` for the management window and
 
 - Run AoE4 in **borderless windowed mode**. Exclusive fullscreen covers the overlay.
 - Clicks pass through the overlay. Use hotkeys to control it.
-- Choose a civilization and mode in the management window. The overlay loads the default build for that combination when one exists.
+- Choose a build with the picker (**Ctrl + Alt + O**, also in **Home**) or let the app pick it from your civilization on the loading screen. Filtering the **Builds** list never changes the overlay. **Use in overlay** activates a build; the first build you use for a civilization and mode becomes its default, and later choices never replace a default you set.
 - **Exit app** saves your changes and closes both windows. The window's X hides the management window in the tray. The tray icon lets you reopen the app, move the overlay, or exit.
+- **Settings → Match → Start AoE4 Overlay with Windows** launches the app in the system tray when you sign in. The overlay appears when AoE4 is in the foreground and hides when you leave or close the game.
 - Relaunching the app restores the current overlay, step, and clock. Outside the game it opens the management window and a preview you can hide. Returning to AoE4 restores automatic visibility.
-- **Settings** groups automatic setup, the overlay, hotkeys, automatic advancement, lists, and backup. Changes apply automatically. Set exact pixel offsets with the corner and margin controls.
+- **Settings** has four tabs: **Match** for game detection and startup, **Overlay** for position and appearance, **Shortcuts** for hotkeys, and **Data** for backups and build options. Changes apply automatically.
 - Leaving AoE4 hides the overlay and releases its hotkeys. Edit mode lets you position the overlay outside the game.
 
 ### Default hotkeys
@@ -62,7 +63,8 @@ Run `npm run dev` and open `http://localhost:1420` for the management window and
 | Toggle edit mode | Ctrl + Alt + E |
 | Show or hide the overlay | Ctrl + Alt + H |
 | Toggle compact mode | Ctrl + Alt + C |
-| Switch build within the same civilization | Ctrl + Alt + B |
+| Open the build picker | Ctrl + Alt + O |
+| Switch build within the same civilization | Unassigned on new installs (set it in **Settings**) |
 
 AoE4 reserves the hotkeys only while it is in the foreground. **Settings** lets you customize them and reports registration failures. The manual clock keeps running when you switch apps, so pause it if you pause the match. The synchronized clock waits for a new game reading.
 
@@ -72,7 +74,7 @@ AoE4 reserves the hotkeys only while it is in the foreground. **Settings** lets 
 - Clone a build to edit a copy. Copy or import JSON to back up or share individual builds.
 - You can paste JSON from **AoE4 Guides → Overlay Tool**. Import converts times, resources, and notes, represents icons as text, and leaves unknown population (`-1`) blank. Review the mode and population after importing.
 - With the build active, select a step number in the editor to show that step in the overlay.
-- A fresh install includes 25 attributed English openings, one for each civilization. **Home** adds missing starter builds in the selected language. For manual import, use `starter-pack.en.json` for English or `starter-pack.json` for Spanish. Both files are available in the release downloads and under `static/builds/`. They contain builds only. [Starter pack sources and review limits](docs/build-pack-sources.md)
+- A fresh install includes 50 attributed openings for 1v1 land maps, two per civilization. After OCR calibration, villager goals advance automatically. **Home** adds missing starter builds in the selected language. For manual import, use `static/builds/starter-pack.en.json` for English or `static/builds/starter-pack.json` for Spanish. [Starter pack sources and review limits](docs/build-pack-sources.md)
 
 ### Subtasks for mixed instructions
 
@@ -84,7 +86,7 @@ Confirm the last subtask of the final step to celebrate and hide the overlay. Re
 
 ### First launch and diagnostics
 
-**Home** guides you through build selection, HUD detection, and confirmation of the five villager counts. While you calibrate, OCR leaves advancement and practice initiation manual. Return to the game for three valid readings, then press Alt + Tab and confirm within one minute. Retry or adjust the regions if the counts differ. You can use the app with manual advancement. Existing installations keep their configuration and can open the wizard from **Home**.
+**Home** asks for a build and, optionally, your AoE4 name, then how to advance. **With hotkeys** is the recommended path: Page Down and Page Up move through steps, and when a Windows OCR language is installed the app still reads the loading screen to pick your build and syncs the clock with the match. **Automatic from villagers** (beta) adds HUD detection and confirmation of the five villager counts. While you calibrate, OCR leaves advancement and practice initiation manual. Return to the game for three valid readings, then press Alt + Tab and confirm within one minute. Retry or adjust the regions if the counts differ. Hotkey users can turn on automatic advance later from **Home** or **Settings → Match**. Existing installations keep their configuration and can open the wizard from **Home**.
 
 In **Help**, you can prepare, review, and copy diagnostics. The report includes the version, resolutions, scaling, OCR languages, and last reading. It excludes player names, history, paths, and screenshots. Sharing is manual. Checking for updates in **Help** queries GitHub's public API on demand. Installation is manual.
 
@@ -92,7 +94,7 @@ In **Help**, you can prepare, review, and copy diagnostics. The report includes 
 
 Use the move control in **Settings** to activate a drag bar and place the overlay on any monitor. Confirm to save its position and restore click-through. You can also select a monitor or specify a corner and margins. If you disconnect the current monitor, the overlay moves to an available screen.
 
-**Settings → Backup** exports builds, preferences, and history to JSON. Import validates and previews the backup before replacing your current data. Restoring a backup replaces the library. The app fills in new settings when it reads data saved by a previous version.
+**Settings → Data** exports builds, preferences, and history to JSON. Import validates and previews the backup before replacing your current data. Restoring a backup replaces the library. The app fills in new settings when it reads data saved by a previous version.
 
 **Practice** lets you start the clock at the current step, pause, adjust it in five-second increments, and finish. History stores the first arrival at each step. Clock corrections also apply to the record. The summary compares arrival and target time and preserves the step text and target time if you later edit the build. Page Down at the last step also ends the practice. Selecting another build ends the current session. Switching with the hotkey carries over the population reference and clock to the new session. An unexpected shutdown keeps saved arrivals as an unfinished practice.
 
@@ -100,12 +102,12 @@ Resetting only the clock saves the previous session and starts another at 0:00 f
 
 ### Automatic setup on Windows
 
-Enable automatic setup in **Settings** and return to AoE4. Upgrades leave it off by default to preserve your previous configuration.
+**Settings → Match** has two switches. **Read the game screen** detects your civilization, picks its build, and syncs the clock. **Advance from villager counters** (beta) also advances resource steps and asks you to confirm the counters once in **Home**. Data saved by earlier versions keeps its previous behavior.
 
 - The app detects the AoE4 window area and places the overlay inside it. Calibration and custom positions are stored by monitor, resolution, and DPI.
 - It finds the four resource icons and locates the villager column and upper idle-villager counter. It requires five valid numbers and consecutive confirmations. It reads villager counts only.
 - It looks for the clock in the top center of the HUD, checks that it advances, and synchronizes practice without changing the current step or recorded arrivals. A lost reading freezes synchronized time. Alt + Tab and isolated zero readings leave the clock state intact.
-- For build selection, enter your exact AoE4 player name and choose the mode once. Automatic selection requires a civilization tied to your row in the setup or loading screen. The app uses its default build, or its only build if there is no default. If the match is ambiguous, it keeps the current build. Quick selection remembers the default.
+- For build selection, the app needs your AoE4 player name to find your row on the loading screen, where every player and civilization appears. Enter it in **Home** or **Settings → Match**, tap it in the list of names seen on the last loading screen, or leave it blank: after you choose a build during a match, the app looks for the only player with that civilization and asks whether that name is yours. Matching ignores clan tags such as `[TAG]` and tolerates one misread character in names of five or more characters, but never a longer or shorter name. Loading-screen names stay in memory and are never saved or included in diagnostics. Automatic selection uses the default build for the civilization and mode, or its only build if there is no default. If the match is ambiguous, it keeps the current build.
 - Manual start, pause, time correction, and finish take priority. Switching back to the game clock waits for a valid reading. Confirming a new match requires repeated setup or loading readings and a progressing game clock near the start.
 - Correct detection to open region selectors. Rerun detection to try again without the saved correction. The app replaces a profile only after validating the readings. Full backups include the profiles.
 
@@ -115,9 +117,9 @@ The HUD detector was tested on the included screenshot fixtures and on test imag
 
 OCR is off by default. It reads the four resource villager counters and the idle-villager counter. For example, `10 + 9 + 0 + 0 + 2 = 21`. It advances on total villagers, minimums for selected resources, or transfers between resources. Military units and builders absent from the counters do not contribute. The build's population field is a reference.
 
-With AoE4 in borderless windowed mode, open automatic advancement in **Settings** and select the four resource counters. Choose the monitor and mark the number column alone, with one number centered in each band in food, wood, gold, and stone order. Include gray zeros and leave out icons, stockpiled resources, and idle villagers. Then select the idle-villager counter separately, marking the number next to the villager with a “Z” and leaving space for three digits. Save both regions and enable villager and idle counts. Esc cancels without changing the region. OCR stays off until both regions are set.
+With AoE4 in borderless windowed mode, open **Settings → Match**, turn off **Read the game screen**, and expand **Counter calibration**. Choose the monitor and mark the number column alone, with one number centered in each band in food, wood, gold, and stone order. Include gray zeros and leave out icons, stockpiled resources, and idle villagers. Then select the idle-villager counter separately, marking the number next to the villager with a “Z” and leaving space for three digits. Save both regions and enable **Advance automatically on villager counts**. Esc cancels without changing the region. OCR stays off until both regions are set.
 
-Start the clock and return to the game. The status shows the five readings, the total, and the goal. Advancement requires three consecutive readings that satisfy the criterion, with all five counters valid. A missing count invalidates the reading. Building, age-up, and ambiguous instructions remain manual. OCR supports up to 200 assigned and idle villagers combined. It suspends when you leave the game, pause the clock, or edit the position. Windows needs an installed OCR language. Accuracy depends on resolution, HUD scaling, and selected regions. The app reads the visible HUD and leaves game inputs to the player.
+Return to the game. Starting the clock is optional: villager goals advance as soon as the counters are read, and the clock only records practice timing. The status shows the five readings, the total, and the goal. Advancement requires three consecutive readings that satisfy the criterion, with all five counters valid. A missing count invalidates the reading. Building, age-up, and ambiguous instructions remain manual. OCR supports up to 200 assigned and idle villagers combined. It suspends when you leave the game or edit the position. Windows needs an installed OCR language. Accuracy depends on resolution, HUD scaling, and selected regions. The app reads the visible HUD and leaves game inputs to the player.
 
 ### Step advancement criteria
 
@@ -175,3 +177,5 @@ AoE4 Overlay is distributed under the **GNU General Public License, version 3 on
 When distributing the installer, provide the corresponding source for that version, including the files and scripts needed to build it, as required by the GPLv3. You can publish the installer and its matching source archive together in each release. Distributed derivatives must comply with the GPLv3. Private modifications do not require publication.
 
 Third-party dependencies and assets retain their own licenses and notices. This license grants no rights to Age of Empires trademarks or assets.
+
+Civilization flags are bundled for offline use, sourced from [AoE4 World Overlay](https://github.com/aoe4world/overlay). These Age of Empires IV assets belong to Microsoft; see the [asset notice](static/civilizations/NOTICE.md).

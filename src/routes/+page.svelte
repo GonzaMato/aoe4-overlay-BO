@@ -1,5 +1,8 @@
 <script lang="ts">
- import { t, locale, label, uniqueLabels } from '$lib/i18n';
+	import Logo from '$lib/components/Logo.svelte';
+	import CivFlag from '$lib/components/CivFlag.svelte';
+	import CivSelect from '$lib/components/CivSelect.svelte';
+	import { t, locale, label, uniqueLabels } from '$lib/i18n';
 	import { onMount } from 'svelte';
 
 	import BuildEditor from '$lib/components/BuildEditor.svelte';
@@ -9,18 +12,23 @@
 	import SettingsView from '$lib/components/SettingsView.svelte';
 	import BackupView from '$lib/components/BackupView.svelte';
 	import PracticeView, { type PracticeStatus } from '$lib/components/PracticeView.svelte';
-	import { importBuilds } from '$lib/imports';
+	import { downloadBackup, importBuilds } from '$lib/imports';
 	import { syncLanguage, isTauri, keepAlive, loadData, on, onDataChanged, onQuitRequested, onRegionSelected, quitApp, saveData, send } from '$lib/bridge';
-	import { cloneBuild, newBuild } from '$lib/defaults';
+	import { cloneBuild, newBuild, replaceWithStarterBuilds } from '$lib/defaults';
 	import type { AppData, Build, Practice } from '$lib/types';
-	import { preferredBuildId, setDefaultBuild } from '$lib/util';
-	import { profileKey, relativeRect, validProfile, type SetupStatus, type SetupProfile } from '$lib/setup';
+	import { preferredBuildId, rememberDefault, setDefaultBuild } from '$lib/util';
+	import { profileKey, relativeRect, validProfile, suggestPlayerName, type RosterEntry, type SetupStatus } from '$lib/setup';
 
 	let data = $state<AppData | null>(null);
 	let tab = $state<'builds' | 'settings' | 'practice' | 'welcome' | 'help'>('builds');
 	let practiceStatus = $state<PracticeStatus | null>(null);
 	let setupStatus = $state<SetupStatus | null>(null);
 	let manualBuild=false;
+	// Players on the last loading screen. Memory only: never saved or included in diagnostics.
+	let roster = $state<RosterEntry[]>([]);
+	let lastPickCiv = '';
+	let nameSuggestion = $state<string | null>(null);
+	const rejectedNames = new Set<string>();
 	let finishedId = $state<string | null>(null);
 	let selectedId = $state<string | null>(null);
 	let filterCiv = $state('');
@@ -64,28 +72,34 @@
 		toastTimer = setTimeout(() => (toast = ''), 2500);
 	}
 
+	/** A manual choice: activates the build, and learns the player's name when it can. */
 	function use(id: string) {
 		manualBuild=true;void send('setup-manual-build');
-		if (data) { data.settings.activeBuildId = id;const build=data.builds.find(b=>b.id===id);if(build?.civ&&build.mode)setDefaultBuild(data.settings,build); }
+		if (!data) return;
+		data.settings.activeBuildId = id;
+		const build=data.builds.find(b=>b.id===id);
+		if(!build) return;
+		if(rememberDefault(data.settings,build)) notify($t(`Predeterminado para ${label(build.civ)} · ${label(build.mode)}`, `Default for ${label(build.civ)} · ${label(build.mode)}`));
+		lastPickCiv=build.civ;learnName();
+	}
+
+	function learnName() {
+		const name = data && !data.settings.setup.playerName && lastPickCiv ? suggestPlayerName(roster,lastPickCiv) : null;
+		nameSuggestion = name && !rejectedNames.has(name.toLocaleLowerCase()) ? name : null;
+	}
+	function acceptName() {
+		if(!data || !nameSuggestion) return;
+		data.settings.setup.playerName=nameSuggestion;nameSuggestion=null;
+		notify($t("Listo: tu build se elige solo en la pantalla de carga", "Done: your build is chosen on the loading screen"));
+	}
+	function rejectName() {
+		if(nameSuggestion) rejectedNames.add(nameSuggestion.toLocaleLowerCase());
+		nameSuggestion=null;
 	}
 
 	function toggleDefault(b: Build) {
 		if (!data || !b.civ || !b.mode) return;
 		setDefaultBuild(data.settings,b,!isDefault(b));
-	}
-
-	/** Al elegir civilización y modo se carga solo el predeterminado de esa combinación. */
-	function onMatchChange() {
-		if (!data || !filterCiv || !filterMode) return;
-		const candidates = data.builds.filter((b) => label(b.civ,'en') === label(filterCiv,'en') && label(b.mode,'en') === label(filterMode,'en'));
-		const preferred =
-			candidates.find((b) => b.id === preferredBuildId(data!.settings,b.civ,b.mode)) ??
-			(candidates.length === 1 ? candidates[0] : null);
-		if (preferred) {
-			use(preferred.id);
-			selectedId = preferred.id;
-			notify($t(`En el overlay: ${preferred.name}`, `In the overlay: ${preferred.name}`));
-		}
 	}
 
 	function addBuild() {
@@ -138,14 +152,15 @@
 		}
 	}
 	function addPack(pack:BuildPack) {
-		if(!data)return;
+		if(!data || restoring || quitting)return;
 		const before=data.builds.length;
 		data.builds=mergePack($state.snapshot(data.builds),pack);
 		if(!data.settings.activeBuildId&&data.builds.length){use(data.builds[0].id);selectedId=data.builds[0].id;}
 		notify(data.builds.length===before?$t("El paquete ya está añadido; se conservaron tus cambios", "The pack is already installed; your edits were preserved"):$t(`${data.builds.length-before} builds añadidos`, `${data.builds.length-before} builds added`));
 	}
 
-	async function restore(incoming: AppData) {
+	async function restore(incoming: AppData, message = $t("Respaldo restaurado", "Backup restored")) {
+		if (restoring || quitting) return false;
 		restoring = true;
 		manualBuild=false;setupStatus=null;
 		if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
@@ -154,9 +169,21 @@
 			await saveData(incoming);
 			lastSaved = JSON.stringify(incoming); data = incoming;
 			selectedId = incoming.settings.activeBuildId; filterCiv = ''; filterMode = ''; filterMap = '';
-			notify($t("Respaldo restaurado", "Backup restored"));
-		} catch (e) { notify($t(`No se pudo restaurar: ${String(e)}`, `Could not restore: ${String(e)}`)); }
+			notify(message);
+			return true;
+		} catch (e) {
+			notify($t(`No se pudieron guardar los cambios: ${String(e)}`, `Could not save changes: ${String(e)}`));
+			return false;
+		}
 		finally { restoring = false; }
+	}
+
+	async function resetStarterPack() {
+		if (!data) return;
+		const incoming = replaceWithStarterBuilds($state.snapshot(data));
+		if (await restore(incoming, $t("Biblioteca reemplazada por el paquete inicial", "Library replaced with the starter pack"))) {
+			tab = 'builds';
+		}
 	}
 
 	async function exitApp() {
@@ -195,6 +222,16 @@
 			}),
 			on('setup-status',value=>setupStatus=value as SetupStatus),
 			on('setup-new-match',()=>manualBuild=false),
+			on('setup-roster',value=>{
+				const entries=(value as {entries?:unknown})?.entries;
+				if(!Array.isArray(entries))return;
+				roster=entries.filter((e):e is RosterEntry=>!!e && typeof e.name==='string' && typeof e.civ==='string').slice(0,8);
+				learnName();
+			}),
+			on('picker-build-confirmed',value=>{
+				if(!data || restoring || typeof value!=='string' || !data.builds.some(b=>b.id===value))return;
+				use(value);
+			}),
 			on('setup-build',value=>{
 				const request=value as {id:string;previous:string|null};
 				if(data && !restoring && data.settings.setup.enabled && !manualBuild && data.settings.activeBuildId===request.previous && data.builds.some(b=>b.id===request.id))data.settings.activeBuildId=request.id;
@@ -260,7 +297,7 @@
 
 <div class="app" style="--accent: {data?.settings.accent ?? '#F2B33D'}">
 	<header class="bar">
-		<h1>AoE4 Overlay</h1>
+		<h1><Logo size={22} />AoE4 Overlay</h1>
 		<nav aria-label={$t("Secciones", "Sections")}>
 			<button type="button" aria-current={tab === 'welcome' ? 'page' : undefined} onclick={() => tab='welcome'}>{$t("Inicio", "Home")}</button>
 			<button type="button" aria-current={tab === 'builds' ? 'page' : undefined} onclick={() => (tab = 'builds')}>Builds</button>
@@ -278,15 +315,24 @@
 		{/if}
 	</header>
 
+	{#if nameSuggestion && data}
+		<div class="suggestion" role="status">
+			<span>{$t(`¿Tu nombre en AoE4 es «${nameSuggestion}»? Con eso elijo tu build solo en la pantalla de carga.`, `Is your AoE4 name “${nameSuggestion}”? Then your build is chosen on the loading screen.`)}</span>
+			<button type="button" class="primary" onclick={acceptName}>{$t("Sí, soy yo", "Yes, that’s me")}</button>
+			<button type="button" onclick={rejectName}>{$t("No", "No")}</button>
+		</div>
+	{/if}
+
 	{#if !data}
 		<p class="loading">{$t("Cargando…", "Loading…")}</p>
 	{:else if tab === 'welcome'}
-		<main class="scroll pad full"><WelcomeView bind:settings={data.settings} builds={data.builds} status={setupStatus} onUse={use} onPack={addPack} onDone={()=>tab='builds'} /></main>
+		<main class="scroll pad full"><WelcomeView bind:settings={data.settings} builds={data.builds} status={setupStatus} {roster} onPack={addPack}
+			replacing={restoring || quitting} onReplace={resetStarterPack} onBackup={()=>{if(data)downloadBackup(data);}} onDone={()=>tab='builds'} /></main>
 	{:else if tab === 'help'}
 		<main class="scroll pad full"><HelpView settings={data.settings} status={setupStatus} {failedHotkeys} onSetup={()=>tab='welcome'} /></main>
 	{:else if tab === 'settings'}
 		<main class="scroll pad full">
-			<SettingsView bind:settings={data.settings} {failedHotkeys} {setupStatus} builds={data.builds} onUse={use} activeBuild={data.builds.find(b => b.id === data!.settings.activeBuildId) ?? null}>
+			<SettingsView bind:settings={data.settings} {failedHotkeys} {setupStatus} {roster} builds={data.builds} onCalibrate={()=>tab='welcome'} activeBuild={data.builds.find(b => b.id === data!.settings.activeBuildId) ?? null}>
 				{#snippet backup()}{#if data}<BackupView {data} onRestore={incoming => void restore(incoming)} />{/if}{/snippet}
 			</SettingsView>
 		</main>
@@ -296,19 +342,15 @@
 		<div class="columns">
 			<aside>
 				<div class="filters">
-					<label class="field">
+					<div class="field">
 						<span class="label">{$t("Civilización", "Civilization")}</span>
-						<select bind:value={filterCiv} onchange={onMatchChange}>
-							<option value="">{$t("Todas", "All")}</option>
-							{#each civsInUse as civ (civ)}
-								<option value={civ}>{label(civ,$locale)}</option>
-							{/each}
-						</select>
-					</label>
+						<CivSelect bind:value={filterCiv} label={$t('Civilización','Civilization')}
+						 options={[{value:'',text:$t('Todas','All')},...civsInUse.map(civ=>({value:civ,text:label(civ,$locale),civ}))]}/>
+					</div>
 					<div class="pair">
 						<label class="field">
 							<span class="label">{$t("Modo", "Mode")}</span>
-							<select bind:value={filterMode} onchange={onMatchChange}>
+							<select bind:value={filterMode}>
 								<option value="">{$t("Todos", "All")}</option>
 								{#each data.settings.modes as mode (mode)}
 									<option value={mode}>{label(mode,$locale)}</option>
@@ -325,14 +367,13 @@
 							</select>
 						</label>
 					</div>
-					<p class="tip">{$t("Al elegir civilización y modo se carga el predeterminado en el overlay.", "Choosing a civilization and mode loads its default build in the overlay.")}</p>
 				</div>
 
 				<ul class="builds">
 					{#each filtered as b (b.id)}
 						<li class:selected={b.id === selectedId}>
 							<button type="button" class="pick" onclick={() => (selectedId = b.id)}>
-								<span class="name">{b.name}</span>
+								<span class="build-heading"><CivFlag civ={b.civ} size={32}/><span class="name">{b.name}</span></span>
 								<span class="sub">{[b.civ || $t("Sin civilización", "No civilization"), b.mode, b.map].filter(Boolean).map(v=>label(v,$locale)).join(' · ')}</span>
 								<span class="tags">
 									{#if b.id === data.settings.activeBuildId}<span class="tag on">{$t("En uso", "Active")}</span>{/if}
@@ -396,6 +437,10 @@
 </div>
 
 <style>
+	.suggestion { display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-bottom: 1px solid var(--accent); background: var(--card); }
+	.suggestion span { flex: 1; }
+	.suggestion button { height: 30px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--bg); cursor: pointer; }
+	.suggestion .primary { border-color: var(--accent); background: var(--accent); color: var(--bg); font-weight: 600; }
 	.exit { margin-left: auto; padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--card); cursor: pointer; }
 	.exit:hover { border-color: var(--accent); }
 	.exit:disabled { opacity: .5; cursor: default; }
@@ -415,6 +460,9 @@
 		background: var(--bg);
 	}
 	h1 {
+		display: flex;
+		align-items: center;
+		gap: 8px;
 		margin: 0;
 		font-size: 16px;
 		font-weight: 600;
@@ -535,6 +583,8 @@
 	.name {
 		font-weight: 600;
 	}
+	.build-heading { display:flex;align-items:flex-start;gap:9px; }
+	.build-heading :global(.civ-flag) { margin-top:3px; }
 	.sub {
 		font-size: 12px;
 		color: var(--dim);

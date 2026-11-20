@@ -33,3 +33,12 @@ export function setDefaultBuild(settings:Settings,build:Build,enabled=true):void
  for(const key of Object.keys(settings.defaults))if(sameDefault(key,build.civ,build.mode))delete settings.defaults[key];
  if(enabled)settings.defaults[defaultKey(build.civ,build.mode)]=build.id;
 }
+/**
+ * Using a build never replaces a default the player chose. The first build used for a
+ * civilization and mode becomes its default so automatic selection has an answer.
+ */
+export function rememberDefault(settings:Settings,build:Build):boolean {
+ if(!build.civ || !build.mode || Object.keys(settings.defaults).some(key=>sameDefault(key,build.civ,build.mode)))return false;
+ setDefaultBuild(settings,build);
+ return true;
+}

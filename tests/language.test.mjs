@@ -22,6 +22,7 @@ test('language defaults, normalization and backup preserve user content',()=>{
 });
 test('localized editions share a single civilization default',()=>{
  const data=defaultData(), english=data.builds[0], spanish=defaultData('es').builds[0];data.builds.push(spanish);
+ data.settings.defaults={};
  setDefaultBuild(data.settings,spanish);assert.equal(chooseBuild(data,'English','1v1')?.id,spanish.id);
  setDefaultBuild(data.settings,english);assert.equal(Object.keys(data.settings.defaults).length,1);
  assert.equal(preferredBuildId(data.settings,'Ingleses','1v1'),english.id);
@@ -31,11 +32,11 @@ test('localized editions share a single civilization default',()=>{
 test('English and Spanish starter packs preserve rules and support either game language',()=>{
  const es=parsePack(readFileSync('static/builds/starter-pack.json','utf8'));
  const en=parsePack(readFileSync('static/builds/starter-pack.en.json','utf8'));
- assert.equal(en.builds.length,25);assert.equal(defaultData().builds[0].civ,'English');
+ assert.equal(en.builds.length,50);assert.equal(defaultData().builds[0].civ,'English');
  en.builds.forEach((b,i)=>{
   const original=es.builds[i];assert.equal(b.id,original.id+'-en');assert.equal(b.provenance.source,original.provenance.source);
   assert.equal(b.steps.length,original.steps.length);
-  b.steps.forEach((s,j)=>{const prev=original.steps[j];assert.deepEqual([s.time,s.pop,s.villagers,s.advance],[prev.time,prev.pop,prev.villagers,prev.advance]);assert.deepEqual(s.subtasks?.map(t=>[t.id,t.advance]),prev.subtasks?.map(t=>[t.id,t.advance]));});
+  b.steps.forEach((s,j)=>{const prev=original.steps[j];assert.deepEqual([s.id,s.time,s.pop,s.villagers,s.advance],[prev.id,prev.time,prev.pop,prev.villagers,prev.advance]);assert.deepEqual(s.subtasks?.map(t=>[t.id,t.advance]),prev.subtasks?.map(t=>[t.id,t.advance]));});
  });
  const row=text=>({text,x:text==='Me'?100:400,y:200,width:120,height:20});
  assert.equal(localCivilization([row('Me'),row('English')],'Me',['Ingleses','English']),'Ingleses');

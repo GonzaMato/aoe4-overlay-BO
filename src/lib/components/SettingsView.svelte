@@ -1,12 +1,14 @@
 <script lang="ts">
+	import { overlayTheme, overlayThemeStyle } from '$lib/overlay-theme';
+	import CivFlag from './CivFlag.svelte';
 	import { t, locale, hotkeyLabel, label } from '$lib/i18n';
 	import { onMount } from 'svelte';
 	import type { Snippet } from 'svelte';
-	import { isTauri, monitorOptions, on, openRegionSelector, send } from '$lib/bridge';
+	import { isTauri, monitorOptions, on, openRegionSelector, send, setStartupEnabled, startupEnabled } from '$lib/bridge';
 	import HotkeyInput from './HotkeyInput.svelte';
 	import ListEditor from './ListEditor.svelte';
 	import SetupView from './SetupView.svelte';
-	import type { SetupStatus } from '$lib/setup';
+	import type { RosterEntry, SetupStatus } from '$lib/setup';
 	import { HOTKEY_ACTIONS, type Build, type Corner, type Settings } from '$lib/types';
 
 	interface Props {
@@ -17,21 +19,19 @@
 		activeBuild: Build | null;
 		setupStatus: SetupStatus | null;
 		builds: Build[];
-		onUse: (id:string)=>void;
+		onCalibrate: () => void;
+		roster?: RosterEntry[];
 	}
-	let { settings = $bindable(), failedHotkeys, backup, activeBuild, setupStatus, builds, onUse }: Props = $props();
+	let { settings = $bindable(), failedHotkeys, backup, activeBuild, setupStatus, builds, onCalibrate, roster = [] }: Props = $props();
 	const sections = $derived([
-		{ id: 'setup', title: $t("Setup automático", "Automatic setup"), detail: $t("Preparar la partida", "Prepare your match") },
-		{ id: 'overlay', title: 'Overlay', detail: $t("Posición y apariencia", "Position and appearance") },
-		{ id: 'keys', title: $t("Atajos", "Shortcuts"), detail: $t("Teclado y práctica", "Keyboard and practice") },
-		{ id: 'ocr', title: $t("Avance automático", "Automatic advancement"), detail: $t("Aldeanos por recurso", "Villagers by resource") },
-		{ id: 'lists', title: $t("Listas", "Lists"), detail: $t("Opciones de tus builds", "Build options") },
-		{ id: 'backup', title: $t("Respaldo", "Backup"), detail: $t("Exportar e importar", "Export and import") }
-	]);
-	let section = $state('setup');
-	const currentSection = $derived(sections.find(s => s.id === section)!);
+		{ id: 'match', title: $t("Partida", "Match") },
+		{ id: 'overlay', title: 'Overlay' },
+		{ id: 'keys', title: $t("Atajos", "Shortcuts") },
+		{ id: 'data', title: $t("Datos", "Data") }
+	] as const);
+	let section = $state<(typeof sections)[number]['id']>('match');
 	const shortcutGroups = $derived([
-		{ title: $t("Pasos y builds", "Steps and builds"), actions: ['next', 'prev', 'cycleBuild'] },
+		{ title: $t("Pasos y builds", "Steps and builds"), actions: ['next', 'prev', 'chooseBuild', 'cycleBuild'] },
 		{ title: $t("Reloj y práctica", "Clock and practice"), actions: ['start', 'pauseClock', 'clockPlus', 'clockMinus', 'resetClock', 'resetPractice', 'finishPractice'] },
 		{ title: 'Overlay', actions: ['toggleVisible', 'toggleCompact', 'editPosition'] }
 	] as const);
@@ -40,6 +40,24 @@
 	let editing = $state(false);
 	let ocrMonitor = $state(0);
 	let selectionError = $state('');
+	let launchWithWindows = $state<boolean | null>(null);
+	let savingStartup = $state(false);
+	let startupError = $state('');
+	async function toggleStartup(event: Event) {
+		const input = event.currentTarget as HTMLInputElement;
+		const enabled = input.checked;
+		savingStartup = true;
+		startupError = '';
+		try {
+			await setStartupEnabled(enabled);
+			launchWithWindows = enabled;
+		} catch (error) {
+			input.checked = launchWithWindows === true;
+			startupError = String(error);
+		} finally {
+			savingStartup = false;
+		}
+	}
 	async function selectRegion(target: 'workers' | 'idle' = 'workers') {
 		selectionError = '';
 		try { await openRegionSelector(Number(ocrMonitor), target); }
@@ -47,6 +65,7 @@
 	}
 	onMount(() => {
 		void monitorOptions().then(value => monitors = value);
+		void startupEnabled().then(value => launchWithWindows = value).catch(error => startupError = String(error));
 		const stops = [on('ocr-status', value => ocrStatus = String(value)), on('practice-status', value => editing = Boolean((value as { editing: boolean }).editing))];
 		void send('practice-status-request'); return () => stops.forEach(stop => stop());
 	});
@@ -58,6 +77,7 @@
 		{ value: 'bottom-right', label: $t("Abajo derecha", "Bottom right") }
 	]);
 	const ACCENTS = ['#F2B33D', '#5CC8F0', '#7BD88F', '#F08A5C'];
+	const theme = $derived(overlayTheme(activeBuild?.civ ?? '', settings.civilizationColors, settings.accent));
 
 	const duplicated = $derived(
 		HOTKEY_ACTIONS.filter(
@@ -67,29 +87,41 @@
 </script>
 
 <div class="settings">
-	<aside class="settings-nav">
-		<div class="nav-heading">{$t("Ajustes", "Settings")}</div>
-		<label class="field" style="margin: 0 12px 16px">
-			<span class="label">{$t('Idioma', 'Language')}</span>
+	<header class="settings-heading">
+		<h2>{$t("Ajustes", "Settings")}</h2>
+		<label class="language">
+			<span>{$t('Idioma', 'Language')}</span>
 			<select bind:value={settings.language}>
 				<option value="en" lang="en">English</option>
 				<option value="es" lang="es">Español</option>
 			</select>
 		</label>
-		<nav aria-label={$t("Categorías de ajustes", "Settings categories")}>
-			{#each sections as item}
-				<button type="button" aria-current={section === item.id ? 'page' : undefined} onclick={() => section = item.id}>
-					<span>{item.title}</span><small>{item.detail}</small>
-					{#if item.id === 'keys' && (duplicated.length || failedHotkeys.length)}<span class="nav-warning">{$t("Revisar atajos", "Review shortcuts")}</span>{/if}
-				</button>
-			{/each}
-		</nav>
-		<p class="nav-note">{$t("Los cambios se aplican automáticamente.", "Changes apply automatically.")}</p>
-	</aside>
+	</header>
+	<nav aria-label={$t("Categorías de ajustes", "Settings categories")}>
+		{#each sections as item}
+			<button type="button" aria-current={section === item.id ? 'page' : undefined} onclick={() => section = item.id}>
+				{item.title}
+				{#if item.id === 'keys' && (duplicated.length || failedHotkeys.length)}
+					<span class="nav-warning" role="img" aria-label={$t("Revisar atajos", "Review shortcuts")}>!</span>
+				{/if}
+			</button>
+		{/each}
+	</nav>
 	<div class="settings-content">
-		<header class="page-heading"><div><span class="label">{$t("Configuración", "Settings")}</span><h2>{currentSection.title}</h2><p>{currentSection.detail}</p></div><span class="state-badge">{section === 'ocr' ? (settings.ocr.enabled ? $t("OCR activado", "OCR on") : $t("OCR desactivado", "OCR off")) : 'AoE4 Overlay'}</span></header>
-	{#if section === 'setup'}
-	<SetupView bind:settings status={setupStatus} {builds} {onUse}/>
+	{#if section === 'match'}
+		<SetupView bind:settings status={setupStatus} {builds} {roster} {onCalibrate} {manualCalibration}/>
+		{#if launchWithWindows !== null || startupError}
+		<section>
+			<label class="toggle-row">
+				<span>
+					<strong>{$t('Iniciar AoE4 Overlay con Windows', 'Start AoE4 Overlay with Windows')}</strong>
+					<small>{$t('La app queda en la bandeja. El overlay aparece al entrar a AoE4 y se oculta al salir del juego.', 'The app waits in the system tray. The overlay appears when you enter AoE4 and hides when you leave the game.')}</small>
+				</span>
+				<input type="checkbox" role="switch" checked={launchWithWindows === true} disabled={launchWithWindows === null || savingStartup} onchange={toggleStartup} />
+			</label>
+			{#if startupError}<p class="warn" role="alert">{startupError}</p>{/if}
+		</section>
+		{/if}
 	{:else if section === 'keys'}
 	<section>
 		<h3>{$t("Atajos dentro del juego", "In-game shortcuts")}</h3>
@@ -119,7 +151,7 @@
 	{:else if section === 'overlay'}
 	<div class="preview-strip">
 		<div class="preview-caption"><span class="label">{$t("Vista previa", "Preview")}</span><strong>{$t("Así se ve tu build", "Your build preview")}</strong><small>{$t(`Primer paso · ${Math.round(settings.scale * 100)}% de tamaño`, `First step · ${Math.round(settings.scale * 100)}% scale`)}</small></div>
-		<div class="mini-overlay" class:compact={settings.compact} style="--preview-accent: {settings.accent}; opacity: {settings.opacity}">
+		<div class="mini-overlay" class:compact={settings.compact} class:civilization-theme={!!theme.palette} style="{overlayThemeStyle(activeBuild?.civ ?? '', settings.civilizationColors, settings.accent)} opacity: {settings.opacity}">
 			<div class="mini-title"><strong>{activeBuild?.name || $t("Tu próximo build", "Your next build")}</strong>{#if settings.showClock}<span>0:00</span>{/if}</div>
 			<div class="mini-step"><b>{activeBuild?.steps[0]?.pop ?? '—'} <small>{$t("POB", "POP")}</small></b><span>{activeBuild?.steps[0]?.action || $t("Elegí un build para empezar a practicar", "Choose a build to start practicing")}</span></div>
 			{#if !settings.compact}<div class="mini-footer">{label(activeBuild?.civ ?? '', $locale) || 'Age of Empires IV'}<span>{$t('Paso', 'Step')} 1 / {activeBuild?.steps.length || '—'}</span></div>{/if}
@@ -166,6 +198,15 @@
 	</section>
 	<section>
 		<h3>{$t("Tamaño y apariencia", "Size and appearance")}</h3>
+		<label class="radio theme-toggle"><input type="checkbox" bind:checked={settings.civilizationColors} />{$t('Usar colores de la civilización', 'Use civilization colors')}</label>
+		<p class="help">{$t('Usa los colores de la bandera del build activo y cambia al elegir otra civilización. Conserva el fondo oscuro y los colores de los recursos.', 'Uses the active build’s flag colors and changes when you choose another civilization. Keeps the dark background and resource colors.')}</p>
+		{#if settings.civilizationColors}
+			<div class="theme-palette">
+				{#if activeBuild}<CivFlag civ={activeBuild.civ} size={28}/>{/if}
+				<span>{theme.palette ? label(activeBuild?.civ ?? '', $locale) : $t('Sin tema disponible: se usa tu color personalizado.', 'No theme available: using your custom color.')}</span>
+				{#if theme.palette}<span class="palette-colors" aria-hidden="true"><i style="background:{theme.palette.primary}"></i><i style="background:{theme.palette.secondary}"></i></span>{/if}
+			</div>
+		{/if}
 		<div class="grid">
 			<label class="field">
 				<span class="label">{$t(`Tamaño · ${Math.round(settings.scale * 100)}%`, `Size · ${Math.round(settings.scale * 100)}%`)}</span>
@@ -178,7 +219,7 @@
 		</div>
 		<hr />
 		<div class="grid">
-			<fieldset>
+			<fieldset disabled={settings.civilizationColors && !!theme.palette}>
 				<legend class="label">{$t("Color de acento", "Accent color")}</legend>
 				<div class="accents">
 					{#each ACCENTS as color (color)}
@@ -200,30 +241,11 @@
 			</div>
 		</div>
 	</section>
-	{:else if section === 'ocr'}
-	<section>
-		<div class="section-title"><h3>{$t("Avanzar por total de aldeanos", "Advance on villager counts")}</h3><span class="state-badge experimental">Experimental</span></div>
-		<label class="toggle-row"><span><strong>{$t("Leer aldeanos e inactivos", "Read villager and idle counters")}</strong><small>{$t("Comprueba la condición del paso actual: total, mínimos por recurso o traslado. Revisá «Avance del paso» en el editor.", "Checks the current step’s rule for villager totals, resource minimums, or transfers. Review the rule in the build editor.")}</small></span><input type="checkbox" role="switch" disabled={!isTauri || settings.ocr.source !== 'workers' || !settings.ocr.idleRegion} bind:checked={settings.ocr.enabled} /></label>
-		{#if settings.ocr.source !== 'workers' || !settings.ocr.idleRegion}<p class="help footnote">{$t("Primero seleccioná las dos regiones: los cuatro recursos y el número de inactivos. La región del contador de población ya no se utiliza.", "Select both regions first. Use the four resource counters and idle counter.")}</p>{/if}
-	</section>
-	<section>
-		<h3>{$t("Área de lectura", "Reading area")}</h3>
-		<p class="help">{$t('Marcá solo la columna de', 'Select only the column of')} <strong>{$t('cuatro números junto a los íconos de aldeanos', 'four numbers next to the villager icons')}</strong>{$t(', en orden: comida, madera, oro y piedra. Incluí los ceros grises. Dejá afuera los íconos, los recursos acumulados, los inactivos y el contador de población.', ', in order: food, wood, gold, and stone. Include gray zeros. Exclude icons, resource totals, idle villagers, and the population counter.')}</p>
-		{#if monitors.length > 1}
-			<label class="field"><span class="label">{$t("Monitor del juego", "Game monitor")}</span><select bind:value={ocrMonitor}>{#each monitors as monitor, i}<option value={i}>{monitor.name || `Monitor ${i+1}`} · {monitor.size.width} × {monitor.size.height}</option>{/each}</select></label>
-		{/if}
-		<div class="actions"><button type="button" class="primary" disabled={!isTauri || !monitors.length} onclick={() => void selectRegion()}>{$t("Seleccionar los cuatro contadores", "Select the four resource counters")}</button><span class="region-size">{settings.ocr.source === 'workers' ? `${settings.ocr.width} × ${settings.ocr.height} px` : $t("Pendiente de calibrar", "Calibration needed")}</span></div>
-		<p class="help">{$t("Con AoE4 en ventana sin bordes, dibujá la columna dejando un número centrado en cada franja. Guardá el rectángulo o cancelá con Esc.", "With AoE4 in borderless windowed mode, draw a region with one number centered in each row. Save the region or press Esc to cancel.")}</p>
-		<div class="actions"><button type="button" disabled={!isTauri || !monitors.length} onclick={() => void selectRegion('idle')}>{$t("Seleccionar aldeanos inactivos", "Select idle villager counter")}</button><span class="region-size">{settings.ocr.idleRegion ? `${settings.ocr.idleRegion.width} × ${settings.ocr.idleRegion.height} px` : $t("Pendiente de calibrar", "Calibration needed")}</span></div>
-		<p class="help">{$t("Marcá aparte el número junto al aldeano con “Z”, arriba de los recursos. Dejá espacio para tres cifras y excluí el ícono y la población.", "Select the number next to the villager with a “Z” above the resources. Leave room for three digits and exclude the icon and population counter.")}</p>
-		{#if selectionError}<p class="warn" role="alert">{selectionError}</p>{/if}
-		<div class="reading" role="status"><span class="label">{$t("Estado de lectura", "Reading status")}</span><p>{isTauri ? ocrStatus || $t("Iniciá el reloj en AoE4 para ver la lectura.", "Start the AoE4 clock to see readings.") : $t("OCR disponible en la app de Windows.", "OCR is available in the Windows app.")}</p></div>
-		<p class="help footnote">{$t("Necesita el reloj en marcha, AoE4 en primer plano y tres lecturas que confirmen la condición (hasta 200 aldeanos). Los inactivos cuentan para el total, pero no para cumplir un recurso. Un traslado exige ver bajar el origen y subir el destino. Construir o subir de edad se confirma con AvPág. Si falta una lectura, espera.", "Advance after three readings confirm the rule with the clock running and AoE4 in the foreground. Idle villagers count only toward the total, up to 200 villagers. Transfers require the source to decrease and the destination to increase. Press Page Down to confirm buildings or age-ups. Missing readings pause advancement.")}</p>
-	</section>
-	{:else if section === 'lists'}
-	<section>
-		<h3>{$t("Organizá tus builds", "Organize your builds")}</h3>
-		<p class="help">{$t("Opciones que aparecen al cargar y filtrar builds. Sacar una opción no modifica los builds que ya la usan.", "These options appear when you edit and filter builds. Removing an option preserves existing builds that use it.")}</p>
+	{:else if section === 'data'}
+		{@render backup()}
+		<details class="data-options">
+		<summary>{$t("Opciones de los builds", "Build options")}</summary>
+		<p class="help">{$t("Estas opciones aparecen al editar y filtrar tus builds.", "These options appear in the build editor and filters.")}</p>
 		<div class="lists">
 			<div>
 				<span class="label">{$t("Modos", "Modes")}</span>
@@ -238,50 +260,67 @@
 				<ListEditor bind:items={settings.civs} label={$t("Civilización nueva", "New civilization")} />
 			</div>
 		</div>
-	</section>
-	{:else if section === 'backup'}
-		{@render backup()}
+		</details>
 	{/if}
 	</div>
 </div>
 
+{#snippet manualCalibration()}
+	<div class="manual-calibration">
+		<label class="toggle-row">
+			<span>
+				<strong>{$t("Avance automático por aldeanos", "Advance automatically on villager counts")}</strong>
+				{#if settings.ocr.source !== 'workers' || !settings.ocr.idleRegion}<small>{$t("Marcá ambas regiones para habilitarlo.", "Select both regions to enable it.")}</small>{/if}
+			</span>
+			<input type="checkbox" role="switch" disabled={!isTauri || settings.ocr.source !== 'workers' || !settings.ocr.idleRegion} bind:checked={settings.ocr.enabled} />
+		</label>
+		<p class="help">{$t('Marcá solo la columna de', 'Select only the column of')} <strong>{$t('cuatro números junto a los íconos de aldeanos', 'four numbers next to the villager icons')}</strong>{$t(', en orden: comida, madera, oro y piedra. Incluí los ceros grises. Dejá afuera los íconos, los recursos acumulados, los inactivos y el contador de población.', ', in order: food, wood, gold, and stone. Include gray zeros. Exclude icons, resource totals, idle villagers, and the population counter.')}</p>
+		{#if monitors.length > 1}
+			<label class="field"><span class="label">{$t("Monitor del juego", "Game monitor")}</span><select bind:value={ocrMonitor}>{#each monitors as monitor, i}<option value={i}>{monitor.name || `Monitor ${i+1}`} · {monitor.size.width} × {monitor.size.height}</option>{/each}</select></label>
+		{/if}
+		<div class="actions"><button type="button" class="primary" disabled={!isTauri || !monitors.length} onclick={() => void selectRegion()}>{$t("Seleccionar los cuatro contadores", "Select the four resource counters")}</button><span class="region-size">{settings.ocr.source === 'workers' ? `${settings.ocr.width} × ${settings.ocr.height} px` : $t("Pendiente de calibrar", "Calibration needed")}</span></div>
+		<p class="help">{$t("Con AoE4 en ventana sin bordes, dibujá la columna dejando un número centrado en cada franja. Guardá el rectángulo o cancelá con Esc.", "With AoE4 in borderless windowed mode, draw a region with one number centered in each row. Save the region or press Esc to cancel.")}</p>
+		<div class="actions"><button type="button" disabled={!isTauri || !monitors.length} onclick={() => void selectRegion('idle')}>{$t("Seleccionar aldeanos inactivos", "Select idle villager counter")}</button><span class="region-size">{settings.ocr.idleRegion ? `${settings.ocr.idleRegion.width} × ${settings.ocr.idleRegion.height} px` : $t("Pendiente de calibrar", "Calibration needed")}</span></div>
+		<p class="help">{$t("Marcá aparte el número junto al aldeano con “Z”, arriba de los recursos. Dejá espacio para tres cifras y excluí el ícono y la población.", "Select the number next to the villager with a “Z” above the resources. Leave room for three digits and exclude the icon and population counter.")}</p>
+		{#if selectionError}<p class="warn" role="alert">{selectionError}</p>{/if}
+		<div class="reading" role="status"><span class="label">{$t("Estado de lectura", "Reading status")}</span><p>{isTauri ? ocrStatus || $t("Volvé a AoE4 para ver la lectura.", "Return to AoE4 to see readings.") : $t("OCR disponible en la app de Windows.", "OCR is available in the Windows app.")}</p></div>
+		<p class="help footnote">{$t("Necesita AoE4 en primer plano y tres lecturas que confirmen la condición (hasta 200 aldeanos). Los inactivos cuentan para el total, pero no para cumplir un recurso. Un traslado exige ver bajar el origen y subir el destino. Construir o subir de edad se confirma con AvPág. Si falta una lectura, espera.", "Advance after three readings confirm the rule with AoE4 in the foreground. The clock is optional. Idle villagers count only toward the total, up to 200 villagers. Transfers require the source to decrease and the destination to increase. Press Page Down to confirm buildings or age-ups. Missing readings pause advancement.")}</p>
+	</div>
+{/snippet}
+
 <style>
+	.theme-toggle { font-weight: 600; }
+	.theme-palette { display: flex; align-items: center; gap: 10px; margin: 12px 0 20px; color: var(--soft); }
+	.palette-colors { display: inline-flex; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 4px; }
+	.palette-colors i { width: 22px; height: 20px; }
+	fieldset:disabled { opacity: .45; }
+	fieldset:disabled .swatch { cursor: default; }
+	.mini-overlay.civilization-theme { background: var(--civ-surface); border: 1px solid var(--civ-border); }
 	.settings {
-		display: grid;
-		grid-template-columns: 200px minmax(0, 1fr);
-		align-items: start;
-		gap: 32px;
-		max-width: 1240px;
+		max-width: 900px;
 		margin: 0 auto;
 	}
-	.settings-nav { position: sticky; top: 0; }
-	.nav-heading { font-family: var(--font-num); font-size: 28px; font-weight: 600; margin: 0 12px 20px; }
-	nav { display: grid; gap: 5px; }
-	nav button { display: grid; gap: 3px; text-align: left; border: 1px solid transparent; border-left: 3px solid transparent; border-radius: 0 7px 7px 0; background: transparent; padding: 12px; cursor: pointer; }
-	nav button > span:first-child { font-weight: 600; }
-	nav small, .nav-note { color: var(--dim); font-size: 12px; }
-	nav button:hover { background: var(--card); }
-	nav button[aria-current='page'] { border-left-color: var(--accent); background: var(--card); color: var(--accent); }
-	.nav-note { margin: 22px 12px; line-height: 1.6; }
-	.nav-warning { color: var(--late); font-size: 11px; }
-	.settings-content { min-width: 0; display: grid; gap: 18px; }
-	.page-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
-	.page-heading h2 { font-family: var(--font-num); font-size: 30px; line-height: 1.15; font-weight: 600; margin: 4px 0; }
-	.page-heading p { margin: 0; color: var(--dim); }
-	.state-badge { border: 1px solid var(--line-strong); color: var(--dim); border-radius: 4px; padding: 4px 8px; font-size: 11px; white-space: nowrap; }
-	.experimental { color: var(--accent); }
+	.settings-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+	.settings-heading h2 { font-family: var(--font-num); font-size: 34px; line-height: 1.1; font-weight: 600; margin: 0; }
+	.language { display: flex; align-items: center; gap: 10px; color: var(--soft); }
+	.language select { width: auto; height: 34px; }
+	nav { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--line-strong); margin-bottom: 18px; }
+	nav button { display: inline-flex; gap: 7px; align-items: center; padding: 10px 16px; border: 0; border-bottom: 2px solid transparent; border-radius: 6px 6px 0 0; background: transparent; color: var(--soft); font-weight: 600; cursor: pointer; }
+	nav button:hover { background: var(--card); color: var(--text); }
+	nav button[aria-current='page'] { border-bottom-color: var(--accent); background: var(--card); color: var(--accent); }
+	.nav-warning { color: var(--late); font-size: 12px; }
+	.settings-content { display: grid; gap: 14px; }
 	section { border: 1px solid var(--line); border-radius: 10px; padding: 22px; background: var(--card); }
 	h3 { margin: 0 0 12px; font-size: 17px; font-weight: 600; }
 	h4 { font-size: 12px; color: var(--accent); margin: 24px 0 12px; }
-	.section-title, .actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-	.section-title { justify-content: space-between; margin-bottom: 12px; }
-	.section-title h3 { margin: 0; }
-	.actions { margin: 16px 0; }
+	.actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
 	.help.inline { margin: 0; }
 	details { border-top: 1px solid var(--line-strong); margin-top: 20px; padding-top: 14px; }
 	summary { color: var(--dim); cursor: pointer; font-size: 13px; }
 	details[open] summary { margin-bottom: 16px; }
 	details .grid { margin-top: 12px; }
+	.data-options { margin: 0; padding: 18px 22px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+	.data-options summary { font-size: 14px; font-weight: 600; color: var(--text); }
 	fieldset:disabled { opacity: .45; }
 	select { width: 100%; min-width: 0; height: 38px; border: 1px solid var(--line-strong); border-radius: 6px; padding: 0 10px; background: var(--bg); }
 	hr { border: 0; border-top: 1px solid var(--line-strong); margin: 22px 0; }
@@ -290,11 +329,7 @@
 	.toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; cursor: pointer; }
 	.toggle-row span { display: grid; gap: 4px; }
 	.toggle-row small { color: var(--dim); }
-	.toggle-row input { appearance: none; width: 40px; height: 24px; flex-shrink: 0; border: 1px solid var(--dim); border-radius: 20px; background: var(--bg); cursor: pointer; position: relative; }
-	.toggle-row input::before { content: ''; display: block; width: 16px; height: 16px; border-radius: 50%; background: var(--dim); position: absolute; top: 3px; left: 3px; }
-	.toggle-row input:checked { border-color: var(--accent); background: var(--accent); }
-	.toggle-row input:checked::before { left: 19px; background: var(--bg); }
-	.toggle-row input:disabled { opacity: .5; cursor: default; }
+	.manual-calibration > .toggle-row { margin: 14px 0; }
 	.reading { padding: 14px 16px; background: var(--bg); border-left: 2px solid var(--accent); margin-top: 18px; }
 	.reading p { margin: 6px 0 0; color: var(--soft); }
 	.help.footnote { margin: 14px 0 0; }
@@ -433,21 +468,14 @@
 	}
 	.lists > div + div { border-top: 1px solid var(--line-strong); padding-top: 20px; }
 	@media (max-width: 1050px) {
-		.settings { grid-template-columns: 168px minmax(0, 1fr); gap: 22px; }
 		section, .preview-strip { padding: 18px; }
 		.grid { gap: 16px; }
 	}
 	@media (max-width: 760px) {
-		.settings { grid-template-columns: 1fr; }
-		.settings-nav { position: static; }
-		.nav-heading, .nav-note { display: none; }
-		nav { display: flex; flex-wrap: wrap; }
 		nav button { padding: 8px 10px; }
-		nav small { display: none; }
 		.grid, .keys { grid-template-columns: 1fr; }
 		.preview-strip { flex-direction: column; align-items: stretch; }
 		.mini-overlay { max-width: 100%; width: 100%; }
-		.state-badge { white-space: normal; }
 	}
 	:global(.settings :focus-visible) {
 		outline: 2px solid var(--accent);

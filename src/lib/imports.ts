@@ -6,6 +6,7 @@ import { validProfile } from './setup';
 import { validAdvance } from './advance';
 import { copySubtasks, validSubtasks } from './subtasks';
 import { parsePack } from './build-pack';
+import { tr } from './i18n';
 
 const civs: Record<string, string> = { English:'Ingleses', French:'Franceses', 'Holy Roman Empire':'Sacro Imperio Romano Germánico', Mongols:'Mongoles', Chinese:'Chinos', 'Delhi Sultanate':'Sultanato de Delhi', 'Abbasid Dynasty':'Dinastía Abasí', Ottomans:'Otomanos', Malians:'Malienses', Byzantines:'Bizantinos', Japanese:'Japoneses', 'Order of the Dragon':'Orden del Dragón', "Zhu Xi's Legacy":'Legado de Zhu Xi', "Jeanne d'Arc":'Juana de Arco', Ayyubids:'Ayubíes', 'Knights Templar':'Caballeros Templarios', 'House of Lancaster':'Casa de Lancaster' };
 function object(value: unknown): Record<string, any> {
@@ -45,6 +46,16 @@ export function importBuilds(text: string): Build[] {
 export function exportBackup(data: AppData): string {
   return JSON.stringify({ format: 'aoe4-overlay-backup', version: 1, data }, null, 2);
 }
+
+export function downloadBackup(data: AppData): void {
+  const url = URL.createObjectURL(new Blob([exportBackup(data)], { type: 'application/json' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `${tr('aoe4-respaldo', 'aoe4-backup')}-${new Date().toISOString().slice(0,10)}.json`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+
 export function importBackup(text: string): AppData {
   const envelope = object(JSON.parse(text));
   if (envelope.format !== 'aoe4-overlay-backup' || envelope.version !== 1) throw new Error(errorText('Formato o versión de respaldo no compatible.'));
@@ -67,11 +78,12 @@ export function importBackup(text: string): AppData {
   if (!nonnegative(settings.scale) || settings.scale < .7 || settings.scale > 1.8 || !nonnegative(settings.opacity) || settings.opacity < .4 || settings.opacity > 1) throw new Error(errorText('Tamaño u opacidad inválidos.'));
   for (const k of ['modes','maps','civs']) if (!Array.isArray(settings[k]) || settings[k].some((v: unknown) => typeof v !== 'string')) throw new Error(errorText('Listas de ajustes inválidas.'));
   if (!['top-left','top-right','bottom-left','bottom-right'].includes(settings.corner) || typeof settings.accent !== 'string') throw new Error(errorText('Apariencia inválida.'));
+  if (settings.civilizationColors !== undefined && typeof settings.civilizationColors !== 'boolean') throw new Error(errorText('Apariencia inválida.'));
   for (const v of Object.values(object(settings.hotkeys))) if (typeof v !== 'string') throw new Error(errorText('Teclas inválidas.'));
   object(settings.defaults);
   if (settings.setup !== undefined) {
     const s = object(settings.setup);
-    if (typeof s.enabled !== 'boolean' || typeof s.playerName !== 'string' || s.playerName.length > 80 || typeof s.mode !== 'string' || s.mode.length > 80 || !Array.isArray(s.profiles) || s.profiles.length > 24 || s.profiles.some((p: unknown) => !validProfile(p)) || new Set(s.profiles.map((p: any) => p.key)).size !== s.profiles.length) throw new Error(errorText('Perfiles de setup inválidos.'));
+    if (typeof s.enabled !== 'boolean' || (s.autoAdvance !== undefined && typeof s.autoAdvance !== 'boolean') || typeof s.playerName !== 'string' || s.playerName.length > 80 || typeof s.mode !== 'string' || s.mode.length > 80 || !Array.isArray(s.profiles) || s.profiles.length > 24 || s.profiles.some((p: unknown) => !validProfile(p)) || new Set(s.profiles.map((p: any) => p.key)).size !== s.profiles.length) throw new Error(errorText('Perfiles de setup inválidos.'));
   }
   if (!nonnegative(settings.offsetX) || !nonnegative(settings.offsetY) || typeof settings.compact !== 'boolean' || typeof settings.showClock !== 'boolean' || (settings.activeBuildId !== null && !ids.has(settings.activeBuildId)) || Object.values(settings.defaults).some(id => !ids.has(id))) throw new Error(errorText('Ajustes o referencias a builds inválidos.'));
   if (settings.position != null) { const p=object(settings.position); if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) throw new Error(errorText('Posición inválida.')); }

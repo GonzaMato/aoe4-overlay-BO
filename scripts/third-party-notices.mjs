@@ -33,5 +33,6 @@ for(const p of metadata.packages){
  add(p.name,p.version,p.license,folder,`https://crates.io/crates/${p.name}/${p.version}`,p.license_file?path.resolve(folder,p.license_file):null);
 }
 const header='AoE4 Overlay — avisos de terceros\n\nEl código propio usa GPL-3.0-only. Las dependencias conservan sus licencias.\nEsta lista incluye herramientas de compilación, además de dependencias de ejecución.\nLas fuentes de cada dependencia están en las URL indicadas y fijadas por los lockfiles.\nLos builds de juego tienen su atribución separada en docs/build-pack-sources.md.\n';
-fs.writeFileSync('THIRD-PARTY-NOTICES.txt',header+'\n'+records.sort((a,b)=>a.name.localeCompare(b.name)).map(r=>`============================================================\n${r.name} ${r.version}\nLicencia: ${r.license??'Ver fuente'}\nFuente: ${r.source}\n\n${r.text||'El paquete no incluye un archivo de licencia separado; consultar la fuente indicada.'}\n`).join('\n'));
+const flagsNotice=fs.readFileSync('static/civilizations/NOTICE.md','utf8');
+fs.writeFileSync('THIRD-PARTY-NOTICES.txt',header+'\n'+flagsNotice+'\n'+records.sort((a,b)=>a.name.localeCompare(b.name)).map(r=>`============================================================\n${r.name} ${r.version}\nLicencia: ${r.license??'Ver fuente'}\nFuente: ${r.source}\n\n${r.text||'El paquete no incluye un archivo de licencia separado; consultar la fuente indicada.'}\n`).join('\n'));
 console.log(`${records.length} dependencias; ${records.filter(r=>!r.text).length} sin archivo separado.`);

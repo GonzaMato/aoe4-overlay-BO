@@ -9,6 +9,7 @@ export class SetupController {
   private revision = 0;
   private key = '';
   private lobbySamples = 0;
+  private loadingPhase: 'none' | 'loading' | 'hud' = 'none';
   private civ = '';
   private civSamples = 0;
   token() { return this.revision; }
@@ -23,8 +24,25 @@ export class SetupController {
     if(name==='cycleBuild')this.manualBuild();
   }
   resumeClock(practiceClock:PracticeClock) {this.suspend();this.clock.resume();practiceClock.pause();}
-  reset() {this.suspend();this.clock=new ClockTracker();this.buildManual=false;this.key='';}
-  newMatch() {this.buildManual=false;this.civ='';this.civSamples=0;}
+  reset() {this.suspend();this.clock=new ClockTracker();this.buildManual=false;this.loadingPhase='none';this.key='';}
+  openLoadingBuildSelection() {
+    if (this.lobbySamples < 2 || this.loadingPhase === 'loading') return false;
+    this.loadingPhase = 'loading';
+    this.buildManual = false;
+    return true;
+  }
+  observeHud() {
+    if (this.loadingPhase === 'loading') this.loadingPhase = 'hud';
+  }
+  newMatch() {
+    // A manual choice made after this loading screen opened belongs to this match.
+    const resetBuildChoice = this.loadingPhase === 'none';
+    if (resetBuildChoice) this.buildManual = false;
+    this.loadingPhase = 'none';
+    this.civ = '';
+    this.civSamples = 0;
+    return resetBuildChoice;
+  }
   observeLobby(lines:OcrLine[]) {
     this.lobbySamples=lobbyScreen(lines)?this.lobbySamples+1:0;
     if(this.lobbySamples===2) {this.clock.lobby();return true;}

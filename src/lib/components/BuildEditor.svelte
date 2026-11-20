@@ -1,4 +1,5 @@
 <script lang="ts">
+ import CivFlag from './CivFlag.svelte';
  import { t, locale, label, resourceLabel, uniqueLabels } from '$lib/i18n';
 	import ResIcon from './ResIcon.svelte';
 	import StepAdvanceEditor from './StepAdvanceEditor.svelte';
@@ -73,7 +74,7 @@
 			<input bind:value={build.name} />
 		</label>
 		<label class="field">
-			<span class="label">{$t("Civilización", "Civilization")}</span>
+			<span class="label"><CivFlag civ={build.civ} size={22}/> {$t("Civilización", "Civilization")}</span>
 			<input bind:value={build.civ} list="civ-options" placeholder={$t("Escribí o elegí", "Type or choose")} />
 			<datalist id="civ-options">
 				{#each civOptions as civ (civ)}

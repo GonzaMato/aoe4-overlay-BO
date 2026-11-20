@@ -9,6 +9,8 @@ async function invoke<T>(command:string,args?:Record<string,unknown>):Promise<T>
 	try { return await nativeInvoke<T>(command,args); } catch(error) { throw new Error(errorText(error)); }
 }
 export const syncLanguage = (language:Language) => isTauri ? invoke<void>('set_language',{language}).catch(console.error) : Promise.resolve();
+export const startupEnabled = () => isTauri ? invoke<boolean | null>('startup_enabled') : Promise.resolve(null);
+export const setStartupEnabled = (enabled: boolean) => invoke<void>('set_startup_enabled', { enabled });
 import {
 	getCurrentWindow,
 	currentMonitor,
@@ -20,7 +22,7 @@ import {
 import { register, unregisterAll } from '@tauri-apps/plugin-global-shortcut';
 import { load, type Store } from '@tauri-apps/plugin-store';
 
-import { defaultData, normalize } from './defaults';
+import { defaultData, normalize, systemLanguage } from './defaults';
 import { eventToHotkey } from './hotkeys';
 import type { AppData, Corner, Settings } from './types';
 import { uid } from './util';
@@ -52,12 +54,14 @@ const store = (): Promise<Store> => (storePromise ??= load(STORE_FILE, { autoSav
 
 export async function loadData(): Promise<AppData> {
 	try {
-		if (isTauri) return normalize(await (await store()).get<AppData>('data'));
-		const raw = localStorage.getItem(LOCAL_KEY);
-		return normalize(raw ? JSON.parse(raw) : undefined);
+		const saved = isTauri
+			? await (await store()).get<AppData>('data')
+			: (raw => raw ? JSON.parse(raw) : undefined)(localStorage.getItem(LOCAL_KEY));
+		// A first launch opens in the Windows language; saved data keeps the player's choice.
+		return saved ? normalize(saved) : defaultData(systemLanguage());
 	} catch (err) {
 		console.error('No se pudieron leer los datos guardados', err);
-		return defaultData();
+		return defaultData(systemLanguage());
 	}
 }
 
@@ -150,6 +154,8 @@ export function onOverlayActivation(handler: () => void): () => void {
 	const stop = listen('reopen-overlay', handler); return () => void stop.then(fn => fn());
 }
 export const openRegionSelector = (monitorIndex: number, target: 'workers' | 'idle' = 'workers') => invoke('open_region_selector', { monitorIndex, target });
+export const openBuildPicker = () => isTauri ? invoke<void>('open_build_picker') : Promise.resolve(window.open('/build-picker', '_blank'));
+export const closeBuildPicker = () => invoke<void>('close_build_picker');
 export const regionSelectorGeometry = () => invoke<Rectangle>('region_selector_geometry');
 export const finishRegionSelection = (region: Rectangle | null, target: 'workers' | 'idle' = 'workers') => invoke('finish_region_selection', { region, target });
 export function onRegionSelected(handler: (selection: { region: Rectangle; target: 'workers' | 'idle' }) => void): () => void {

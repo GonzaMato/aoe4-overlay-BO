@@ -2,7 +2,7 @@ import starterPack from '../../static/builds/starter-pack.json' with { type: 'js
 import englishPack from '../../static/builds/starter-pack.en.json' with { type: 'json' };
 import type { AppData, Build, Settings, Step, Villagers } from './types';
 import { HOTKEY_ACTIONS } from './types';
-import { uid } from './util';
+import { preferredBuildId, rememberDefault, setDefaultBuild, uid } from './util';
 import { setupDefaults, normalizeSetup } from './setup';
 import { validAdvance, copyAdvance } from './advance';
 import { validSubtasks, copySubtasks } from './subtasks';
@@ -34,7 +34,9 @@ export function defaultSettings(): Settings {
 			start: 'Ctrl+Alt+KeyS',
 			toggleVisible: 'Ctrl+Alt+KeyH',
 			toggleCompact: 'Ctrl+Alt+KeyC',
-			cycleBuild: 'Ctrl+Alt+KeyB',
+			// Two ways to pick a build are enough for new players: automatic and the picker.
+			cycleBuild: '',
+			chooseBuild: 'Ctrl+Alt+KeyO',
 			editPosition: 'Ctrl+Alt+KeyE', resetPractice: 'Ctrl+Alt+KeyR', resetClock: '',
 			pauseClock: 'Ctrl+Alt+KeyP', clockPlus: 'Ctrl+Alt+ArrowRight',
 			clockMinus: 'Ctrl+Alt+ArrowLeft', finishPractice: 'Ctrl+Alt+KeyF'
@@ -45,6 +47,7 @@ export function defaultSettings(): Settings {
 		scale: 1,
 		opacity: 0.94,
 		accent: '#F2B33D',
+		civilizationColors: false,
 		compact: false,
 		showClock: true,
 		modes: ['1v1', 'Equipos'],
@@ -78,12 +81,47 @@ export function defaultSettings(): Settings {
 	};
 }
 
+/** First launch only: Spanish when Windows lists it before English, otherwise English. */
+export function systemLanguage(languages: readonly string[] = typeof navigator === 'undefined' ? [] : navigator.languages ?? [navigator.language]): Language {
+	for (const tag of languages) {
+		const base = String(tag).toLowerCase().split('-')[0];
+		if (base === 'es' || base === 'en') return base;
+	}
+	return 'en';
+}
+
+function bundledBuilds(language: Language) {
+	return (language === 'es' ? starterPack : englishPack).builds;
+}
+
+export function hasMissingStarterBuilds(builds: readonly Pick<Build, 'id'>[], language: Language): boolean {
+	const installedIds = new Set(builds.map(build => build.id));
+	return bundledBuilds(language).some(build => !installedIds.has(build.id));
+}
+
 export function defaultData(language: Language = 'en'): AppData {
-	const builds = (language==='es'?starterPack:englishPack).builds.map(b => normalizeBuild(b as unknown as Build));
+	const builds = bundledBuilds(language).map(build => normalizeBuild(build as unknown as Build));
 	const settings = defaultSettings();
 	settings.language = language;
 	settings.activeBuildId = builds[0].id;
+	for (const build of builds) rememberDefault(settings, build);
 	return { version: 1, builds, settings, practices: [] };
+}
+
+export function replaceWithStarterBuilds(data: AppData): AppData {
+	const starter = defaultData(data.settings.language);
+	const settings = {
+		...data.settings,
+		activeBuildId: starter.settings.activeBuildId,
+		defaults: starter.settings.defaults
+	};
+	for (const build of starter.builds) {
+		if (build.id === data.settings.activeBuildId) settings.activeBuildId = build.id;
+		if (preferredBuildId(data.settings, build.civ, build.mode) === build.id) {
+			setDefaultBuild(settings, build);
+		}
+	}
+	return { ...data, builds: starter.builds, settings };
 }
 
 /** Completa lo que falte en datos guardados por versiones anteriores o editados a mano. */
@@ -93,6 +131,7 @@ export function normalize(raw: unknown): AppData {
 	const base = defaultSettings();
 	const settings: Settings = { ...base, ...(input.settings ?? {}) };
 	settings.language = normalizeLanguage(input.settings?.language);
+	settings.civilizationColors = input.settings?.civilizationColors === true;
 	settings.hotkeys = { ...base.hotkeys, ...(input.settings?.hotkeys ?? {}) };
 	for (const action of HOTKEY_ACTIONS) {
 		if (typeof settings.hotkeys[action] !== 'string') settings.hotkeys[action] = '';

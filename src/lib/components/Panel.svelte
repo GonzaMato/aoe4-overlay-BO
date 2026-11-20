@@ -1,24 +1,32 @@
 <script lang="ts">
+	import { overlayTheme, overlayThemeStyle } from '$lib/overlay-theme';
+ import CivFlag from './CivFlag.svelte';
 	import { t, locale, label, resourceLabel } from '$lib/i18n';
 	import ResIcon from './ResIcon.svelte';
 	import { prettyHotkey } from '$lib/hotkeys';
 	import { deltas } from '$lib/steps';
 	import { RESOURCES, type Build, type HotkeyAction } from '$lib/types';
 	import { formatTime } from '$lib/util';
-	import { activeTask, taskRule } from '$lib/subtasks';
-	import { advanceLabel } from '$lib/advance';
+	import { activeTask, taskRule, isLastTask } from '$lib/subtasks';
+	import type { Reading } from '$lib/advance';
+	import type { AutomationContext } from '$lib/overlay-status';
+	import AdvanceStatus from './AdvanceStatus.svelte';
 
 	interface Props {
 		build: Build;
 		stepIndex: number;
 		subtaskIndex?: number;
 		accent: string;
+		civilizationColors?: boolean;
+		reading?: Reading | null;
+		trackingEnabled?: boolean;
+		automation?: AutomationContext;
 		/** Segundos de partida, o null si el reloj no está corriendo. */
 		elapsed?: number | null;
 		showClock?: boolean;
 		hotkeys?: Record<HotkeyAction, string> | null;
 	}
-	let { build, stepIndex, subtaskIndex=0, accent, elapsed = null, showClock = true, hotkeys = null }: Props = $props();
+	let { build, stepIndex, subtaskIndex=0, accent, civilizationColors=false, reading=null, trackingEnabled=false, automation, elapsed = null, showClock = true, hotkeys = null }: Props = $props();
 
 	const step = $derived(build.steps[stepIndex]);
 	const task = $derived(step?activeTask(step,subtaskIndex):null);
@@ -30,12 +38,13 @@
 	const late = $derived(clockOn && step?.time != null ? (elapsed as number) - step.time : null);
 
 	const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`);
+	const context=$derived(automation??{enabled:trackingEnabled,confirmed:true,live:true,hasReading:!!reading,finalTask:isLastTask(build,{step:stepIndex,task:subtaskIndex})});
 </script>
 
-<div class="panel" style="--accent: {accent}">
+<div class="panel" class:civilization-theme={!!overlayTheme(build.civ, civilizationColors, accent).palette} style={overlayThemeStyle(build.civ, civilizationColors, accent)}>
 	<header>
 		<div class="title">
-			<span class="label">{label(build.civ, $locale) || $t("Sin civilización", "No civilization")}{build.mode ? ` · ${label(build.mode, $locale)}` : ''}</span>
+			<span class="label"><CivFlag civ={build.civ} size={22}/> {label(build.civ, $locale) || $t("Sin civilización", "No civilization")}{build.mode ? ` · ${label(build.mode, $locale)}` : ''}</span>
 			<span class="name">{build.name}</span>
 		</div>
 		{#if step}
@@ -98,7 +107,7 @@
 				{#if task?.note}
 					<div class="note">{task.note}</div>
 				{/if}
-				{#if step.subtasks?.length}<div class="task-condition">{advanceLabel(taskRule(step,subtaskIndex,previous??undefined), $locale)}</div>{/if}
+				<AdvanceStatus rule={taskRule(step,subtaskIndex,previous??undefined)} context={context} nextKey={hotkeys?.next??'PageDown'}/>
 
 				<div class="villagers">
 					{#each RESOURCES as r (r)}
@@ -111,9 +120,11 @@
 							</div>
 							<span class="count" class:zero={step.villagers[r] === 0}>{step.villagers[r]}</span>
 							<span class="res">{resourceLabel(r, $locale)}</span>
+							{#if trackingEnabled}<span class="detected">{$t('Leídos','Read')}: <b>{reading?.workers[r]??'—'}</b></span>{/if}
 						</div>
 					{/each}
 				</div>
+				{#if trackingEnabled}<div class="reading-total">{$t('Total leído','Total read')}: <b>{reading?.total??'—'}</b><span>{$t('Inactivos','Idle')}: <b>{reading?.idle??'—'}</b></span></div>{/if}
 			</section>
 		{/key}
 
@@ -139,7 +150,10 @@
 </div>
 
 <style>
-	.task-progress{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}.task-condition{font-size:12px;color:var(--dim);line-height:1.4;margin-top:10px}
+	.panel.civilization-theme { background: var(--civ-surface); border-color: var(--civ-border); }
+	.task-progress{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+	.detected{font-size:10px;line-height:14px;color:var(--dim);margin-top:5px;padding-top:4px;border-top:1px solid var(--line);white-space:nowrap}.detected b{color:var(--soft);font-weight:500;font-variant-numeric:tabular-nums}.reading-total{display:flex;align-items:center;gap:5px;margin-top:9px;font-size:10px;color:var(--dim)}.reading-total>span{margin-left:auto}.reading-total b{font-weight:500;color:var(--soft);font-variant-numeric:tabular-nums}
+	.panel.civilization-theme .card{border-left:3px solid var(--accent)}
 	.panel {
 		width: 380px;
 		padding: 20px 20px 18px;
