@@ -76,7 +76,7 @@ The app never touches the game's memory, files or network traffic and never send
 <details>
 <summary><b>Windows says "Windows protected your PC". What now?</b></summary>
 
-The installer is not code-signed yet, so SmartScreen shows a warning for new downloads. Choose **More info → Run anyway**. Each release includes `SHA256SUMS.txt` so you can verify the installer, and the full source archive it was built from.
+The installer is not code-signed yet, so SmartScreen shows a warning for new downloads. Choose **More info → Run anyway**. Each release includes `SHA256SUMS.txt` so you can verify the installer, and GitHub's **Source code** archives hold the exact code it was built from.
 </details>
 
 <details>

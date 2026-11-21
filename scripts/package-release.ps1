@@ -7,37 +7,24 @@ $releaseVersion = $packageInfo.version
 if ($releaseVersion -ne $tauriInfo.version) { throw 'Las versiones no coinciden.' }
 $installerPath = Join-Path $projectRoot "src-tauri/target/release/bundle/nsis/AoE4 Overlay_${releaseVersion}_x64-setup.exe"
 if (-not (Test-Path -LiteralPath $installerPath)) { throw 'Generá primero el instalador con npm run installer.' }
-$releaseDir = Join-Path $projectRoot "release/$releaseVersion"
-New-Item -ItemType Directory -Path $releaseDir -Force | Out-Null
-Copy-Item -LiteralPath $installerPath -Destination $releaseDir
-foreach ($releaseFile in @('LICENSE','THIRD-PARTY-NOTICES.txt','static/builds/starter-pack.json','static/builds/starter-pack.en.json','docs/quick-start.md','docs/compatibility.md','docs/build-pack-sources.md',"docs/releases/$releaseVersion.md")) {
-    Copy-Item -LiteralPath (Join-Path $projectRoot $releaseFile) -Destination $releaseDir
-}
+if (-not (Test-Path -LiteralPath "docs/releases/$releaseVersion.md")) { throw "Faltan las notas docs/releases/$releaseVersion.md." }
 
-# An explicit source allowlist includes current work, not caches, user stores or secrets.
-$sourceRoots = @('src','static','tests','scripts','.github','src-tauri/src','src-tauri/assets','src-tauri/icons','src-tauri/capabilities','src-tauri/windows')
-$sourceFiles = @('package.json','package-lock.json','svelte.config.js','vite.config.js','tsconfig.json','README.md','LICENSE','.gitignore','src-tauri/Cargo.toml','src-tauri/Cargo.lock','src-tauri/tauri.conf.json','src-tauri/build.rs','src-tauri/.gitignore','docs/quick-start.md','docs/compatibility.md','docs/build-pack-sources.md',"docs/releases/$releaseVersion.md")
-$sourceFiles += 'THIRD-PARTY-NOTICES.txt'
-$filesToArchive = @()
-foreach ($folder in $sourceRoots) { if (Test-Path -LiteralPath $folder) { $filesToArchive += Get-ChildItem -LiteralPath $folder -File -Recurse } }
-foreach ($file in $sourceFiles) { if (Test-Path -LiteralPath $file) { $filesToArchive += Get-Item -LiteralPath $file } }
-Add-Type -AssemblyName System.IO.Compression
-Add-Type -AssemblyName System.IO.Compression.FileSystem
-$zipPath = Join-Path $releaseDir "aoe4-overlay-$releaseVersion-source.zip"
-$stream = [System.IO.File]::Open($zipPath, [System.IO.FileMode]::Create)
-$archive = New-Object System.IO.Compression.ZipArchive($stream, [System.IO.Compression.ZipArchiveMode]::Create)
-try {
-    foreach ($file in ($filesToArchive | Sort-Object FullName -Unique)) {
-        $relative = $file.FullName.Substring($projectRoot.Length + 1).Replace('\','/')
-        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($archive,$file.FullName,"aoe4-overlay-$releaseVersion/$relative",[System.IO.Compression.CompressionLevel]::Optimal) | Out-Null
-    }
-} finally { $archive.Dispose(); $stream.Dispose() }
-$hashLines = Get-ChildItem -LiteralPath $releaseDir -File | Where-Object Name -ne 'SHA256SUMS.txt' | Sort-Object Name | ForEach-Object {
+# A release ships only what players download: the installer and its hash.
+# LICENSE and THIRD-PARTY-NOTICES.txt are bundled inside the installer, and the
+# "Source code" archives GitHub attaches to every tag are the corresponding source.
+$releaseDir = Join-Path $projectRoot "release/$releaseVersion"
+if (Test-Path -LiteralPath $releaseDir) { Remove-Item -LiteralPath $releaseDir -Recurse -Force }
+New-Item -ItemType Directory -Path $releaseDir | Out-Null
+# GitHub replaces spaces in asset names, so ship a name that SHA256SUMS.txt can match.
+Copy-Item -LiteralPath $installerPath -Destination (Join-Path $releaseDir "AoE4-Overlay-$releaseVersion-setup.exe")
+
+$hashLines = Get-ChildItem -LiteralPath $releaseDir -File | Sort-Object Name | ForEach-Object {
     $hashStream = [System.IO.File]::OpenRead($_.FullName)
     $hasher = [System.Security.Cryptography.SHA256]::Create()
     try { $digest = [BitConverter]::ToString($hasher.ComputeHash($hashStream)).Replace('-','').ToLowerInvariant() }
     finally { $hashStream.Dispose(); $hasher.Dispose() }
     "$digest  $($_.Name)"
 }
-[System.IO.File]::WriteAllLines((Join-Path $releaseDir 'SHA256SUMS.txt'),[string[]]$hashLines)
+# LF endings so `sha256sum -c` works as well as PowerShell's Get-FileHash.
+[System.IO.File]::WriteAllText((Join-Path $releaseDir 'SHA256SUMS.txt'),(($hashLines -join "`n") + "`n"))
 Write-Output "Paquete listo: $releaseDir"

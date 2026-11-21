@@ -36,7 +36,7 @@ For manual Windows checks, switch between AoE4 and another app and test Page Dow
 
 ### Publish a release
 
-Run `npm run installer` and `npm run release:package` to generate the installer, corresponding source, GPLv3, starter pack, guide, release notes, and SHA-256 hashes in `release/<version>/`. The source archive uses an explicit list of directories and excludes AppData and secrets.
+Run `npm run installer` and `npm run release:package` to put `AoE4-Overlay-<version>-setup.exe` and its `SHA256SUMS.txt` in `release/<version>/`. That is all a release ships: the installer already bundles `LICENSE` and `THIRD-PARTY-NOTICES.txt`, and the **Source code** archives GitHub attaches to every tag are the corresponding source required by the GPLv3. Release notes come from `docs/releases/<version>.md`.
 
 `.github/workflows/release.yml` verifies and builds on Windows. A tag such as `v0.3.8` creates a draft release with the files. Review the attachments before publishing on GitHub. A manual workflow run produces artifacts only.
 
