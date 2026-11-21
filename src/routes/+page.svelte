@@ -13,7 +13,7 @@
 	import BackupView from '$lib/components/BackupView.svelte';
 	import PracticeView, { type PracticeStatus } from '$lib/components/PracticeView.svelte';
 	import { downloadBackup, importBuilds } from '$lib/imports';
-	import { syncLanguage, isTauri, keepAlive, loadData, on, onDataChanged, onQuitRequested, onRegionSelected, quitApp, saveData, send } from '$lib/bridge';
+	import { syncLanguage, isTauri, keepAlive, loadData, takeInstallerLanguage, on, onDataChanged, onQuitRequested, onRegionSelected, quitApp, saveData, send } from '$lib/bridge';
 	import { cloneBuild, newBuild, replaceWithStarterBuilds } from '$lib/defaults';
 	import type { AppData, Build, Practice } from '$lib/types';
 	import { preferredBuildId, rememberDefault, setDefaultBuild } from '$lib/util';
@@ -195,8 +195,10 @@
 	}
 
 	onMount(() => {
-		void loadData().then((loaded) => {
+		void Promise.all([loadData(), takeInstallerLanguage()]).then(([loaded, chosen]) => {
 			lastSaved = JSON.stringify(loaded);
+			// Applied after `lastSaved`, so the change is saved and reaches the other windows.
+			if (chosen) loaded.settings.language = chosen;
 			data = loaded;
 			if(['pending','detecting'].includes(loaded.settings.onboarding))tab='welcome';
 			selectedId = loaded.settings.activeBuildId ?? loaded.builds[0]?.id ?? null;
