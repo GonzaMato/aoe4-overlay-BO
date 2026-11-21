@@ -38,7 +38,7 @@ For manual Windows checks, switch between AoE4 and another app and test Page Dow
 
 Run `npm run installer` and `npm run release:package` to generate the installer, corresponding source, GPLv3, starter pack, guide, release notes, and SHA-256 hashes in `release/<version>/`. The source archive uses an explicit list of directories and excludes AppData and secrets.
 
-`.github/workflows/release.yml` verifies and builds on Windows. A tag such as `v0.3.6` creates a draft release with the files. Review the attachments before publishing on GitHub. A manual workflow run produces artifacts only.
+`.github/workflows/release.yml` verifies and builds on Windows. A tag such as `v0.3.7` creates a draft release with the files. Review the attachments before publishing on GitHub. A manual workflow run produces artifacts only.
 
 ## Project structure
 

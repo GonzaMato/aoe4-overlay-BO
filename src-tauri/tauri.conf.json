@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "AoE4 Overlay",
-  "version": "0.3.6",
-  "identifier": "com.gonzalo.aoe4-overlay",
+  "version": "0.3.7",
+  "identifier": "app.aoe4overlay",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -42,6 +42,8 @@
   },
   "bundle": {
     "active": true,
+    "publisher": "AoE4 Overlay",
+    "copyright": "Copyright (C) 2026 GonzaMato",
     "license": "GPL-3.0-only",
     "licenseFile": "../LICENSE",
     "resources": {
@@ -55,7 +57,7 @@
     "windows": {
       "nsis": {
         "installMode": "currentUser",
-        "installerHooks": "./windows/startup.nsh",
+        "installerHooks": "./windows/installer-hooks.nsh",
         "languages": [
           "English",
           "Spanish"

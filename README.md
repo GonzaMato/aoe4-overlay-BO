@@ -94,7 +94,7 @@ No. Everything runs and is stored on your PC. The app only contacts GitHub when 
 <details>
 <summary><b>Where are my builds saved? Will an update erase them?</b></summary>
 
-In `%APPDATA%\com.gonzalo.aoe4-overlay\aoe4-overlay.json`. Updates install over the existing app and keep your builds, settings and practice history. **Settings → Data** exports a full backup.
+In `%APPDATA%\app.aoe4overlay\aoe4-overlay.json`. Updates install over the existing app and keep your builds, settings and practice history. **Settings → Data** exports a full backup.
 </details>
 
 <details>
@@ -109,7 +109,7 @@ Bug reports, build suggestions and ideas are welcome in [Issues](https://github.
 
 ## License and credits
 
-Copyright (C) 2026 Gonzalo. AoE4 Overlay is free software under the **GNU General Public License, version 3 only** (`GPL-3.0-only`). See [LICENSE](LICENSE). Each release includes the matching source archive.
+Copyright (C) 2026 GonzaMato. AoE4 Overlay is free software under the **GNU General Public License, version 3 only** (`GPL-3.0-only`). See [LICENSE](LICENSE). Each release includes the matching source archive.
 
 Starter builds credit their original authors; see [starter pack sources](docs/build-pack-sources.md). Civilization flags come from [AoE4 World Overlay](https://github.com/aoe4world/overlay) ([asset notice](static/civilizations/NOTICE.md)). Third-party licenses are listed in [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt).
 
