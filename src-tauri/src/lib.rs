@@ -6,6 +6,7 @@ use tauri::{
 mod desktop;
 mod build_picker;
 mod legacy_data;
+mod locale;
 mod region_selector;
 mod setup;
 mod startup;
@@ -142,6 +143,7 @@ pub fn run() {
             region_selector::region_selector_geometry,
             region_selector::finish_region_selection,
             set_language,
+            locale::initial_language,
             take_overlay_activation,
             quit_app
         ])

@@ -52,16 +52,33 @@ const SELF = uid();
 let storePromise: Promise<Store> | null = null;
 const store = (): Promise<Store> => (storePromise ??= load(STORE_FILE, { autoSave: false }));
 
+/**
+ * First-launch language: the one picked in the installer, then the Windows display
+ * language (both read natively), then the browser's. The WebView's own language list
+ * does not always follow Windows.
+ */
+export async function initialLanguage(): Promise<Language> {
+	if (isTauri) {
+		try {
+			const language = await invoke<Language | null>('initial_language');
+			if (language === 'es' || language === 'en') return language;
+		} catch (err) {
+			console.error('No se pudo leer el idioma de Windows', err);
+		}
+	}
+	return systemLanguage();
+}
+
 export async function loadData(): Promise<AppData> {
 	try {
 		const saved = isTauri
 			? await (await store()).get<AppData>('data')
 			: (raw => raw ? JSON.parse(raw) : undefined)(localStorage.getItem(LOCAL_KEY));
-		// A first launch opens in the Windows language; saved data keeps the player's choice.
-		return saved ? normalize(saved) : defaultData(systemLanguage());
+		// Saved data keeps the player's choice; only a first launch picks a language.
+		return saved ? normalize(saved) : defaultData(await initialLanguage());
 	} catch (err) {
 		console.error('No se pudieron leer los datos guardados', err);
-		return defaultData(systemLanguage());
+		return defaultData(await initialLanguage());
 	}
 }
 
