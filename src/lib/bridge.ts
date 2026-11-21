@@ -69,6 +69,21 @@ export async function initialLanguage(): Promise<Language> {
 	return systemLanguage();
 }
 
+/**
+ * The language picked in the installer when it differs from the app's, once (main
+ * window only). It wins over the saved setting: the player just chose it.
+ */
+export async function takeInstallerLanguage(): Promise<Language | null> {
+	if (!isTauri) return null;
+	try {
+		const language = await invoke<Language | null>('take_installer_language');
+		return language === 'es' || language === 'en' ? language : null;
+	} catch (err) {
+		console.error('No se pudo leer el idioma del instalador', err);
+		return null;
+	}
+}
+
 export async function loadData(): Promise<AppData> {
 	try {
 		const saved = isTauri

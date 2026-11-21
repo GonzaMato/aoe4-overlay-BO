@@ -65,6 +65,7 @@ fn set_language(
         .set_tooltip(Some(tooltip))
         .map_err(|e| e.to_string())?;
     state.spanish.store(spanish, Ordering::Relaxed);
+    locale::remember(spanish);
     Ok(())
 }
 
@@ -144,6 +145,7 @@ pub fn run() {
             region_selector::finish_region_selection,
             set_language,
             locale::initial_language,
+            locale::take_installer_language,
             take_overlay_activation,
             quit_app
         ])
