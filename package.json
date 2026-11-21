@@ -1,6 +1,6 @@
 {
   "name": "aoe4-overlay",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Build orders and practice overlay for Age of Empires IV",
   "type": "module",
   "scripts": {

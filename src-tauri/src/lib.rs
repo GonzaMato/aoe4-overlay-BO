@@ -5,6 +5,7 @@ use tauri::{
 };
 mod desktop;
 mod build_picker;
+mod legacy_data;
 mod region_selector;
 mod setup;
 mod startup;
@@ -120,6 +121,8 @@ pub fn run() {
                 activate_existing(app);
             }
         }))
+        // Moves data saved under the pre-0.3.7 identifier before the store loads it.
+        .plugin(legacy_data::init())
         // Teclas globales: se registran desde el frontend (ventana del overlay).
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         // Guardado de builds y ajustes en un JSON dentro de la carpeta de datos de la app.
