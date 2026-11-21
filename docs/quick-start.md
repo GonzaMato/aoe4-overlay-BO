@@ -1,6 +1,6 @@
 # Quick start
 
-1. Download `AoE4 Overlay_<version>_x64-setup.exe` from [GitHub Releases](https://github.com/GonzaMato/aoe4-overlay-BO/releases).
+1. Download `AoE4-Overlay-<version>-setup.exe` from [GitHub Releases](https://github.com/GonzaMato/aoe4-overlay-BO/releases).
 2. Install and open **AoE4 Overlay**. It opens in the language you chose in the installer, or your Windows language (Spanish or English). You can change it in **Settings**.
 3. In **Home**, choose a build. Optionally enter your AoE4 name so the app picks your civilization's build on the loading screen. If you leave it blank, the app learns it the first time you choose a build during a match and asks you to confirm.
 4. Choose **With hotkeys** (recommended). Open AoE4 in borderless windowed mode. Press **Page Down** for the next step and **Page Up** to go back. **Ctrl + Alt + O** opens the build picker in game.
