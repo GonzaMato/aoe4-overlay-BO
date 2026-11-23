@@ -30,6 +30,7 @@
 - **Knows your civ.** Add your AoE4 name (or let the app learn it) and it picks your civilization's build on the loading screen.
 - **50 builds included.** Two attributed 1v1 openings for each of the 25 civilizations, in English and Spanish.
 - **Bring your own.** Edit any build, write new ones, or import from [AoE4 Guides](https://aoe4guides.com) (Overlay Tool export).
+- **Convert a guide with your own AI.** Give your AI the [AoE4BO conversion prompt](docs/aoe4bo-ai-prompt.txt) and the guide. Paste the JSON it returns into **Builds → Import**. The prompt includes worked examples of villager goals the overlay can check.
 - **Practice mode.** Time every step and compare against the target to see where your build slips.
 - **Looks the part.** Civilization flags and colors, compact mode, and a position you choose per monitor.
 
