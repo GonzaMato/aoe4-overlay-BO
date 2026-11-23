@@ -1,4 +1,4 @@
-import type { Villagers } from './types';
+import { RESOURCES, type Villagers } from './types';
 export type OnboardingState = 'pending' | 'detecting' | 'complete' | 'skipped';
 export interface CounterSample { at:number; stable:boolean; workers:Villagers; idle:number; total:number; }
 export const automaticAllowed = (state:OnboardingState) => state !== 'detecting' && state !== 'pending';
@@ -14,7 +14,10 @@ export class CounterCalibration {
   private consecutive = 0;
 
   observe(reading: Omit<CounterSample, 'at' | 'stable'>, regions: string, now = Date.now()): CounterSample {
-    this.consecutive = regions === this.regions ? this.consecutive + 1 : 1;
+    const previous = this.sample;
+    const matches = regions === this.regions && previous?.idle === reading.idle
+      && RESOURCES.every(resource => previous.workers[resource] === reading.workers[resource]);
+    this.consecutive = matches ? this.consecutive + 1 : 1;
     this.regions = regions;
     this.sample = { ...reading, at: now, stable: this.consecutive >= 3 };
     return this.sample;

@@ -14,6 +14,8 @@ pub fn recognize_rows(
         (70, 5, 2),
         (70, 1, 10),
         (70, 1, 20),
+        // At larger HUD scales, give adjacent thin digits more space between copies.
+        (120, 2, 24),
     ] {
         if rows.iter().all(|row| !row.is_empty()) {
             break;
@@ -188,6 +190,23 @@ mod tests {
             super::recognize_rows(pixels, 47, 210, 4).unwrap(),
             ["2", "11", "3", "0"]
         );
+    }
+    #[test]
+    #[ignore = "Requires an installed Windows OCR language"]
+    fn recognizes_scaled_worker_counts_with_adjacent_thin_digits() {
+        let original = include_bytes!("../../tests/fixtures/workers-live-47x210.bgra");
+        for percent in [110, 150] {
+            let (w, h) = (47 * percent / 100, 210 * percent / 100);
+            let mut scaled = Vec::with_capacity(w * h * 4);
+            for y in 0..h {
+                for x in 0..w {
+                    let src = (y * 210 / h * 47 + x * 47 / w) * 4;
+                    scaled.extend_from_slice(&original[src..src + 4]);
+                }
+            }
+            let rows = super::recognize_rows(&scaled, w as i32, h as i32, 4).unwrap();
+            assert_eq!(rows, ["2", "11", "3", "0"], "HUD scale {percent}%");
+        }
     }
     #[test]
     #[ignore = "Requires an installed Windows OCR language"]

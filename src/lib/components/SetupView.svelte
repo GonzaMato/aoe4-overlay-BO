@@ -1,5 +1,6 @@
 <script lang="ts">
  import CivFlag from './CivFlag.svelte';
+ import CalibrationExample from './CalibrationExample.svelte';
  import { prettyHotkey } from '$lib/hotkeys';
  import { t, locale, label } from '$lib/i18n';
  import { onMount } from 'svelte';
@@ -88,6 +89,7 @@
 
 <details class="setup-card calibration">
  <summary>{$t("Calibración de contadores", "Counter calibration")}</summary>
+ <CalibrationExample />
  {#if settings.setup.enabled || !manualCalibration}
   <p class="note">{$t("Marcá solo los números. La corrección se guarda en el perfil de esta pantalla.", "Select just the digits. Corrections are saved to this screen’s profile.")}</p>
   {#if !status?.geometry}<p class="note">{$t("Volvé a AoE4 con el HUD visible para detectar la pantalla.", "Return to AoE4 with the HUD visible to detect the screen.")}</p>{/if}

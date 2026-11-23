@@ -1,5 +1,6 @@
 <script lang="ts">
  import { t, locale, label } from '$lib/i18n';
+ import CalibrationExample from '$lib/components/CalibrationExample.svelte';
   import { onMount } from 'svelte';
   import { loadData, onDataChanged, finishRegionSelection, isTauri, regionSelectorGeometry } from '$lib/bridge';
   import { physicalRegion, selectionRect, type Point, type Rectangle } from '$lib/region';
@@ -59,12 +60,11 @@
     {#if target === 'idle'}
     <strong>{$t("Seleccioná el número de aldeanos inactivos", "Select the idle villager number")}</strong>
     <p>{$t("Está arriba de los recursos, junto al aldeano con “Z”. Encerrá solo el número: dejá afuera el ícono y el contador de población. Dejá espacio para hasta tres cifras.", "It is above the resources, next to the villager with a “Z”. Select only the number, excluding the icon and population counter. Leave room for three digits.")}</p>
-    <p class="example">{$t("Este contador se suma a comida + madera + oro + piedra.", "This counter is added to food + wood + gold + stone.")}</p>
     {:else}
     <strong>{$t("Seleccioná los cuatro números de aldeanos", "Select the four villager numbers")}</strong>
     <p>{$t("Solo los números de comida, madera, oro y piedra, incluidos los ceros. Dejá afuera los íconos y los recursos acumulados. Centrá un número en cada franja.", "Select only food, wood, gold and stone villager numbers, including zeros. Exclude icons and stockpiled resources. Center one number in each band.")}</p>
-    <p class="example">{$t("Ejemplo: 10 + 9 + 0 + 0 = 19 aldeanos asignados.", "Example: 10 + 9 + 0 + 0 = 19 assigned villagers.")}</p>
     {/if}
+    <details><summary>{$t("Ver ejemplo de selección", "Show selection example")}</summary><CalibrationExample {target} /></details>
     {#if candidate}<span class="dimensions">{$t("Región", "Region")}: {candidate.width} × {candidate.height} px</span>{/if}
     {#if error}<p class="error" role="alert">{error}</p>{/if}
     <div class="buttons">
@@ -81,7 +81,9 @@
   .row-guide { position: absolute; width: 100%; height: 25%; border-top: 1px dashed #f2b33d; }
   .row-guide:first-child { border-top: 0; }
   .row-guide span { position: absolute; left: calc(100% + 8px); top: 50%; transform: translateY(-50%); padding: 2px 6px; background: #12151a; color: #f2b33d; font-size: 12px; }
-  .example { font-size: 13px; color: var(--accent); }
+  aside details { margin-bottom: 10px; }
+  aside summary { cursor: pointer; color: var(--accent); }
+  aside { max-height: calc(100% - 48px); overflow-y: auto; }
   aside { position: absolute; top: 24px; left: 50%; transform: translateX(-50%); width: min(560px, calc(100% - 32px)); padding: 18px 22px; background: #12151a; border: 1px solid #f2b33d; border-radius: 12px; cursor: default; box-shadow: 0 8px 30px #0008; }
   strong { font-size: 18px; } p { margin: 8px 0 12px; color: var(--soft); } .error { color: var(--late); } .dimensions { color: var(--dim); }
   .buttons { display: flex; gap: 10px; margin-top: 12px; } button { padding: 8px 16px; border: 1px solid var(--line-strong); background: var(--card); border-radius: 6px; cursor: pointer; }

@@ -171,6 +171,11 @@ export async function overlayBounds():Promise<Rectangle|null> {
  const win=getCurrentWindow(),p=await win.outerPosition(),s=await win.outerSize();
  return {x:p.x,y:p.y,width:s.width,height:s.height};
 }
+export function onGameReopened(handler: () => void): () => void {
+	if (!isTauri) return () => {};
+	const stop = listen('game-reopened', handler);
+	return () => void stop.then(unlisten => unlisten());
+}
 export function onGameFocus(handler: (active: boolean) => void): () => void {
 	if (!isTauri) return () => {};
 	const stop = listen<boolean>('game-focus', e => handler(e.payload)); return () => void stop.then(fn => fn());
