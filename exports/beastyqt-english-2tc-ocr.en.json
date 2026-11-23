@@ -1,0 +1,468 @@
+{
+  "name": "AoE4 Helper - Beastyqt English 2 TC - Abbey into White Tower",
+  "civ": "English",
+  "mode": "",
+  "map": "Open",
+  "steps": [
+    {
+      "time": 0,
+      "pop": null,
+      "action": "Put all 6 starting villagers on sheep and rally the Town Center to sheep.",
+      "note": "Bring sheep home with the scout and keep training villagers. Guide by MicroMindGG, based on Beastyqt's English 2 TC game. https://aoe4guides.com/builds/j4qoTJleWDnW0P0zpFwC",
+      "villagers": {
+        "food": 6,
+        "wood": 0,
+        "gold": 0,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "resources",
+        "minimum": {
+          "food": 6
+        }
+      }
+    },
+    {
+      "time": 35,
+      "pop": null,
+      "action": "Take one villager off sheep to build a house.",
+      "note": "Send the builder back to sheep afterward. The new villager can start the gold mining camp at the same time.",
+      "villagers": {
+        "food": 5,
+        "wood": 0,
+        "gold": 1,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 35,
+      "pop": null,
+      "action": "Build a mining camp at gold with the new villager.",
+      "note": "",
+      "villagers": {
+        "food": 5,
+        "wood": 0,
+        "gold": 1,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 35,
+      "pop": null,
+      "action": "Have the mining camp builder mine gold.",
+      "note": "",
+      "villagers": {
+        "food": 5,
+        "wood": 0,
+        "gold": 1,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "resources",
+        "minimum": {
+          "gold": 1
+        }
+      }
+    },
+    {
+      "time": 60,
+      "pop": null,
+      "action": "Send the next villager to gold for 2 miners.",
+      "note": "Rally all subsequent villagers to sheep.",
+      "villagers": {
+        "food": 6,
+        "wood": 0,
+        "gold": 2,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "resources",
+        "minimum": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "time": 130,
+      "pop": null,
+      "action": "Keep both gold miners working until you have 200 gold.",
+      "note": "Keep rallying to sheep.",
+      "villagers": {
+        "food": 10,
+        "wood": 0,
+        "gold": 2,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 135,
+      "pop": null,
+      "action": "Start the Abbey of Kings with both gold miners.",
+      "note": "Leave those two villagers to build it alone.",
+      "villagers": {
+        "food": 10,
+        "wood": 0,
+        "gold": 0,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 140,
+      "pop": null,
+      "action": "Use one villager to start a house around 2:20.",
+      "note": "",
+      "villagers": {
+        "food": 4,
+        "wood": 4,
+        "gold": 0,
+        "stone": 4
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 150,
+      "pop": null,
+      "action": "Build a mining camp at stone and a lumber camp at wood.",
+      "note": "Use 6 villagers from sheep plus new villagers for the two groups. Rally to wood.",
+      "villagers": {
+        "food": 4,
+        "wood": 4,
+        "gold": 0,
+        "stone": 4
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 150,
+      "pop": null,
+      "action": "Put 4 villagers on stone and 4 on wood.",
+      "note": "",
+      "villagers": {
+        "food": 4,
+        "wood": 4,
+        "gold": 0,
+        "stone": 4
+      },
+      "advance": {
+        "kind": "resources",
+        "minimum": {
+          "wood": 4,
+          "stone": 4
+        }
+      }
+    },
+    {
+      "time": 170,
+      "pop": null,
+      "action": "Rally new villagers to wood, bringing the woodcutters to 5.",
+      "note": "Keep 4 on sheep and 4 on stone until Feudal. Continue rallying to wood.",
+      "villagers": {
+        "food": 4,
+        "wood": 5,
+        "gold": 0,
+        "stone": 4
+      },
+      "advance": {
+        "kind": "resources",
+        "minimum": {
+          "wood": 5
+        }
+      }
+    },
+    {
+      "time": 235,
+      "pop": null,
+      "action": "Build a house at 18/20 population.",
+      "note": "Keep rallying villagers to wood.",
+      "villagers": {
+        "food": 4,
+        "wood": 7,
+        "gold": 0,
+        "stone": 4
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 270,
+      "pop": null,
+      "action": "Bank at least 300 stone for the second Town Center.",
+      "note": "Keep rallying to wood.",
+      "villagers": {
+        "food": 4,
+        "wood": 9,
+        "gold": 0,
+        "stone": 4
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 285,
+      "pop": null,
+      "action": "When the Abbey finishes and you reach Feudal, send the King to harass.",
+      "note": "Keep rallying to wood.",
+      "villagers": {
+        "food": 5,
+        "wood": 15,
+        "gold": 0,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 285,
+      "pop": null,
+      "action": "Move all 4 stone miners and both Abbey builders to wood.",
+      "note": "The four miners leave stone together.",
+      "villagers": {
+        "food": 5,
+        "wood": 15,
+        "gold": 0,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "transfer",
+        "from": "stone",
+        "to": "wood",
+        "count": 4
+      }
+    },
+    {
+      "time": 285,
+      "pop": null,
+      "action": "Check that the two Abbey builders are also on wood, bringing the total to 15.",
+      "note": "",
+      "villagers": {
+        "food": 5,
+        "wood": 15,
+        "gold": 0,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "resources",
+        "minimum": {
+          "wood": 15
+        }
+      }
+    },
+    {
+      "time": 295,
+      "pop": null,
+      "action": "Send 8 woodcutters to the deer pack beside the cliff.",
+      "note": "",
+      "villagers": {
+        "food": 5,
+        "wood": 7,
+        "gold": 0,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 303,
+      "pop": null,
+      "action": "Place the second Town Center on the deer around 5:03.",
+      "note": "Use all 8 builders.",
+      "villagers": {
+        "food": 5,
+        "wood": 7,
+        "gold": 0,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 360,
+      "pop": null,
+      "action": "Finish the second Town Center.",
+      "note": "Rally to food and keep both Town Centers training villagers continuously.",
+      "villagers": {
+        "food": 16,
+        "wood": 5,
+        "gold": 3,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 360,
+      "pop": null,
+      "action": "Send its 8 builders to hunt the deer under the new Town Center.",
+      "note": "This brings the food allocation to 16.",
+      "villagers": {
+        "food": 16,
+        "wood": 5,
+        "gold": 3,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "resources",
+        "minimum": {
+          "food": 16
+        }
+      }
+    },
+    {
+      "time": 390,
+      "pop": null,
+      "action": "Send villagers back to gold and stone.",
+      "note": "Aim for about 13 food, 3 wood, 5 gold and 3 stone. Treat the splits from here on as approximate.",
+      "villagers": {
+        "food": 13,
+        "wood": 3,
+        "gold": 5,
+        "stone": 3
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 435,
+      "pop": null,
+      "action": "Build a barracks.",
+      "note": "Train spearmen to defend against raids.",
+      "villagers": {
+        "food": 13,
+        "wood": 3,
+        "gold": 8,
+        "stone": 3
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 480,
+      "pop": null,
+      "action": "Bring gold up to around 11 miners for the Castle age-up.",
+      "note": "",
+      "villagers": {
+        "food": 12,
+        "wood": 6,
+        "gold": 11,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 510,
+      "pop": null,
+      "action": "Defend raids at home with spearmen and the King.",
+      "note": "Keep adding houses. The guide reaches 39/40 population here.",
+      "villagers": {
+        "food": 18,
+        "wood": 5,
+        "gold": 11,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 575,
+      "pop": null,
+      "action": "Start the White Tower with about 19 villagers to reach Castle quickly.",
+      "note": "",
+      "villagers": {
+        "food": 10,
+        "wood": 1,
+        "gold": 12,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 620,
+      "pop": null,
+      "action": "When the White Tower finishes and you reach Castle, send its builders to wood.",
+      "note": "Aim for roughly 20 on wood.",
+      "villagers": {
+        "food": 10,
+        "wood": 20,
+        "gold": 12,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 620,
+      "pop": null,
+      "action": "Research Textiles, Double Broadaxe and Wheelbarrow around 9–12 minutes.",
+      "note": "",
+      "villagers": {
+        "food": 10,
+        "wood": 20,
+        "gold": 12,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 660,
+      "pop": null,
+      "action": "Build farms around the Town Centers.",
+      "note": "Put men-at-arms in front, with crossbowmen and longbowmen behind.",
+      "villagers": {
+        "food": 15,
+        "wood": 21,
+        "gold": 10,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    },
+    {
+      "time": 690,
+      "pop": null,
+      "action": "Add blacksmith upgrades.",
+      "note": "Keep both Town Centers training villagers.",
+      "villagers": {
+        "food": 19,
+        "wood": 20,
+        "gold": 10,
+        "stone": 0
+      },
+      "advance": {
+        "kind": "manual"
+      }
+    }
+  ]
+}

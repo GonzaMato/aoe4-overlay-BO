@@ -1,0 +1,42 @@
+Convert the AoE4 Guides build I supply into a native AoE4BO build I can paste into Builds → Import. Read the whole guide, including every note and resource table. Write short player-facing instructions in English. If the guide is missing or a link cannot be read, ask me for its Overlay Tool JSON. Otherwise return one JSON object, starting with { and ending with }. Output JSON only.
+
+Use this shape. The values below illustrate one step in an English opening. Replace them with the actual build and convert every row.
+
+{
+  "name": "English opening",
+  "civ": "English",
+  "mode": "",
+  "map": "",
+  "steps": [
+    {
+      "time": 60,
+      "pop": null,
+      "action": "Send the second villager to gold.",
+      "note": "Rally subsequent villagers to sheep.",
+      "villagers": { "food": 6, "wood": 0, "gold": 2, "stone": 0 },
+      "advance": { "kind": "resources", "minimum": { "gold": 2 } }
+    }
+  ]
+}
+
+How to convert a guide
+
+1. Use the native "steps" array. Put every playable instruction and its explicit "advance" rule directly in a step. AoE4BO generates IDs on import. Copy the build name, civilization, map and mode when known. Use an empty string for missing map or mode. Credit the original author and guide URL in the first note when supplied.
+
+2. Read each row as a player would. The first line may be a rally icon and the main action may be in a later note or parentheses. Replace icon paths with readable names. Preserve strategy, scouting, production, builder counts and conditional advice. Put ongoing reminders in "note". Use a separate step for a distinct one-time action that needs confirmation. Keep simultaneous assignments together and preserve prerequisites.
+
+3. A step tells AoE4BO what the player should do NOW and when that instruction is complete. Use the most specific supported rule:
+   - Reach a stated allocation, e.g. 2 villagers mining gold → {"kind":"resources","minimum":{"gold":2}}. A simultaneous target of 4 on wood and 4 on stone → {"kind":"resources","minimum":{"wood":4,"stone":4}}. Include only the resources that matter to that instruction.
+   - Reach an explicit total of 12 villagers → {"kind":"total","count":12}.
+   - Move exactly 4 villagers from stone to wood → {"kind":"transfer","from":"stone","to":"wood","count":4}. Both resources and the count must be clear.
+   - A required building, age-up, research, military action, stockpile target or genuinely ambiguous goal → {"kind":"manual"}.
+   The OCR reads villager counts. Concrete rules above enable automatic advancement. The literal kind "auto" asks the app to guess. Generate the concrete rule yourself.
+
+4. Look for measurable parts inside mixed instructions. For “build a mining camp and put the first villager on gold,” emit a manual camp step followed by a resources step for gold ≥ 1. For “2nd villager to gold (2 on gold), then rally future villagers to sheep,” give the gold assignment a resources rule. For “keep two miners until you have 200 gold,” keep the stockpile goal manual. A timed row or an overall distribution alone is insufficient evidence of completion. An explicit assignment plus a matching final distribution can establish a target even when a note omits its number. Treat approximate splits as guidance.
+
+5. "time" is game seconds (2:30 → 150). "pop" is population_count, including military. Use null when either is unknown or -1. villager_count is a different quantity. "villagers" contains the row's displayed counts for food, wood, gold and stone. Use 0 for a missing or negative display count and never use that default as evidence for a rule. If you split a row, keep its reference distribution and time on the resulting steps unless the guide gives a more specific time. Use positive integer targets up to 200, and keep the sum of simultaneous minimums at or below 200.
+
+Before responding, check every source row against the output. Every playable step must have an action, note, time, pop, all four villager counts and one valid advance rule. Revisit every manual step containing a measurable villager assignment. Check that OCR cannot skip a required manual action and that no population, timestamp or stockpile was mistaken for a villager target. Return the complete JSON.
+
+My AoE4 Guides build:
+[Paste the guide or its Overlay Tool JSON here.]
