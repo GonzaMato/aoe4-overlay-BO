@@ -214,6 +214,92 @@ fn detect_hud(pixels: &[u8], w: i32, h: i32) -> Option<(Rect, Rect)> {
     (inside(&workers, w, h) && inside(&idle, w, h)).then_some((workers, idle))
 }
 
+#[cfg(windows)]
+struct HudCounters {
+    workers: Rect,
+    idle: Rect,
+    rows: Vec<String>,
+}
+
+#[cfg(windows)]
+fn read_counter_rows(
+    pixels: &[u8],
+    g: &GameGeometry,
+    workers: &Rect,
+    idle: &Rect,
+    idle_pixels: &[u8],
+) -> Result<Vec<String>, String> {
+    let mut rows = crate::worker_ocr::recognize_rows(
+        &crop(pixels, g.width, g.height, workers)?,
+        workers.width,
+        workers.height,
+        4,
+    )?;
+    rows.extend(crate::worker_ocr::recognize_rows(
+        idle_pixels,
+        idle.width,
+        idle.height,
+        1,
+    )?);
+    Ok(rows)
+}
+
+#[cfg(windows)]
+fn has_idle_button(pixels: &[u8]) -> bool {
+    // The white count sits on a predominantly blue button, even when the resource icons are covered.
+    let blue = pixels
+        .chunks_exact(4)
+        .filter(|p| p[0].saturating_sub(p[2]) > 50 && p[0].saturating_sub(p[1]) > 10)
+        .count();
+    blue * 2 > pixels.len() / 4
+}
+
+#[cfg(windows)]
+fn read_counters(
+    pixels: &[u8],
+    g: &GameGeometry,
+    hint: Option<&Hint>,
+) -> Result<Option<HudCounters>, String> {
+    let detected = detect_hud(pixels, g.width, g.height);
+    if let Some(h) = hint.filter(|h| {
+        h.manual
+            && inside(&h.workers, g.width, g.height)
+            && h.workers.height >= 40
+            && inside(&h.idle, g.width, g.height)
+    }) {
+        let near_icons = detected.as_ref().is_some_and(|(workers, idle)| {
+            (h.workers.x - workers.x).abs() < 30
+                && (h.workers.y - workers.y).abs() < 30
+                && (h.workers.height - workers.height).abs() < 30
+                && (h.idle.x - idle.x).abs() < 30
+                && (h.idle.y - idle.y).abs() < 30
+        });
+        let idle_pixels = crop(pixels, g.width, g.height, &h.idle)?;
+        if near_icons || has_idle_button(&idle_pixels) {
+            let rows = read_counter_rows(pixels, g, &h.workers, &h.idle, &idle_pixels)?;
+            // Without matching icons, validate all five numbers before treating this as a match HUD.
+            let total: Option<u32> = rows.iter().map(|row| row.parse::<u32>().ok()).sum();
+            if near_icons || total.is_some_and(|n| n <= 200) {
+                return Ok(Some(HudCounters {
+                    workers: h.workers.clone(),
+                    idle: h.idle.clone(),
+                    rows,
+                }));
+            }
+        }
+    }
+    let Some((workers, idle)) = detected else {
+        return Ok(None);
+    };
+    let idle_pixels = crop(pixels, g.width, g.height, &idle)?;
+    let rows = read_counter_rows(pixels, g, &workers, &idle, &idle_pixels)?;
+    Ok(Some(HudCounters {
+        workers,
+        idle,
+        rows,
+    }))
+}
+
 #[tauri::command]
 pub async fn inspect_game(
     expected: GameGeometry,
@@ -248,44 +334,14 @@ pub async fn inspect_game(
                     }
                 }
             }
-            let detected = detect_hud(&pixels, g.width, g.height);
-            let hud = detected.is_some();
             let clock_hint = hint.as_ref().and_then(|h| h.clock.clone()).filter(|r| {
                 inside(r, g.width, g.height)
                     && r.x >= g.width * 40 / 100
                     && r.x + r.width <= g.width * 60 / 100
                     && r.y + r.height <= g.height * 24 / 100
             });
-            let regions = detected.map(|auto| {
-                hint.filter(|h| {
-                    h.manual
-                        && inside(&h.workers, g.width, g.height)
-                        && h.workers.height >= 40
-                        && inside(&h.idle, g.width, g.height)
-                        && (h.workers.x - auto.0.x).abs() < 30
-                        && (h.workers.y - auto.0.y).abs() < 30
-                        && (h.workers.height - auto.0.height).abs() < 30
-                        && (h.idle.x - auto.1.x).abs() < 30
-                        && (h.idle.y - auto.1.y).abs() < 30
-                })
-                .map(|h| (h.workers, h.idle))
-                .unwrap_or(auto)
-            });
-            let mut rows = Vec::new();
-            if let Some((workers, idle)) = &regions {
-                rows = crate::worker_ocr::recognize_rows(
-                    &crop(&pixels, g.width, g.height, workers)?,
-                    workers.width,
-                    workers.height,
-                    4,
-                )?;
-                rows.extend(crate::worker_ocr::recognize_rows(
-                    &crop(&pixels, g.width, g.height, idle)?,
-                    idle.width,
-                    idle.height,
-                    1,
-                )?);
-            }
+            let counters = read_counters(&pixels, g, hint.as_ref())?;
+            let hud = counters.is_some();
             let text_rect = if hud {
                 Rect {
                     x: g.width * 40 / 100,
@@ -342,9 +398,9 @@ pub async fn inspect_game(
             }
             Ok(Inspection {
                 geometry: expected,
-                workers: regions.as_ref().map(|r| r.0.clone()),
-                idle: regions.map(|r| r.1),
-                rows,
+                workers: counters.as_ref().map(|c| c.workers.clone()),
+                idle: counters.as_ref().map(|c| c.idle.clone()),
+                rows: counters.map(|c| c.rows).unwrap_or_default(),
                 lines,
                 hud,
             })
@@ -588,6 +644,58 @@ fn recognize_text(pixels: &[u8], w: i32, h: i32, ox: i32, oy: i32) -> Result<Vec
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[cfg(windows)]
+    #[test]
+    #[ignore = "Requires installed Windows OCR"]
+    fn manual_regions_read_counters_when_only_the_resource_icons_are_covered() {
+        let mut panel = include_bytes!("../../tests/fixtures/hud-live-260x310.bgra").to_vec();
+        let g = GameGeometry {
+            x: 0,
+            y: 0,
+            width: 260,
+            height: 310,
+            dpi: 96,
+            monitor: "test".into(),
+        };
+        let (workers, idle) = detect_hud(&panel, g.width, g.height).unwrap();
+        let mut hint = Hint {
+            workers,
+            idle,
+            clock: None,
+            manual: true,
+        };
+        for row in panel.chunks_exact_mut(260 * 4) {
+            row[..58 * 4].fill(0);
+        }
+        assert!(detect_hud(&panel, g.width, g.height).is_none());
+        let counters = read_counters(&panel, &g, Some(&hint)).unwrap().unwrap();
+        assert_eq!(counters.workers, hint.workers);
+        assert_eq!(counters.idle, hint.idle);
+        assert_eq!(counters.rows, ["4", "6", "2", "0", "1"]);
+
+        hint.manual = false;
+        assert!(read_counters(&panel, &g, Some(&hint)).unwrap().is_none());
+        hint.manual = true;
+        let mut missing_food = panel.clone();
+        let food = &hint.workers;
+        for y in food.y..food.y + food.height / 4 {
+            let start = ((y * g.width + food.x) * 4) as usize;
+            missing_food[start..start + food.width as usize * 4].fill(0);
+        }
+        assert!(
+            read_counters(&missing_food, &g, Some(&hint))
+                .unwrap()
+                .is_none()
+        );
+        // Keep the digits, but remove the blue idle-button background (non-HUD screen).
+        for pixel in panel.chunks_exact_mut(4) {
+            if pixel[0] > pixel[2].saturating_add(50) {
+                pixel[..3].fill(0);
+            }
+        }
+        assert!(read_counters(&panel, &g, Some(&hint)).unwrap().is_none());
+    }
 
     #[cfg(windows)]
     #[test]

@@ -5,6 +5,16 @@ import { PracticeClock, newPractice, recordArrival } from '../src/lib/practice.t
 import { defaultData } from '../src/lib/defaults.ts';
 import { CounterCalibration, canConfirm } from '../src/lib/onboarding.ts';
 const g={x:0,y:0,width:1920,height:1080,monitor:'DISPLAY1',dpi:96};
+test('calibration requires three consecutive matching distributions and idle counts', () => {
+ const calibration = new CounterCalibration();
+ const samples = [[8,0,0], [80,0,0], [8,0,0], [7,1,0], [7,1,1], [7,1,1], [7,1,1]];
+ const confirmations = samples.map(([food,wood,idle], i) => {
+   const now = 1000 + i * 1500;
+   const sample = calibration.observe({workers:{food,wood,gold:0,stone:0},idle,total:food+wood+idle},'regions',now);
+   return canConfirm(sample,now);
+ });
+ assert.deepEqual(confirmations,[false,false,false,false,false,false,true]);
+});
 test('a brief OCR loss while switching windows preserves the last confirmable sample',()=>{
  const calibration=new CounterCalibration();
  const reading={workers:{food:5,wood:0,gold:0,stone:0},idle:0,total:5};

@@ -8,7 +8,7 @@
  import Panel from '$lib/components/Panel.svelte';
  import BuildCompleted from '$lib/components/BuildCompleted.svelte';
  import { CompletionFeedback } from '$lib/completion';
- import { bindHotkeys, isTauri, keepAlive, loadData, makeClickThrough, on, onDataChanged, placeOverlay, send, unbindHotkeys, gameActive, onGameFocus, onRegionSelecting, setEditing, dragOverlay, overlayPosition, onNativeEdit, readWorkers } from '$lib/bridge';
+ import { bindHotkeys, isTauri, keepAlive, loadData, makeClickThrough, on, onDataChanged, placeOverlay, send, unbindHotkeys, gameActive, onGameFocus, onGameReopened, onRegionSelecting, setEditing, dragOverlay, overlayPosition, onNativeEdit, readWorkers } from '$lib/bridge';
  import { clampIndex, indexForPop } from '$lib/steps';
  import { PracticeClock, newPractice, recordArrival } from '$lib/practice';
  import { VillagerTotalGate } from '$lib/ocr';
@@ -395,7 +395,7 @@
      keepAlive(),
      onDataChanged(applyData),
      onGameFocus(updateFocus),
-     on('game-reopened', () => {
+     onGameReopened(() => {
        finish();
        resetSession();
        visible = true;
