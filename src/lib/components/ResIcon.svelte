@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { locale, resourceLabel } from '$lib/i18n';
-	import { type Resource } from '$lib/types';
+	import { locale, resourceLabel } from '#lib/i18n.ts';
+	import { type Resource } from '#lib/types.ts';
 
 	interface Props {
 		res: Resource;

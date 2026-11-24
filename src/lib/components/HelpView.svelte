@@ -1,12 +1,12 @@
 <script lang="ts">
  import Logo from './Logo.svelte';
- import { t } from '$lib/i18n';
+ import { t } from '#lib/i18n.ts';
  import { onMount } from 'svelte';
- import { monitorOptions, nativeDiagnostic, openReleases, send, isTauri } from '$lib/bridge';
- import { diagnosticText } from '$lib/diagnostics';
- import { checkRelease } from '$lib/releases';
- import type { Settings } from '$lib/types';
- import type { SetupStatus } from '$lib/setup';
+ import { monitorOptions, nativeDiagnostic, openReleases, send, isTauri } from '#lib/bridge.ts';
+ import { diagnosticText } from '#lib/diagnostics.ts';
+ import { checkRelease } from '#lib/releases.ts';
+ import type { Settings } from '#lib/types.ts';
+ import type { SetupStatus } from '#lib/setup.ts';
  import packageInfo from '../../../package.json';
  let {settings,status,failedHotkeys,onSetup}:{settings:Settings;status:SetupStatus|null;failedHotkeys:string[];onSetup:()=>void}=$props();
  let report=$state(''),message=$state(''),update=$state(''),busy=$state(false),checking=$state(false);

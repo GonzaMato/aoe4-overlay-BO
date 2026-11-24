@@ -1,8 +1,8 @@
 <script lang="ts">
- import { t, locale } from '$lib/i18n';
- import type { Practice, HotkeyAction } from '$lib/types';
- import { formatTime } from '$lib/util';
- import { send } from '$lib/bridge';
+ import { t, locale } from '#lib/i18n.ts';
+ import type { Practice, HotkeyAction } from '#lib/types.ts';
+ import { formatTime } from '#lib/util.ts';
+ import { send } from '#lib/bridge.ts';
  export interface PracticeStatus { elapsed: number | null; running: boolean; step: number; buildName: string; recording: boolean; editing: boolean; automatic?:boolean; manualClock?:boolean; }
  let { practices, status, selectedId = null }: { practices: Practice[]; status: PracticeStatus | null; selectedId?: string | null } = $props();
  let chosen = $state<string | null>(null);

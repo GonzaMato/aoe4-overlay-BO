@@ -1,8 +1,8 @@
 <script lang="ts">
- import { t } from '$lib/i18n';
- import type { Step, Subtask } from '$lib/types';
- import { copySubtasks, MAX_SUBTASKS, suggestSubtasks, validSubtasks } from '$lib/subtasks';
- import { uid } from '$lib/util';
+ import { t } from '#lib/i18n.ts';
+ import type { Step, Subtask } from '#lib/types.ts';
+ import { copySubtasks, MAX_SUBTASKS, suggestSubtasks, validSubtasks } from '#lib/subtasks.ts';
+ import { uid } from '#lib/util.ts';
  import StepAdvanceEditor from './StepAdvanceEditor.svelte';
  let {step=$bindable(),previous,index}:{step:Step;previous?:Step;index:number}=$props();
  let draft=$state<Subtask[]|null>(null);

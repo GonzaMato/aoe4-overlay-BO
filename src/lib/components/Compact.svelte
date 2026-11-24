@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { overlayTheme, overlayThemeStyle } from '$lib/overlay-theme';
+	import { overlayTheme, overlayThemeStyle } from '#lib/overlay-theme.ts';
 	import CivFlag from './CivFlag.svelte';
-	import { t, locale } from '$lib/i18n';
+	import { t, locale } from '#lib/i18n.ts';
 	import ResIcon from './ResIcon.svelte';
-	import { deltas } from '$lib/steps';
-	import { RESOURCES, type Build } from '$lib/types';
-	import { formatTime } from '$lib/util';
-	import { activeTask, taskRule, isLastTask } from '$lib/subtasks';
-	import type { Reading } from '$lib/advance';
-	import type { AutomationContext } from '$lib/overlay-status';
+	import { deltas } from '#lib/steps.ts';
+	import { RESOURCES, type Build } from '#lib/types.ts';
+	import { formatTime } from '#lib/util.ts';
+	import { activeTask, taskRule, isLastTask } from '#lib/subtasks.ts';
+	import type { Reading } from '#lib/advance.ts';
+	import type { AutomationContext } from '#lib/overlay-status.ts';
 	import AdvanceStatus from './AdvanceStatus.svelte';
 
 	interface Props {

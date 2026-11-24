@@ -1,9 +1,9 @@
 <script lang="ts">
- import { t, locale, label } from '$lib/i18n';
- import CalibrationExample from '$lib/components/CalibrationExample.svelte';
+ import { t, locale, label } from '#lib/i18n.ts';
+ import CalibrationExample from '#lib/components/CalibrationExample.svelte';
   import { onMount } from 'svelte';
-  import { loadData, onDataChanged, finishRegionSelection, isTauri, regionSelectorGeometry } from '$lib/bridge';
-  import { physicalRegion, selectionRect, type Point, type Rectangle } from '$lib/region';
+  import { loadData, onDataChanged, finishRegionSelection, isTauri, regionSelectorGeometry } from '#lib/bridge.ts';
+  import { physicalRegion, selectionRect, type Point, type Rectangle } from '#lib/region.ts';
 
   let start = $state<Point | null>(null);
   let rect = $state<Rectangle | null>(null);

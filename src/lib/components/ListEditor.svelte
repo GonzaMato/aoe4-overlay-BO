@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { t, locale, label as translateLabel } from '$lib/i18n';
+	import { t, locale, label as translateLabel } from '#lib/i18n.ts';
 	interface Props {
 		items: string[];
 		label: string;

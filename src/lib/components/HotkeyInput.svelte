@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { t, locale } from '$lib/i18n';
-	import { send } from '$lib/bridge';
-	import { eventToHotkey, prettyHotkey } from '$lib/hotkeys';
+	import { t, locale } from '#lib/i18n.ts';
+	import { send } from '#lib/bridge.ts';
+	import { eventToHotkey, prettyHotkey } from '#lib/hotkeys.ts';
 
 	interface Props {
 		value: string;

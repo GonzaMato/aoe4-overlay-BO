@@ -1,7 +1,7 @@
 <script lang="ts">
- import { t } from '$lib/i18n';
- import type { AppData } from '$lib/types';
- import { downloadBackup, importBackup } from '$lib/imports';
+ import { t } from '#lib/i18n.ts';
+ import type { AppData } from '#lib/types.ts';
+ import { downloadBackup, importBackup } from '#lib/imports.ts';
  let { data, onRestore }: { data: AppData; onRestore: (data: AppData) => void } = $props();
  let pending = $state<AppData | null>(null);
  let error = $state('');

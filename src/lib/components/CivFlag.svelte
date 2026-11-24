@@ -1,6 +1,6 @@
 <script lang="ts">
- import { civilizationFlag } from '$lib/civilizations';
- import { locale, label } from '$lib/i18n';
+ import { civilizationFlag } from '#lib/civilizations.ts';
+ import { locale, label } from '#lib/i18n.ts';
  let { civ, size=28, decorative=true }: {civ:string;size?:number;decorative?:boolean}=$props();
 </script>
 

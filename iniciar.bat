@@ -26,7 +26,7 @@ if exist "%LOCALAPPDATA%\AoE4 Overlay\aoe4-overlay.exe" (
 if not exist "%EXE%" goto :check_tools
 
 rem Sale con 1 si hay archivos del proyecto mas nuevos que el ejecutable.
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$exe = (Get-Item -LiteralPath '%EXE%').LastWriteTime; $dirs = Get-ChildItem -Recurse -File -ErrorAction SilentlyContinue 'src', 'static', 'src-tauri\src', 'src-tauri\capabilities', 'src-tauri\icons'; $files = Get-Item -ErrorAction SilentlyContinue 'package.json', 'svelte.config.js', 'vite.config.js', 'tsconfig.json', 'src-tauri\tauri.conf.json', 'src-tauri\Cargo.toml', 'src-tauri\build.rs'; $newer = @($dirs) + @($files) | Where-Object { $_.LastWriteTime -gt $exe } | Select-Object -First 1; if ($newer) { exit 1 } else { exit 0 }"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$exe = (Get-Item -LiteralPath '%EXE%').LastWriteTime; $dirs = Get-ChildItem -Recurse -File -ErrorAction SilentlyContinue 'src', 'static', 'src-tauri\src', 'src-tauri\capabilities', 'src-tauri\icons'; $files = Get-Item -ErrorAction SilentlyContinue 'package.json', 'vite.config.js', 'tsconfig.json', 'src-tauri\tauri.conf.json', 'src-tauri\Cargo.toml', 'src-tauri\build.rs'; $newer = @($dirs) + @($files) | Where-Object { $_.LastWriteTime -gt $exe } | Select-Object -First 1; if ($newer) { exit 1 } else { exit 0 }"
 if errorlevel 1 goto :check_tools
 goto :run
 

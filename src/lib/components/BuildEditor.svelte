@@ -1,12 +1,12 @@
 <script lang="ts">
  import CivFlag from './CivFlag.svelte';
- import { t, locale, label, resourceLabel, uniqueLabels } from '$lib/i18n';
+ import { t, locale, label, resourceLabel, uniqueLabels } from '#lib/i18n.ts';
 	import ResIcon from './ResIcon.svelte';
 	import StepAdvanceEditor from './StepAdvanceEditor.svelte';
 	import SubtaskEditor from './SubtaskEditor.svelte';
-	import { newStep } from '$lib/defaults';
-	import { RESOURCES, type Build, type Settings } from '$lib/types';
-	import { formatTime, parseTime } from '$lib/util';
+	import { newStep } from '#lib/defaults.ts';
+	import { RESOURCES, type Build, type Settings } from '#lib/types.ts';
+	import { formatTime, parseTime } from '#lib/util.ts';
 
 	interface Props {
 		build: Build;

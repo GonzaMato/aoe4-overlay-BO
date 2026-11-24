@@ -1,6 +1,6 @@
 <script lang="ts">
- import { t } from '$lib/i18n';
- import { formatTime } from '$lib/util';
+ import { t } from '#lib/i18n.ts';
+ import { formatTime } from '#lib/util.ts';
  let {name,elapsed,accent}:{name:string;elapsed:number|null;accent:string}=$props();
  const pieces=Array.from({length:16},(_,i)=>({x:8+(i*37)%84,delay:(i%5)*55,rotation:90+i*41,color:i%3===0?'#e8ebef':i%3===1?accent:'#80b9a2'}));
 </script>

@@ -1,14 +1,14 @@
 <script lang="ts">
  import CivFlag from './CivFlag.svelte';
- import { t, locale, label, resourceLabel } from '$lib/i18n';
+ import { t, locale, label, resourceLabel } from '#lib/i18n.ts';
  import { onMount } from 'svelte';
- import type { Build, Settings } from '$lib/types';
- import type { RosterEntry, SetupStatus } from '$lib/setup';
- import { canConfirm } from '$lib/onboarding';
- import { isTauri, send, nativeDiagnostic, openBuildPicker } from '$lib/bridge';
- import { parsePack, type BuildPack } from '$lib/build-pack';
- import { hasMissingStarterBuilds } from '$lib/defaults';
- import { prettyHotkey } from '$lib/hotkeys';
+ import type { Build, Settings } from '#lib/types.ts';
+ import type { RosterEntry, SetupStatus } from '#lib/setup.ts';
+ import { canConfirm } from '#lib/onboarding.ts';
+ import { isTauri, send, nativeDiagnostic, openBuildPicker } from '#lib/bridge.ts';
+ import { parsePack, type BuildPack } from '#lib/build-pack.ts';
+ import { hasMissingStarterBuilds } from '#lib/defaults.ts';
+ import { prettyHotkey } from '#lib/hotkeys.ts';
  import SetupView from './SetupView.svelte';
  import PlayerNameField from './PlayerNameField.svelte';
  let {settings=$bindable(),builds,status,roster=[],onPack,replacing,onReplace,onBackup,onDone}:{
