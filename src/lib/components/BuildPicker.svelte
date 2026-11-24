@@ -1,8 +1,8 @@
 <script lang="ts">
  import { tick, onMount } from 'svelte';
- import { t, locale, label } from '$lib/i18n';
- import { pickerCivilizations, pickerBuilds } from '$lib/build-picker';
- import type { Build } from '$lib/types';
+ import { t, locale, label } from '#lib/i18n.ts';
+ import { pickerCivilizations, pickerBuilds } from '#lib/build-picker.ts';
+ import type { Build } from '#lib/types.ts';
  import CivFlag from './CivFlag.svelte';
  let { builds, activeId, onChoose, onClose, busy=false }: {builds:Build[];activeId:string|null;onChoose:(id:string)=>void;onClose:()=>void;busy?:boolean}=$props();
  let selected=$state<string|null>(null), previous=$state('');

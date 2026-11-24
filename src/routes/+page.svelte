@@ -1,23 +1,23 @@
 <script lang="ts">
-	import Logo from '$lib/components/Logo.svelte';
-	import CivFlag from '$lib/components/CivFlag.svelte';
-	import CivSelect from '$lib/components/CivSelect.svelte';
-	import { t, locale, label, uniqueLabels } from '$lib/i18n';
+	import Logo from '#lib/components/Logo.svelte';
+	import CivFlag from '#lib/components/CivFlag.svelte';
+	import CivSelect from '#lib/components/CivSelect.svelte';
+	import { t, locale, label, uniqueLabels } from '#lib/i18n.ts';
 	import { onMount } from 'svelte';
 
-	import BuildEditor from '$lib/components/BuildEditor.svelte';
-	import WelcomeView from '$lib/components/WelcomeView.svelte';
-	import HelpView from '$lib/components/HelpView.svelte';
-	import { mergePack, type BuildPack } from '$lib/build-pack';
-	import SettingsView from '$lib/components/SettingsView.svelte';
-	import BackupView from '$lib/components/BackupView.svelte';
-	import PracticeView, { type PracticeStatus } from '$lib/components/PracticeView.svelte';
-	import { downloadBackup, importBuilds } from '$lib/imports';
-	import { syncLanguage, isTauri, keepAlive, loadData, takeInstallerLanguage, on, onDataChanged, onQuitRequested, onRegionSelected, quitApp, saveData, send } from '$lib/bridge';
-	import { cloneBuild, newBuild, replaceWithStarterBuilds } from '$lib/defaults';
-	import type { AppData, Build, Practice } from '$lib/types';
-	import { preferredBuildId, rememberDefault, setDefaultBuild } from '$lib/util';
-	import { profileKey, relativeRect, validProfile, suggestPlayerName, type RosterEntry, type SetupStatus } from '$lib/setup';
+	import BuildEditor from '#lib/components/BuildEditor.svelte';
+	import WelcomeView from '#lib/components/WelcomeView.svelte';
+	import HelpView from '#lib/components/HelpView.svelte';
+	import { mergePack, type BuildPack } from '#lib/build-pack.ts';
+	import SettingsView from '#lib/components/SettingsView.svelte';
+	import BackupView from '#lib/components/BackupView.svelte';
+	import PracticeView, { type PracticeStatus } from '#lib/components/PracticeView.svelte';
+	import { downloadBackup, importBuilds } from '#lib/imports.ts';
+	import { syncLanguage, isTauri, keepAlive, loadData, takeInstallerLanguage, on, onDataChanged, onQuitRequested, onRegionSelected, quitApp, saveData, send } from '#lib/bridge.ts';
+	import { cloneBuild, newBuild, replaceWithStarterBuilds } from '#lib/defaults.ts';
+	import type { AppData, Build, Practice } from '#lib/types.ts';
+	import { preferredBuildId, rememberDefault, setDefaultBuild } from '#lib/util.ts';
+	import { profileKey, relativeRect, validProfile, suggestPlayerName, type RosterEntry, type SetupStatus } from '#lib/setup.ts';
 
 	let data = $state<AppData | null>(null);
 	let tab = $state<'builds' | 'settings' | 'practice' | 'welcome' | 'help'>('builds');

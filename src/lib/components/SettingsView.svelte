@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { overlayTheme, overlayThemeStyle } from '$lib/overlay-theme';
+	import { overlayTheme, overlayThemeStyle } from '#lib/overlay-theme.ts';
 	import CivFlag from './CivFlag.svelte';
-	import { t, locale, hotkeyLabel, label } from '$lib/i18n';
+	import { t, locale, hotkeyLabel, label } from '#lib/i18n.ts';
 	import { onMount } from 'svelte';
 	import type { Snippet } from 'svelte';
-	import { isTauri, monitorOptions, on, openRegionSelector, send, setStartupEnabled, startupEnabled } from '$lib/bridge';
+	import { isTauri, monitorOptions, on, openRegionSelector, send, setStartupEnabled, startupEnabled } from '#lib/bridge.ts';
 	import HotkeyInput from './HotkeyInput.svelte';
 	import ListEditor from './ListEditor.svelte';
 	import SetupView from './SetupView.svelte';
-	import type { RosterEntry, SetupStatus } from '$lib/setup';
-	import { HOTKEY_ACTIONS, type Build, type Corner, type Settings } from '$lib/types';
+	import type { RosterEntry, SetupStatus } from '#lib/setup.ts';
+	import { HOTKEY_ACTIONS, type Build, type Corner, type Settings } from '#lib/types.ts';
 
 	interface Props {
 		settings: Settings;

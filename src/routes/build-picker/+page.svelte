@@ -1,9 +1,9 @@
 <script lang="ts">
  import { onMount } from 'svelte';
- import { t, locale } from '$lib/i18n';
- import { isTauri, loadData, onDataChanged, send, closeBuildPicker } from '$lib/bridge';
- import BuildPicker from '$lib/components/BuildPicker.svelte';
- import type { AppData } from '$lib/types';
+ import { t, locale } from '#lib/i18n.ts';
+ import { isTauri, loadData, onDataChanged, send, closeBuildPicker } from '#lib/bridge.ts';
+ import BuildPicker from '#lib/components/BuildPicker.svelte';
+ import type { AppData } from '#lib/types.ts';
  let data=$state<AppData|null>(null),busy=$state(false),error=$state(''),closed=$state(false);
  function apply(value:AppData){data=value;locale.set(value.settings.language);}
  async function close(){if(isTauri)await closeBuildPicker();else closed=true;}

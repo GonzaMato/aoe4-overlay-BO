@@ -3,6 +3,9 @@
   "version": "0.3.10",
   "description": "Build orders and practice overlay for Age of Empires IV",
   "type": "module",
+  "imports": {
+    "#lib/*": "./src/lib/*"
+  },
   "scripts": {
     "test": "node --import ./tests/register.mjs --test tests/*.test.mjs",
     "dev": "vite dev",
@@ -24,8 +27,8 @@
     "@tauri-apps/plugin-store": "^2.5.1"
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "^3.0.10",
-    "@sveltejs/kit": "^2.65.1",
+    "@sveltejs/adapter-static": "^4.0.1",
+    "@sveltejs/kit": "^3.4.0",
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@tauri-apps/cli": "^2",
     "svelte": "^5.56.3",

@@ -1,14 +1,14 @@
 <script lang="ts">
  import CivFlag from './CivFlag.svelte';
  import CalibrationExample from './CalibrationExample.svelte';
- import { prettyHotkey } from '$lib/hotkeys';
- import { t, locale, label } from '$lib/i18n';
+ import { prettyHotkey } from '#lib/hotkeys.ts';
+ import { t, locale, label } from '#lib/i18n.ts';
  import { onMount } from 'svelte';
  import type { Snippet } from 'svelte';
- import { send, isTauri, openRegionSelector, monitorOptions, openBuildPicker } from '$lib/bridge';
- import { automaticAllowed } from '$lib/onboarding';
- import type { Settings, Build } from '$lib/types';
- import type { RosterEntry, SetupStatus } from '$lib/setup';
+ import { send, isTauri, openRegionSelector, monitorOptions, openBuildPicker } from '#lib/bridge.ts';
+ import { automaticAllowed } from '#lib/onboarding.ts';
+ import type { Settings, Build } from '#lib/types.ts';
+ import type { RosterEntry, SetupStatus } from '#lib/setup.ts';
  import PlayerNameField from './PlayerNameField.svelte';
  let {settings=$bindable(),status,builds,roster=[],onCalibrate,manualCalibration}:{
    settings:Settings;status:SetupStatus|null;builds:Build[];roster?:RosterEntry[];onCalibrate?:()=>void;manualCalibration?:Snippet;

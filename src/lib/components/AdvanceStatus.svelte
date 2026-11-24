@@ -1,8 +1,8 @@
 <script lang="ts">
- import { locale } from '$lib/i18n';
- import { advancementStatus, type AutomationContext } from '$lib/overlay-status';
- import type { ResolvedRule } from '$lib/advance';
- import { prettyHotkey } from '$lib/hotkeys';
+ import { locale } from '#lib/i18n.ts';
+ import { advancementStatus, type AutomationContext } from '#lib/overlay-status.ts';
+ import type { ResolvedRule } from '#lib/advance.ts';
+ import { prettyHotkey } from '#lib/hotkeys.ts';
  let {rule,context,nextKey='PageDown',compact=false}:{rule:ResolvedRule;context:AutomationContext;nextKey?:string;compact?:boolean}=$props();
  const status=$derived(advancementStatus(rule,context,prettyHotkey(nextKey,$locale),$locale));
 </script>

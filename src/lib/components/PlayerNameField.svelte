@@ -1,8 +1,8 @@
 <script lang="ts">
  import CivFlag from './CivFlag.svelte';
- import { t, locale, label } from '$lib/i18n';
- import type { Settings } from '$lib/types';
- import type { RosterEntry } from '$lib/setup';
+ import { t, locale, label } from '#lib/i18n.ts';
+ import type { Settings } from '#lib/types.ts';
+ import type { RosterEntry } from '#lib/setup.ts';
  let {settings=$bindable(),roster=[],optional=false}:{settings:Settings;roster?:RosterEntry[];optional?:boolean}=$props();
  const id=$props.id();
 </script>

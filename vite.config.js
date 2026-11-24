@@ -1,12 +1,23 @@
 import { defineConfig } from "vite";
 import { sveltekit } from "@sveltejs/kit/vite";
+import adapter from "@sveltejs/adapter-static";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 // @ts-expect-error type error without @types/node package
 import process from "node:process";
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
 export default defineConfig(() => ({
-  plugins: [sveltekit()],
+  // Tauri no tiene servidor Node, así que se genera un sitio estático (adapter-static).
+  // Las dos páginas (gestión y overlay) se prerenderizan: ver src/routes/+layout.ts.
+  // Desde SvelteKit 3 la config va acá y no en svelte.config.js.
+  // Más info: https://v2.tauri.app/start/frontend/sveltekit/
+  plugins: [
+    sveltekit({
+      adapter: adapter(),
+      preprocess: vitePreprocess(),
+    }),
+  ],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //

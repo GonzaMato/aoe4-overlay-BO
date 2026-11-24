@@ -1,8 +1,8 @@
 <script lang="ts">
- import { t, locale, resourceLabel } from '$lib/i18n';
- import { RESOURCES, type Step, type Resource, type Villagers } from '$lib/types';
- import { resolveAdvance, advanceLabel } from '$lib/advance';
- import { villagerTotal } from '$lib/ocr';
+ import { t, locale, resourceLabel } from '#lib/i18n.ts';
+ import { RESOURCES, type Step, type Resource, type Villagers } from '#lib/types.ts';
+ import { resolveAdvance, advanceLabel } from '#lib/advance.ts';
+ import { villagerTotal } from '#lib/ocr.ts';
  let {step=$bindable(),previous,index,allocation,label}:{step:Pick<Step,'action'|'note'|'advance'> & Partial<Step>;previous?:Step;index:number;allocation?:Villagers;label?:string}=$props();
  const fullStep=$derived({...step,id:step.id??'draft',pop:step.pop??null,time:step.time??null,villagers:step.villagers??allocation??{food:0,wood:0,gold:0,stone:0}} as Step);
  const effective=$derived(resolveAdvance(fullStep,previous));
